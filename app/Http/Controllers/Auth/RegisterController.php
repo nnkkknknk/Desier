@@ -36,10 +36,13 @@ class RegisterController extends Controller
      *
      * @return void
      */
+     
+     /**こいつがログインログアウトの設定者
     public function __construct()
     {
         $this->middleware('guest');
     }
+    **/
 
     /**
      * Get a validator for an incoming registration request.
