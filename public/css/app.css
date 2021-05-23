@@ -1,0 +1,17 @@
+.body {
+    height: 800px;
+    background-color: red;
+}
+
+.csstest {
+    background-color: black;
+}
+
+.title {
+    width: 15vw;
+  padding: 1rem 2rem;
+  text-align: center;
+  border-radius: 100vh;
+  margin-bottom: 5vh;
+  
+}
