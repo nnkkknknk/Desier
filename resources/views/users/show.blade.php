@@ -24,6 +24,7 @@
     <div></div>
     
     <p class="title" style="background-color: #72c272;">投稿一覧</p>
+    <p class="title" style="background-color: #72c272;">投稿一覧</p>
     <div class="my-5 text-center">
         <button class="rounded-pill bg-dark text-white">すべてみる</button>
     </div>
@@ -46,4 +47,7 @@
     <div class="my-5 text-center">
         <button class="rounded-pill bg-dark text-white">すべてみる</button>
     </div>
+    
+    {{-- フォロー／アンフォローボタン --}}
+            @include('user_follow.follow_button')
 @endsection

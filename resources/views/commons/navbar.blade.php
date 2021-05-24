@@ -1,5 +1,6 @@
+
 <header class="mb-4">
-    <nav class="navbar  navbar-light bg-white border border-bottom">
+    <nav class="navbar navbar-light bg-white border border-bottom">
         
         <div>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
@@ -9,8 +10,10 @@
             {{-- トップページへのリンク --}}
             <a class="navbar-brand text-primary text-left " href="/">Original</a>
         </div>
-        
-        <input type="text" class="form-control col-3 bg-light" size="10" placeholder="作品を検索">
+        <div class="col-3 d-flex align-items-center rounded-pill shadow-sm" >
+            <i class="fas fa-search mr-1"></i>
+            <input type="text" class="search form-control border-0" size="10" placeholder="作品を検索">
+        </div>
        
        <div class="float-right d-none d-sm-block mr-5">
            <button class="mr-2 btn btn-secondary" type="submit">作品を投稿</button>
