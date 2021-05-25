@@ -25,6 +25,10 @@
     
     <p class="title" style="background-color: #72c272;">投稿一覧</p>
     <p class="title" style="background-color: #72c272;">投稿一覧</p>
+    
+    {{-- 投稿一覧 --}}
+    @include('works.works')
+    
     <div class="my-5 text-center">
         <button class="rounded-pill bg-dark text-white">すべてみる</button>
     </div>
@@ -50,4 +54,14 @@
     
     {{-- フォロー／アンフォローボタン --}}
             @include('user_follow.follow_button')
+            
+    <div class="row">
+        
+        <div class="col-sm-8">
+            {{-- タブ --}}
+            @include('users.navtabs')
+           
+            
+        </div>
+    </div>
 @endsection

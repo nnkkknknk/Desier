@@ -9,8 +9,7 @@
         <div class="col-sm-8">
             {{-- タブ --}}
             @include('users.navtabs')
-            {{-- ユーザ一覧 --}}
-            @include('users.users')
+            
         </div>
     </div>
 @endsection

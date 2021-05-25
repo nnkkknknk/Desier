@@ -37,6 +37,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    /**
+     * このユーザが所有する投稿。（ Micropostモデルとの関係を定義）
+     */
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
+    
+    /**
+     * このユーザに関係するモデルの件数をロードする。
+     */
+    // public function loadRelationshipCounts()
+    // {
+    //     $this->loadCount('works');
+    // }
+    
     
     /**
      * このユーザがフォロー中のユーザ。（ Userモデルとの関係を定義）
@@ -112,7 +128,7 @@ class User extends Authenticatable
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['microposts', 'followings', 'followers']);
+        $this->loadCount(['works','followings', 'followers']);
     }
 
 }

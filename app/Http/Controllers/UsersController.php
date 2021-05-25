@@ -50,7 +50,8 @@ class UsersController extends Controller
         $followings = $user->followings()->paginate(10);
 
         // フォロー一覧ビューでそれらを表示
-        return view('users.followings', [
+        // return view('users.followings', [
+        return view('users.show', [
             'user' => $user,
             'users' => $followings,
         ]);
@@ -74,7 +75,7 @@ class UsersController extends Controller
         $followers = $user->followers()->paginate(10);
 
         // フォロワー一覧ビューでそれらを表示
-        return view('users.followers', [
+        return view('users.show', [
             'user' => $user,
             'users' => $followers,
         ]);

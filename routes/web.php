@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/', 'MicropostsController@index');
 
 // 認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -37,5 +39,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
     
+    Route::resource('works', 'WorksController', ['only' => ['store', 'destroy']]);
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
 });
