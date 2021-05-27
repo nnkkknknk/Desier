@@ -6,6 +6,8 @@
         {{ Auth::user()->name }}
         <p class="text-center bg-white w-25">おすすめ作品</p>
             <p class="text-center bg-white w-25">新着</p>
+            
+        
     @else
         <div class="center jumbotron">
             <!--<div class="text-center">-->

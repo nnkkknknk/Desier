@@ -9,18 +9,18 @@ class MicropostsController extends Controller
     public function index()
     {
         $data = [];
-        if (\Auth::check()) { // 認証済みの場合
-            // 認証済みユーザを取得
-            $user = \Auth::user();
-            // ユーザの投稿の一覧を作成日時の降順で取得
-            // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
-            $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'works' => $works,
-            ];
-        }
+        
+        // 認証済みユーザを取得
+        $user = \Auth::user();
+        // ユーザの投稿の一覧を作成日時の降順で取得
+        // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
+        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        dd($works);
+        $data = [
+            'user' => $user,
+            'works' => $works,
+        ];
+        
 
         // Welcomeビューでそれらを表示
         // return view('welcome', $data);
