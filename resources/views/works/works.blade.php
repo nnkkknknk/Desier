@@ -14,6 +14,14 @@
                         {{-- 投稿内容 --}}
                         <p class="mb-0">{!! nl2br(e($work->content)) !!}</p>
                     </div>
+                    <div>
+                        @if (Auth::id() == $work->user_id)
+                            {{-- 投稿削除ボタンのフォーム --}}
+                            {!! Form::open(['route' => ['works.destroy', $micropost->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                        @endif
+                    </div>
                 </div>
             </li>
         @endforeach

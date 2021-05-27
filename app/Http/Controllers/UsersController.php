@@ -63,12 +63,15 @@ class UsersController extends Controller
 
         // ユーザのフォロー一覧を取得
         $followings = $user->followings()->paginate(10);
-
+        
+        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        
         // フォロー一覧ビューでそれらを表示
         // return view('users.followings', [
         return view('users.show', [
             'user' => $user,
             'users' => $followings,
+            'works' => $works,
         ]);
     }
 
@@ -88,11 +91,14 @@ class UsersController extends Controller
 
         // ユーザのフォロワー一覧を取得
         $followers = $user->followers()->paginate(10);
+        
+        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
 
         // フォロワー一覧ビューでそれらを表示
         return view('users.show', [
             'user' => $user,
             'users' => $followers,
+            'works' => $works,
         ]);
     }
 }
