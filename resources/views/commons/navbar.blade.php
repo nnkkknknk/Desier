@@ -16,7 +16,13 @@
         </div>
        
        <div class="float-right d-none d-sm-block mr-5">
-           <button class="mr-2 btn btn-secondary" type="submit">作品を投稿</button>
+           <!--<button class="mr-2 btn btn-secondary" type="submit">-->
+           <!--     {{-- 投稿ページリンク --}}-->
+           <!--     
+           <!-- </button>-->
+            {{-- メッセージ作成ページへのリンク --}}
+             {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-primary']) !!}
+
             
             <div class="dropdown d-inline-block mr-5">
                 <i class="fas fa-portrait fa-2x align-middle"></i>
@@ -27,6 +33,7 @@
                     @if (Auth::check())
                        {{-- ユーザ詳細ページへのリンク --}}
                         <li class="dropdown-item">{!! link_to_route('users.show', Auth::user()->name, ['user' => Auth::id()]) !!}</li>
+                        
                         
                         <li class="dropdown-divider"></li>
                         {{-- ログアウトへのリンク --}}

@@ -35,16 +35,19 @@ class UsersController extends Controller
             'works' => $works,
         ];
         
-
-       
-        // return view('works.works', $data);
         return view('users.show', $data);
         
-        // // ユーザ詳細ビューでそれを表示
-        // return view('users.show', [
-        //     'user' => $user,
-            
-        // ]);
+    }
+    
+    
+    public function post($id)
+    {
+        // dd($id);
+        $user = User::findOrFail($id);
+        
+        // return view('users.post');
+        return view('users.post', '$user');
+        
     }
     
     /**

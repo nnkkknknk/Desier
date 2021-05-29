@@ -76,9 +76,9 @@
     <div>
         @if (Auth::id() == $user->id)
                 {{-- 投稿フォーム --}}
-                @include('microposts.form')
-            @endif
+                @include('works.form')
+        @endif
             {{-- 投稿一覧 --}}
-            @include('microposts.microposts')
+            @include('works.works')
     </div>
 @endsection
