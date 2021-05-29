@@ -1,31 +1,30 @@
 @if (count($works) > 0)
-    <ul class="list-unstyled">
+    <div class="row">
         @foreach ($works as $work)
-            <li class="media mb-3">
-                <!--{{-- 投稿の所有者のメールアドレスをもとにGravatarを取得して表示 --}}-->
-                <!--<img class="mr-2 rounded" src="{{ Gravatar::get($micropost->user->email, ['size' => 50]) }}" alt="">-->
+            <div class="col-3 offset-1 bg-white">
+               <div style="height: 200px; border: solid;"></div>
                 <div class="media-body">
-                    <div>
-                        {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
-                        {!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}
-                        <span class="text-muted">posted at {{ $work->created_at }}</span>
-                    </div>
+                    <!--<div>-->
+                    <!--    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}-->
+                    <!--    {!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}-->
+                    <!--    <span class="text-muted">posted at {{ $work->created_at }}</span>-->
+                    <!--</div>-->
                     <div>
                         {{-- 投稿内容 --}}
-                        <p class="mb-0">{!! nl2br(e($work->content)) !!}</p>
+                        <p class="my-2 mb-0 text-center">{!! nl2br(e($work->title)) !!}</p>
                     </div>
-                    <div>
-                        @if (Auth::id() == $work->user_id)
-                            {{-- 投稿削除ボタンのフォーム --}}
-                            {!! Form::open(['route' => ['works.destroy', $micropost->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                            {!! Form::close() !!}
-                        @endif
-                    </div>
+                    <!--<div>-->
+                    <!--    @if (Auth::id() == $work->user_id)-->
+                    <!--        {{-- 投稿削除ボタンのフォーム --}}-->
+                    <!--        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}-->
+                    <!--            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}-->
+                    <!--        {!! Form::close() !!}-->
+                    <!--    @endif-->
+                    <!--</div>-->
                 </div>
-            </li>
+            </div>
         @endforeach
-    </ul>
+    </div>
     {{-- ページネーションのリンク --}}
     {{ $works->links() }}
 @endif

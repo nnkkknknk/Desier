@@ -24,7 +24,7 @@
     <div></div>
     
     <p class="title" style="background-color: #72c272;">投稿一覧</p>
-    <p class="title" style="background-color: #72c272;">投稿一覧</p>
+    
     
     {{-- 投稿一覧 --}}
     @include('works.works')
@@ -32,6 +32,13 @@
     <div class="my-5 text-center">
         <button class="rounded-pill bg-dark text-white">すべてみる</button>
     </div>
+    
+    
+    <div class="action-close">
+      <input id="close" class="checkbox" name="close" type="checkbox"><label class="btn" for="close">閉じる</label>
+      <div class="box">閉じることができるコンテンツ</div>
+    </div>
+    
     <p class="title" style="background-color: #FFFF99;">お気に入り</p>
     
     <div class="my-5 text-center">
@@ -78,7 +85,6 @@
                 {{-- 投稿フォーム --}}
                 @include('works.form')
         @endif
-            {{-- 投稿一覧 --}}
-            @include('works.works')
+           
     </div>
 @endsection

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Work; // 追加
 
-class MicropostsController extends Controller
+class WorksController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
+        //
         $data = [];
         
         // 認証済みユーザを取得
@@ -21,15 +28,20 @@ class MicropostsController extends Controller
             'works' => $works,
         ];
         
-
         // Welcomeビューでそれらを表示
         // return view('welcome', $data);
         // return view('users.show', $data);
         return view('works.works', $data);
     }
-    
-     public function create()
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
+    
         $work = new Work;
 
         // メッセージ作成ビューを表示
@@ -37,10 +49,17 @@ class MicropostsController extends Controller
             'work' => $work,
         ]);
     }
-    
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        // バリデーション
+        //
+         // バリデーション
         $request->validate([
             'title' => 'required|max:255',
         ]);
@@ -49,13 +68,67 @@ class MicropostsController extends Controller
         $request->user()->works()->create([
             'title' => $request->title,
         ]);
-
-        // 前のURLへリダイレクトさせる
-        return back();
+        
+        
+        $data = [];
+        
+        $user = $request->user();
+        
+        // // 前のURLへリダイレクトさせる
+        // return back();
+        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        
+        $data = [
+            'user' => $user,
+            'works' => $works,
+        ];
+        
+        return view('users.show', $data);
     }
-    
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
+        //
         // idの値で投稿を検索して取得
         $work = \App\Work::findOrFail($id);
 
@@ -67,5 +140,4 @@ class MicropostsController extends Controller
         // 前のURLへリダイレクトさせる
         return back();
     }
-    
 }

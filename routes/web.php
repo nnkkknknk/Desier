@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     
     });
     
-    Route::resource('works', 'WorKsController', ['only' => ['store', 'destroy', 'create']]);
+    Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create']]);
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
     
     
