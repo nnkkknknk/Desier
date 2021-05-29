@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/allshowbtn.css') }}">
     </head>
     
     <body class="bg-light">

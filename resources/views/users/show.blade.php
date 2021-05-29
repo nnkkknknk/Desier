@@ -34,9 +34,13 @@
     </div>
     
     
-    <div class="action-close">
-      <input id="close" class="checkbox" name="close" type="checkbox"><label class="btn" for="close">閉じる</label>
-      <div class="box">閉じることができるコンテンツ</div>
+    
+    
+    <div class="add-control">
+      <input type="radio" class="radio" id="open" name="btn" /><label class="btn btn-open rounded-pill bg-dark text-white" for="open">すべてをみる</label>
+      <input type="radio" class="radio" id="close" name="btn" checked="checked" /> 
+      <label class="btn btn-close rounded-pill bg-dark text-white" for="close">閉じる</label>
+      <div class="box">制御されるコンテンツ</div>
     </div>
     
     <p class="title" style="background-color: #FFFF99;">お気に入り</p>

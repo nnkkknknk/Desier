@@ -28,7 +28,6 @@ class UsersController extends Controller
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
         $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
-        // dd($works);
         
         $data = [
             'user' => $user,
