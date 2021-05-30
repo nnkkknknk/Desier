@@ -22,16 +22,16 @@
 
             {!! Form::close() !!}
             
-            {!! Form::model($work, ['route' => 'works.store']) !!}
+            <!--{!! Form::model($work, ['route' => 'works.store']) !!}-->
 
-                <div class="form-group">
-                    {!! Form::label('tag', '#タグ') !!}
-                    {!! Form::text('tag', '#タグ', ['class' => 'form-control']) !!}
-                </div>
+            <!--    <div class="form-group">-->
+            <!--        {!! Form::label('tag', '#タグ') !!}-->
+            <!--        {!! Form::text('tag', '#タグ', ['class' => 'form-control']) !!}-->
+            <!--    </div>-->
 
-                {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+            <!--    {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}-->
 
-            {!! Form::close() !!}
+            <!--{!! Form::close() !!}-->
         </div>
     </div>
    

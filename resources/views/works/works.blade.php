@@ -4,7 +4,9 @@
             @foreach ($works as $work)
            
                 <div class="col-3 offset-1 bg-white my-3">
-                   <div style="height: 200px; border: solid;"></div>
+                   <div style="height: 200px; border: solid;">
+                       {!! link_to_route('works.show','a', ['work' => $work->id]) !!}
+                   </div>
                     <div class="media-body">
                         <!--<div>-->
                         <!--    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}-->
