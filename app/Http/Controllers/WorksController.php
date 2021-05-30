@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Work; // 追加
+use App\User; // 追加
+
 
 class WorksController extends Controller
 {
@@ -14,7 +16,7 @@ class WorksController extends Controller
      */
     public function index()
     {
-        //
+        //多分これいらない
         $data = [];
         
         // 認証済みユーザを取得
@@ -56,22 +58,27 @@ class WorksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         //
          // バリデーション
         $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:20',
+            'description' => 'required|max:255',
+            // 'tag' => 'required|max:255',
         ]);
-
-        // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
+        
+        // dd($request->all());
+        // dd($request->user()->works());
         $request->user()->works()->create([
             'title' => $request->title,
+            'description' => $request->description,
+            // 'tag' => $request->tag,
         ]);
         
+        // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         
         $data = [];
-        
         $user = $request->user();
         
         // // 前のURLへリダイレクトさせる
@@ -94,7 +101,13 @@ class WorksController extends Controller
      */
     public function show($id)
     {
-        //
+        // idの値でメッセージを検索して取得
+        $work = Work::findOrFail($id);
+
+        // メッセージ詳細ビューでそれを表示
+        return view('works.show', [
+            'work' => $work,
+        ]);
     }
 
     /**
