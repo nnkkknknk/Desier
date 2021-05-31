@@ -100,13 +100,19 @@ class WorksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+       
+        
         // idの値でメッセージを検索して取得
         $work = Work::findOrFail($id);
-
+        // dd($work);
+        $user_id = $work->user_id;
+        $user = User::findOrFail($user_id);
+        // dd($user);
         // メッセージ詳細ビューでそれを表示
         return view('works.show', [
             'work' => $work,
+            'user' => $user,
         ]);
     }
 

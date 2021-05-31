@@ -5,7 +5,7 @@
            
                 <div class="col-3 offset-1 bg-white my-3">
                    <div style="height: 200px; border: solid;">
-                       {!! link_to_route('works.show','a', ['work' => $work->id]) !!}
+                       
                    </div>
                     <div class="media-body">
                         <!--<div>-->
@@ -15,7 +15,8 @@
                         <!--</div>-->
                         <div>
                             {{-- 投稿内容 --}}
-                            <p class="my-2 mb-0 text-center">{!! nl2br(e($work->title)) !!}</p>
+                            <!--<p class="my-2 mb-0 text-center">{!! nl2br(e($work->title)) !!}</p>-->
+                            <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
                         </div>
                         <div>
                             @if (Auth::id() == $work->user_id)
