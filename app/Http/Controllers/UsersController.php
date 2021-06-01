@@ -27,11 +27,18 @@ class UsersController extends Controller
         $data = [];
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
-        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
         
+        
+        // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        $works = $user->works;
+        $top_num = 3;
+        
+        $num = count($works);
         $data = [
             'user' => $user,
             'works' => $works,
+            'top_num' => $top_num,
+            'num' => $num
         ];
         
         return view('users.show', $data);

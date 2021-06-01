@@ -22,4 +22,7 @@
              
         </div>
     @endif
+    
+    {{-- 作品一覧 --}}
+    @include('works.works')
 @endsection

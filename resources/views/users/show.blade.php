@@ -29,25 +29,13 @@
     {{-- 投稿一覧 --}}
     @include('works.works')
     
-    <div class="my-5 text-center">
-        <button class="rounded-pill bg-dark text-white">すべてみる</button>
-    </div>
     
-    
-    
-    
-    <div class="add-control">
-      <input type="radio" class="radio" id="open" name="btn" /><label class="btn btn-open rounded-pill bg-dark text-white" for="open">すべてをみる</label>
-      <input type="radio" class="radio" id="close" name="btn" checked="checked" /> 
-      <label class="btn btn-close rounded-pill bg-dark text-white" for="close">閉じる</label>
-      <div class="box">制御されるコンテンツ</div>
-    </div>
     
     <p class="title" style="background-color: #FFFF99;">お気に入り</p>
     
-    <div class="my-5 text-center">
-        <button class="rounded-pill bg-dark text-white">すべてみる</button>
-    </div>
+    <!--<div class="my-5 text-center">-->
+    <!--    <button class="rounded-pill bg-dark text-white">すべてみる</button>-->
+    <!--</div>-->
     
     <div class="row">
         <div class="col-sm-8">
@@ -67,9 +55,6 @@
     
             </ul>
         </div>
-    </div>
-    <div class="my-5 text-center">
-        <button class="rounded-pill bg-dark text-white">すべてみる</button>
     </div>
     
     {{-- フォロー／アンフォローボタン --}}

@@ -23,7 +23,8 @@ class WorksController extends Controller
         $user = \Auth::user();
         // ユーザの投稿の一覧を作成日時の降順で取得
         // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
-        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        $works = $user->works();
         dd($works);
         $data = [
             'user' => $user,
@@ -83,11 +84,17 @@ class WorksController extends Controller
         
         // // 前のURLへリダイレクトさせる
         // return back();
-        $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
+        $works = $user->works;
+        
+        $top_num = 3;
+        $num = count($works);
         
         $data = [
             'user' => $user,
             'works' => $works,
+            'top_num' => $top_num,
+            'num' => $num
         ];
         
         return view('users.show', $data);
@@ -101,14 +108,15 @@ class WorksController extends Controller
      */
     public function show($id)
     {   
-       
-        
+
+
         // idの値でメッセージを検索して取得
         $work = Work::findOrFail($id);
         // dd($work);
         $user_id = $work->user_id;
         $user = User::findOrFail($user_id);
         // dd($user);
+        
         // メッセージ詳細ビューでそれを表示
         return view('works.show', [
             'work' => $work,

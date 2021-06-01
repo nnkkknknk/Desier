@@ -5,14 +5,14 @@
             {!! Form::submit('Unfavorite', ['class' => "btn btn-danger  col-2"]) !!}
         {!! Form::close() !!}
     @else
-        {{-- フォローボタンのフォーム --}}
+        {{-- お気に入りボタンのフォーム --}}
         {!! Form::open(['route' => ['favorites.favorite', $work->id]]) !!}
-            {!! Form::submit('Favorite', ['class' => "btn btn-primary  col-2"]) !!}
+            {!! Form::submit('お気に入り☆', ['class' => "btn g-warning rounded-pill col-2"]) !!}
         {!! Form::close() !!}
     @endif
 @else 
 
         {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}
-            {!! Form::submit('delete', ['class' => "btn btn-danger  col-2"]) !!}
+            {!! Form::submit('削除', ['class' => "btn btn-danger  col-2"]) !!}
         {!! Form::close() !!}
 @endif

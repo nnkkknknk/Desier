@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('/', 'MicropostsController@index');
+Route::get('/', 'WorksController@index')->name('top');
 
 // 認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
