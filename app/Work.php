@@ -11,7 +11,7 @@ class Work extends Model
         'tag', 
         'user_id', 
         'title', 
-        'description'
+        'description',
     ];
     
     /**
@@ -21,7 +21,11 @@ class Work extends Model
     {
         return $this->belongsTo(User::class);
         
-        
+    }
+    
+     public function favoriter()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'works_id', 'user_id')->withTimestamps();
     }
     
      public function tags()

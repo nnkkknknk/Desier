@@ -18,6 +18,8 @@
             <h2>{{ $work->title }}</h2>
             //ここのrouteは後でいじる。
             <div>
+                {{-- フォロー／アンフォローボタン --}}
+            @include('favorite.favorite_button')
                 {!! link_to_route('works.create', 'お気に入り☆', [], ['class' => 'btn bg-warning rounded-pill' ] )!!}
                 {!! link_to_route('works.create', 'ダウンロード', [], ['class' => 'btn bg-dark text-white rounded-pill']) !!}
                  
@@ -31,16 +33,16 @@
                {{$work-> description}}
            </div>
           
-            <table class="table table-bordered">
-                <tr>
-                    <th>id</th>
-                    <td>{{ $work->id }}</td>
-                </tr>
-                <tr>
-                    <th>メッセ</th>
-                    <td>{{ $work->title }}</td>
-                </tr>
-            </table>
+            <!--<table class="table table-bordered">-->
+            <!--    <tr>-->
+            <!--        <th>id</th>-->
+            <!--        <td>{{ $work->id }}</td>-->
+            <!--    </tr>-->
+            <!--    <tr>-->
+            <!--        <th>メッセ</th>-->
+            <!--        <td>{{ $work->title }}</td>-->
+            <!--    </tr>-->
+            <!--</table>-->
         </div>
         
     </div>

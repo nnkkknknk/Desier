@@ -128,7 +128,70 @@ class User extends Authenticatable
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['works','followings', 'followers']);
+        $this->loadCount(['works','followings', 'followers', 'favoritings']);
     }
+    
+    
+    /**
+     * お気に入り機能の実装
+     */
+     
+     /**
+     * このユーザがフォロー中のユーザ。（ Userモデルとの関係を定義）
+     */
+    public function favoritings()
+    {
+        return $this->belongsToMany(Work::class, 'favorites', 'user_id', 'work_id')->withTimestamps();
+    }
+    
+    /**
+     * $userIdで指定されたユーザをフォローする。
+     *
+     * @param  int  $userId
+     * @return bool
+     */
+    public function favorite($userId)
+    {
+        // すでにフォローしているかの確認
+        $exist = $this->is_favoriting($userId);
+        // 対象が自分自身かどうかの確認
+        $its_me = $this->id == $userId;
+
+        if ($exist || $its_me) {
+            // すでにフォローしていれば何もしない
+            return false;
+        } else {
+            // 未フォローであればフォローする
+            $this->favoritings()->attach($userId);
+            // $this->favoritings()->attach($WorkId);
+            return true;
+        }
+    }
+    
+    
+    public function unfavorite($userId)
+    {
+        // すでにフォローしているかの確認
+        $exist = $this->is_favoriting($userId);
+        // 対象が自分自身かどうかの確認
+        $its_me = $this->id == $userId;
+
+        if ($exist && !$its_me) {
+            // すでにフォローしていればフォローを外す
+            $this->favoritings()->detach($userId);
+            
+            return true;
+        } else {
+            // 未フォローであれば何もしない
+            return false;
+        }
+    }
+    
+    public function is_favoriting($workId)
+    {
+        // フォロー中ユーザの中に $userIdのものが存在するか
+        return $this->favoritings()->where('work_id', $workId)->exists();
+    }
+    
 
 }

@@ -35,15 +35,19 @@ Route::resource('works', 'WorksController');
 Route::group(['middleware' => ['auth']], function () {
     
     Route::group(['prefix' => 'users/{id}'], function () {
-        
-       
-        
         Route::post('follow', 'UserFollowController@store')->name('user.follow');
         Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
         Route::get('post', 'UsersController@post')->name('users.post');
+        
+        Route::get('favoritings', 'UsersController@favoritings')->name('users.favoritings');
+    });
     
+    // 追加
+    Route::group(['prefix' => 'works/{id}'], function () {
+        Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
     });
     
     Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create']]);
