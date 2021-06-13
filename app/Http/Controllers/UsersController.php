@@ -28,19 +28,25 @@ class UsersController extends Controller
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
         
+         // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
         
+        // dd($user);
         // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
         $works = $user->works;
+        $favoritings = $user->favoritings;
         $top_num = 3;
         
         $num = count($works);
         $data = [
             'user' => $user,
             'works' => $works,
+            'favoritings' => $favoritings,
             'top_num' => $top_num,
             'num' => $num
+    
         ];
-        
+         
         return view('users.show', $data);
         
     }
@@ -76,8 +82,8 @@ class UsersController extends Controller
         $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
         
         // フォロー一覧ビューでそれらを表示
-        // return view('users.followings', [
-        return view('users.show', [
+        return view('users.followings', [
+        // return view('users.show', [
             'user' => $user,
             'users' => $followings,
             'works' => $works,
@@ -104,7 +110,8 @@ class UsersController extends Controller
         $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
 
         // フォロワー一覧ビューでそれらを表示
-        return view('users.show', [
+        // return view('users.show', [
+        return view('users.followings', [
             'user' => $user,
             'users' => $followers,
             'works' => $works,

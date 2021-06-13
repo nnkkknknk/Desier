@@ -15,7 +15,7 @@
     </li>
    
     {{-- フォロワー一覧タブ --}}
-    <li class="nav-item rounded-pill bg-secondary col-4 d-flex align-items-center justify-content-center py-3 mr-3">
+    <li class="nav-item rounded-pill bg-secondary col-4 d-flex align-items-center justify-content-center  mr-3">
         <a href="{{ route('users.followers', ['id' => $user->id]) }}" class="nav-link bg-secondary text-white border-0 {{ Request::routeIs('users.followers') ? 'active' : '' }}">
            フォロワー
             <span class="badge badge-secondary">{{ $user->followers_count }}</span>

@@ -8,7 +8,8 @@
             </button>
             
             {{-- トップページへのリンク --}}
-            <a class="navbar-brand text-primary text-left " href="/">Original</a>
+            <!--<a class="navbar-brand text-primary text-left " href="/">Original</a>-->
+             {!! link_to_route('top', 'Original', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
         </div>
         <div class="col-3 d-flex align-items-center rounded-pill shadow-sm" >
             <i class="fas fa-search mr-1"></i>

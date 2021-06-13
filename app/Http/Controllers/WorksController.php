@@ -16,25 +16,48 @@ class WorksController extends Controller
      */
     public function index()
     {
-        //多分これいらない
         $data = [];
         
         // 認証済みユーザを取得
-        $user = \Auth::user();
+        // $user = \Auth::user();
         // ユーザの投稿の一覧を作成日時の降順で取得
         // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
         // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
-        $works = $user->works();
-        dd($works);
-        $data = [
-            'user' => $user,
-            'works' => $works,
-        ];
+        // // タスク一覧を取得
+        // $works = Work::all();
         
+        
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $works = Work::orderBy('id', 'desc')->paginate(100);
+            
+            $top_num = 9;
+            $num = count($works);
+            
+            $data = [
+                'user' => $user, 
+                'top_num' => $top_num,
+                'num' => $num,
+                'works' => $works,
+            ];
+        }
+        else{
+            $works = Work::orderBy('id', 'desc')->paginate(100);
+            
+            $top_num = 9;
+            $num = count($works);
+            
+            $data = [
+                'top_num' => $top_num,
+                'num' => $num,
+                'works' => $works,
+            ];
+        }
+
+
         // Welcomeビューでそれらを表示
-        // return view('welcome', $data);
-        // return view('users.show', $data);
-        return view('works.works', $data);
+        return view('welcome', $data);
+        
     }
 
     /**
@@ -61,31 +84,29 @@ class WorksController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        //
          // バリデーション
         $request->validate([
             'title' => 'required|max:20',
             'description' => 'required|max:255',
-            // 'tag' => 'required|max:255',
+            'tag' => 'required|max:255',
         ]);
         
-        // dd($request->all());
-        // dd($request->user()->works());
+        
         $request->user()->works()->create([
             'title' => $request->title,
             'description' => $request->description,
-            // 'tag' => $request->tag,
+            'tag' => $request->tag,
         ]);
         
-        // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
-        
+       
         $data = [];
         $user = $request->user();
         
-        // // 前のURLへリダイレクトさせる
+        
         // return back();
         // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
         $works = $user->works;
+        $favoritings = $user->favoritings;
         
         $top_num = 3;
         $num = count($works);
@@ -93,6 +114,7 @@ class WorksController extends Controller
         $data = [
             'user' => $user,
             'works' => $works,
+            'favoritings' => $favoritings,
             'top_num' => $top_num,
             'num' => $num
         ];
@@ -155,7 +177,10 @@ class WorksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = [];
+        
+        $user = \Auth::user();
+        $works = Work::orderBy('id', 'desc')->paginate(100);
         // idの値で投稿を検索して取得
         $work = \App\Work::findOrFail($id);
 
@@ -163,9 +188,20 @@ class WorksController extends Controller
         if (\Auth::id() === $work->user_id) {
             $work->delete();
         }
-
-        // 前のURLへリダイレクトさせる
-        return back();
+        
+        $top_num = 3;
+        $num = count($works);
+        
+        $data = [
+            'user' => $user,
+            'works' => $works,
+            'top_num' => $top_num,
+            'num' => $num
+        ];
+        
+        
+        return view('users.show', $data);
+        
     }
     
      /**

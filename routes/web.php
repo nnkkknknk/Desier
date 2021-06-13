@@ -14,12 +14,12 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
+Route::get('/', 'WorksController@index')->name('top');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'WorksController@index')->name('top');
+
 
 // 認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

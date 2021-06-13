@@ -1,12 +1,60 @@
 @if (count($works) > 0)
-        <div class='bg-primary'>
-            <?php
-                
-                echo $top_num;
-                echo $num;
-            ?>
-        </div>
+     @php
+     $num = count($works);
+    @endphp
+    @if(count($works) <= $top_num)
+        <div class="row">
+            
+            @for ($i = 0; $i < $num; $i++) 
+                 @php
+                   $work = $works->get($i);
+                 @endphp
+               <!--foreach($works as $work)-->
+               <!--     if($loop->index < 3)-->
+                        <div class="col-3 offset-1 bg-white my-3">
+                           <div style="height: 200px; border: solid;">
+                               
+                           </div>
+                            <div class="media-body">
+                                
+                                 <!--OK-->
+                                @php
+                                    //dd($work->user->id);
+                                @endphp
+                                <div>
+                                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
+                                    {{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}}
+                                    <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                </div>
+                                
+                                <div>
+                                    {{-- 投稿内容 --}}
+                                    <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
+                                </div>
+                                <div>
+                                    @if (Auth::id() == $work->user_id)
+                                        {{-- 投稿削除ボタンのフォーム --}}
+                                        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                        {!! Form::close() !!}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <!--endif-->
+            @endfor
+        </div>  
         
+    @endif
+    
+    @if(count($works) > $top_num)
+        <!--<div class='bg-primary'>-->
+        <!--    <?php-->
+                
+        <!--        echo $top_num;-->
+        <!--        echo $num;-->
+        <!--    ?>-->
+        <!--</div>-->
         
         <div class="row">
             
@@ -21,14 +69,20 @@
                                
                            </div>
                             <div class="media-body">
-                                <!--<div>-->
-                                <!--    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}-->
-                                <!--    {!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}-->
-                                <!--    <span class="text-muted">posted at {{ $work->created_at }}</span>-->
-                                <!--</div>-->
+                                
+                                 <!--OK-->
+                                @php
+                                    //dd($work->user->id);
+                                @endphp
+                                <div>
+                                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
+                                    {!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!} 
+                                    <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                </div>
+                                
                                 <div>
                                     {{-- 投稿内容 --}}
-                                    <!--<p class="my-2 mb-0 text-center">{!! nl2br(e($work->title)) !!}</p>-->
+                                    
                                     <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
                                 </div>
                                 <div>
@@ -76,6 +130,12 @@
                            </div>
                             <div class="media-body">
                                 
+                                 <div>
+                                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
+                                    {!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!} 
+                                    <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                </div>
+                                
                                 <div>
                                     {{-- 投稿内容 --}}
                                     <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
@@ -107,6 +167,6 @@
                 <!--endforeach-->
              <!--endfor-->
             
-        
     @endif
+@endif
     
