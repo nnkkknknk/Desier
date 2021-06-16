@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Work; // 追加
 use App\User; // 追加
-
+use App\Tag;
 
 class WorksController extends Controller
 {
@@ -92,12 +92,44 @@ class WorksController extends Controller
         ]);
         
         
-        $request->user()->works()->create([
+        $work = $request->user()->works()->create([
             'title' => $request->title,
             'description' => $request->description,
-            'tag' => $request->tag,
+            // 'tag' => $request->tag,
         ]);
         
+        // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
+        preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tag, $match);
+        // dd($tag);
+        $tags = [];
+        foreach ($match[1] as $tag) {
+            // $record = Tag::firstOrCreate([
+            Tag::firstOrCreate([
+                'work_id' => $work->id,
+                'tag' => $tag
+                ]);
+            // array_push($tags, $record);
+        };
+        
+        // $tags_id = [];
+        // foreach ($tags as $tag) {
+        //     array_push($tags_id, $tag['id']);
+        // };
+        
+        // dd($tags_id);
+        
+        // Tag::create([
+        //     'work_id' => $work->id,
+        //     'tag' => $request->tag,
+        // ]);
+        
+        //配列にforeachでひとつずつcreate
+            // 正規表現を使う
+        // dd($work->id);
+        
+        //  $request->user()->works()->tags()->create([
+        //     'tag' => $request->tag,
+        // ]);
        
         $data = [];
         $user = $request->user();
@@ -135,14 +167,19 @@ class WorksController extends Controller
         // idの値でメッセージを検索して取得
         $work = Work::findOrFail($id);
         // dd($work);
+        
+        // 関係するモデルの件数をロード
+        $work->loadRelationshipCounts();
+        $tags = $work->tags()->get();
+        // dd($tags);
         $user_id = $work->user_id;
         $user = User::findOrFail($user_id);
         // dd($user);
-        
         // メッセージ詳細ビューでそれを表示
         return view('works.show', [
             'work' => $work,
             'user' => $user,
+            'tags' => $tags,
         ]);
     }
 
@@ -180,7 +217,8 @@ class WorksController extends Controller
         $data = [];
         
         $user = \Auth::user();
-        $works = Work::orderBy('id', 'desc')->paginate(100);
+        // $works = Work::orderBy('id', 'desc')->paginate(100);
+        $works = $user->works;
         // idの値で投稿を検索して取得
         $work = \App\Work::findOrFail($id);
 
@@ -191,10 +229,12 @@ class WorksController extends Controller
         
         $top_num = 3;
         $num = count($works);
+        $favoritings = $user->favoritings;
         
         $data = [
             'user' => $user,
             'works' => $works,
+            'favoritings' => $favoritings,
             'top_num' => $top_num,
             'num' => $num
         ];

@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<!--@php-->
+<!--dd($tags);-->
+<!--@endphp-->
     <div class="row">
         <div class="col-7 bg-white">
              <div style="height: 500px; border: solid;">
@@ -38,6 +41,16 @@
             <!--        <td>{{ $work->title }}</td>-->
             <!--    </tr>-->
             <!--</table>-->
+            @if(count($tags) > 0)
+                @foreach ($tags as $tag)
+                <!--<div>{{$tag->tag}}</div>-->
+                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
+                    {!! link_to_route('users.show',$tag->tag, ['user' => $work->user->id]) !!}
+                @endforeach
+                
+            @else
+                <div>notag</div>
+            @endif
         </div>
         
     </div>
