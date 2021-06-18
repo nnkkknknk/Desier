@@ -1,12 +1,13 @@
 @if (count($favoritings) > 0)
-    
-     @if(count($favoritings) <= 3)
+    @php
+     $num_fav = count($favoritings);
+    @endphp
+     @if(count($favoritings) <= $top_num)
         
         <div class="row">
-            @for ($i = 0; $i < $top_num; $i++) 
+            @for ($i = 0; $i < $num_fav; $i++) 
                  @php
                    $favoriting = $favoritings->get($i);
-                  
                  @endphp
                
                         <div class="col-3 offset-1 bg-white my-3">
@@ -44,17 +45,14 @@
     
     @endif
     
-    @if(count($works) > 3)
+    @if(count($works) > $top_num)
         <div class="row">
             @for ($i = 0; $i < $top_num; $i++) 
                  @php
                    $favoriting = $favoritings->get($i);
-                   dd($favoriting->user->name);
                  @endphp
-               
                         <div class="col-3 offset-1 bg-white my-3">
                            <div style="height: 200px; border: solid;">
-                               
                            </div>
                             <div class="media-body">
                                 <div>
