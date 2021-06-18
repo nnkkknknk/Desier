@@ -32,11 +32,18 @@ class Work extends Model
     {
         return $this->hasMany(Tag::class);
     }
+    
+     public function upload_images()
+    {
+        return $this->hasMany(UploadImage::class);
+    }
 
     public function loadRelationshipCounts()
     {
-        $this->loadCount('tags');
+        $this->loadCount('tags', 'upload_images');
     }
+    
+    
     
 
 }

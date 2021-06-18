@@ -31,15 +31,18 @@
             <button class="mr-2 btn btn-secondary" type="submit">プロフィール編集</button>
         </div>
     </div>
+    <div></div>
     
     <p class="title" style="background-color: #72c272;">投稿一覧</p>
+    
+    
     {{-- 投稿一覧 --}}
     @include('works.works')
     
-    <p class="title" style="background-color: #FFFF99;">お気に入り</p>
-        @include('favorite.favorite')
-   
     
+    
+    <p class="title" style="background-color: #FFFF99;">お気に入り</p>
+    @include('favorite.favorite')
     <!--<div class="my-5 text-center">-->
     <!--    <button class="rounded-pill bg-dark text-white">すべてみる</button>-->
     <!--</div>-->

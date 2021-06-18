@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Work; // 追加
 use App\User; // 追加
 use App\Tag;
+use App\UploadImage;
 
 class WorksController extends Controller
 {
@@ -84,19 +85,39 @@ class WorksController extends Controller
      */
     public function store(Request $request, User $user)
     {
-         // バリデーション
+         
         $request->validate([
             'title' => 'required|max:20',
             'description' => 'required|max:255',
             'tag' => 'required|max:255',
+            // 'upload_image' => 'required|file|image|mimes:png,jpeg'
         ]);
         
         
         $work = $request->user()->works()->create([
             'title' => $request->title,
             'description' => $request->description,
-            // 'tag' => $request->tag,
         ]);
+        
+        $upload_images = $request->upload_image;
+        // dd($request->file('upload_image'));
+
+         foreach ($upload_images as $upload_image) {
+    
+    
+            if($upload_image) {
+    			//アップロードされた画像を保存する
+    			$path = $upload_image->store('uploads',"public");
+    			//画像の保存に成功したらDBに記録する
+    			if($path){
+    				UploadImage::create([
+    				    'work_id' => $work->id,
+    					"file_name" => $upload_image->getClientOriginalName(),
+    					"file_path" => $path
+    				]);
+    			}
+    		}
+         };
         
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
         preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tag, $match);
@@ -130,6 +151,13 @@ class WorksController extends Controller
         //  $request->user()->works()->tags()->create([
         //     'tag' => $request->tag,
         // ]);
+       
+       
+       
+       
+       
+       
+       
        
         $data = [];
         $user = $request->user();
@@ -166,20 +194,22 @@ class WorksController extends Controller
 
         // idの値でメッセージを検索して取得
         $work = Work::findOrFail($id);
-        // dd($work);
         
         // 関係するモデルの件数をロード
         $work->loadRelationshipCounts();
         $tags = $work->tags()->get();
-        // dd($tags);
+        $upload_images = $work->upload_images()->get();
+        
         $user_id = $work->user_id;
         $user = User::findOrFail($user_id);
-        // dd($user);
+        
+        
         // メッセージ詳細ビューでそれを表示
         return view('works.show', [
             'work' => $work,
             'user' => $user,
             'tags' => $tags,
+            'images' => $upload_images,
         ]);
     }
 

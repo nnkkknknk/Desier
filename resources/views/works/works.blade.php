@@ -23,7 +23,7 @@
                                 @endphp
                                 <div>
                                     {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
-                                    {{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}}
+                                    {!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}
                                     <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
                                 </div>
                                 

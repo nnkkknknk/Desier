@@ -2,12 +2,21 @@
 
 @section('content')
 <!--@php-->
-<!--dd($tags);-->
+<!--dd($images);-->
 <!--@endphp-->
     <div class="row">
         <div class="col-7 bg-white">
-             <div style="height: 500px; border: solid;">
-                       
+             <!--<div style="height: 500px; border: solid;">-->
+             <div>
+                @if(count($images) > 0)
+                    @foreach ($images as $image)
+            
+                        <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>
+                    @endforeach
+                    
+                @else
+                    <div>notag</div>
+                @endif
              </div>
              
         </div>
