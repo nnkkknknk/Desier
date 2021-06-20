@@ -37,10 +37,14 @@ class Work extends Model
     {
         return $this->hasMany(UploadImage::class);
     }
+     public function codes()
+    {
+        return $this->hasMany(Uploadcode::class);
+    }
 
     public function loadRelationshipCounts()
     {
-        $this->loadCount('tags', 'upload_images');
+        $this->loadCount('tags', 'upload_images', 'codes');
     }
     
     

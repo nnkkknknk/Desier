@@ -17,28 +17,38 @@
         </div>
        
        <div class="float-right d-none d-sm-block mr-5">
-           <!--<button class="mr-2 btn btn-secondary" type="submit">-->
-           <!--     {{-- 投稿ページリンク --}}-->
-           <!--     
-           <!-- </button>-->
             {{-- メッセージ作成ページへのリンク --}}
              {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-primary']) !!}
 
             
             <div class="dropdown d-inline-block mr-5">
-                <i class="fas fa-portrait fa-2x align-middle"></i>
+                
+                @if ($user->icon_file_path == null) 
+                    <i class="fas fa-user-circle fa-2x align-middle"></i>
+                @else 
+                    <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                        <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
+                    </a>
+                @endif
+                
                 <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"></button>
                 <!-- 選択肢 -->
                 <div class="dropdown-menu">
                     
                     @if (Auth::check())
-                       {{-- ユーザ詳細ページへのリンク --}}
-                        <li class="dropdown-item">{!! link_to_route('users.show', Auth::user()->name, ['user' => Auth::id()]) !!}</li>
-                        
-                        
+                       {{-- ユーザ詳細ページへのリンク --}} 
+                        <li class="dropdown-item">
+                            {!! link_to_route('users.show', Auth::user()->name, ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
+                        </li>
+                        <li class="dropdown-item">
+                           {!! link_to_route('users.followings', 'フォロー&フォロワー', ['id' => $user->id], ['class' => 'text-secondary']) !!}
+                        </li>
+                        <li class="dropdown-item">
+                           {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
+                        </li>
                         <li class="dropdown-divider"></li>
                         {{-- ログアウトへのリンク --}}
-                        <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                        <li class="dropdown-item">{!! link_to_route('logout.get', 'ログアウト', '', ['class' => 'text-dark']) !!}</li>
                         
                      @else
                         {{-- ユーザ登録ページへのリンク --}}

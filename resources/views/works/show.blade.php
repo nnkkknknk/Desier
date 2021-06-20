@@ -7,7 +7,6 @@
     <div class="row">
         <div class="col-7 bg-white">
              <!--<div style="height: 500px; border: solid;">-->
-             <div>
                 @if(count($images) > 0)
                     @foreach ($images as $image)
             
@@ -17,7 +16,19 @@
                 @else
                     <div>notag</div>
                 @endif
-             </div>
+
+             <!--<div>-->
+                 
+             <!--   @if(count($codes) > 0)-->
+             <!--       @foreach ($codes as $code)-->
+            
+                        
+             <!--       @endforeach-->
+                    
+             <!--   @else-->
+             <!--       <div>notag</div>-->
+             <!--   @endif-->
+             <!--</div>-->
              
         </div>
         <div class="col-5">

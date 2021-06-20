@@ -8,12 +8,12 @@
             @for ($i = 0; $i < $num; $i++) 
                  @php
                    $work = $works->get($i);
+                   $upload_images = $work->upload_images()->first();
+                   dd($upload_images);
                  @endphp
-               <!--foreach($works as $work)-->
-               <!--     if($loop->index < 3)-->
                         <div class="col-3 offset-1 bg-white my-3">
                            <div style="height: 200px; border: solid;">
-                               
+                                 <img src="{{ Storage::url($thumbnail->file_path) }}" style="width:100%;"/>
                            </div>
                             <div class="media-body">
                                 
@@ -31,14 +31,14 @@
                                     {{-- 投稿内容 --}}
                                     <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
                                 </div>
-                                <div>
-                                    @if (Auth::id() == $work->user_id)
-                                        {{-- 投稿削除ボタンのフォーム --}}
-                                        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                        {!! Form::close() !!}
-                                    @endif
-                                </div>
+                                <!--<div>-->
+                                <!--    @if (Auth::id() == $work->user_id)-->
+                                <!--        {{-- 投稿削除ボタンのフォーム --}}-->
+                                <!--        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}-->
+                                <!--            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}-->
+                                <!--        {!! Form::close() !!}-->
+                                <!--    @endif-->
+                                <!--</div>-->
                             </div>
                         </div>
                         <!--endif-->
@@ -85,14 +85,14 @@
                                     
                                     <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
                                 </div>
-                                <div>
-                                    @if (Auth::id() == $work->user_id)
-                                        {{-- 投稿削除ボタンのフォーム --}}
-                                        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                        {!! Form::close() !!}
-                                    @endif
-                                </div>
+                                <!--<div>-->
+                                <!--    @if (Auth::id() == $work->user_id)-->
+                                <!--        {{-- 投稿削除ボタンのフォーム --}}-->
+                                <!--        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}-->
+                                <!--            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}-->
+                                <!--        {!! Form::close() !!}-->
+                                <!--    @endif-->
+                                <!--</div>-->
                             </div>
                         </div>
                         <!--endif-->
@@ -140,14 +140,14 @@
                                     {{-- 投稿内容 --}}
                                     <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
                                 </div>
-                                <div>
-                                    @if (Auth::id() == $work->user_id)
-                                        {{-- 投稿削除ボタンのフォーム --}}
-                                        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                        {!! Form::close() !!}
-                                    @endif
-                                </div>
+                                <!--<div>-->
+                                <!--    @if (Auth::id() == $work->user_id)-->
+                                <!--        {{-- 投稿削除ボタンのフォーム --}}-->
+                                <!--        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}-->
+                                <!--            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}-->
+                                <!--        {!! Form::close() !!}-->
+                                <!--    @endif-->
+                                <!--</div>-->
                             </div>
                         </div>
                  @endfor  

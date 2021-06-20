@@ -7,6 +7,7 @@ use App\Work; // 追加
 use App\User; // 追加
 use App\Tag;
 use App\UploadImage;
+use App\Uploadcode;
 
 class WorksController extends Controller
 {
@@ -70,10 +71,14 @@ class WorksController extends Controller
     {
     
         $work = new Work;
-
+        $user = \Auth::user();
+        
+        
         // メッセージ作成ビューを表示
         return view('works.create', [
             'work' => $work,
+            'user' => $user,
+            
         ]);
     }
 
@@ -89,7 +94,7 @@ class WorksController extends Controller
         $request->validate([
             'title' => 'required|max:20',
             'description' => 'required|max:255',
-            'tag' => 'required|max:255',
+            'tag' => 'required|max:20',
             // 'upload_image' => 'required|file|image|mimes:png,jpeg'
         ]);
         
@@ -118,6 +123,25 @@ class WorksController extends Controller
     			}
     		}
          };
+         
+          $codes = $request->code;
+        // dd($request->file('upload_image'));
+
+         foreach ($codes as $code) {
+            if($code) {
+    			//アップロードされた画像を保存する
+    			$path = $code->store('uploads',"public");
+    			//画像の保存に成功したらDBに記録する
+    			if($path){
+    				Uploadcode::create([
+    				    'work_id' => $work->id,
+    					"file_name" => $code->getClientOriginalName(),
+    					"file_path" => $path
+    				]);
+    			}
+    		}
+         };
+         
         
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
         preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tag, $match);
@@ -151,13 +175,6 @@ class WorksController extends Controller
         //  $request->user()->works()->tags()->create([
         //     'tag' => $request->tag,
         // ]);
-       
-       
-       
-       
-       
-       
-       
        
         $data = [];
         $user = $request->user();
@@ -198,7 +215,9 @@ class WorksController extends Controller
         // 関係するモデルの件数をロード
         $work->loadRelationshipCounts();
         $tags = $work->tags()->get();
-        $upload_images = $work->upload_images()->get();
+        // $upload_images = $work->upload_images()->get();
+        $upload_images = $work->upload_images()->orderBy('id', 'desc')->get();
+        $codes = $work->codes()->get();
         
         $user_id = $work->user_id;
         $user = User::findOrFail($user_id);
@@ -210,6 +229,7 @@ class WorksController extends Controller
             'user' => $user,
             'tags' => $tags,
             'images' => $upload_images,
+            'codes' => $codes,
         ]);
     }
 

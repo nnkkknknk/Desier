@@ -8,13 +8,15 @@
    <div class="row">
         <div class="col-12">
             
-            <!--@include('upload.upload_image')-->
+            <!--include('upload.upload_image')-->
             
             {!! Form::model($work, ['route' => 'works.store', 'files' => true]) !!}
 
                 <div class="form-group">
-                    {!! Form::label('title', '画像') !!}
-                    {!! Form::file('upload_image[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}
+                    <p>{!! Form::label('upload_image[]', '画像') !!}</p>
+                    <p>{!! Form::file('upload_image[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</p>
+                    <p>{!! Form::label('code[]', 'コードファイル') !!}</p>
+                    <p>{!! Form::file('code[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</p>
                     {!! Form::label('title', '作品名') !!}
                     {!! Form::text('title', '無題', ['class' => 'form-control']) !!}
                     {!! Form::label('description', '作者からの一言') !!}

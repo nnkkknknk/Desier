@@ -35,13 +35,15 @@ class UsersController extends Controller
         // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
         $works = $user->works;
         $favoritings = $user->favoritings;
-        $top_num = 3;
+        $icon = $user->icon_file_path;
         
+        $top_num = 3;
         $num = count($works);
         $data = [
             'user' => $user,
             'works' => $works,
             'favoritings' => $favoritings,
+            'icon' => $icon,
             'top_num' => $top_num,
             'num' => $num
     
@@ -49,6 +51,87 @@ class UsersController extends Controller
          
         return view('users.show', $data);
         
+    }
+    
+      /**
+     * プロフィール編集アクション。
+     *
+     * @param  $id  ユーザのid
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+        
+        
+        $request->validate([
+            'name' => 'required|max:20',
+        ]);
+        
+        
+        $self_information = $request->self_information;
+        if($self_information) {
+             $request->validate([
+                'self_information' => 'required|max:255',
+                // 'upload_image' => 'required|file|image|mimes:png,jpeg'
+            ]);
+            
+        }
+        
+        $user->name = $request->name;
+        $user->self_information = $request->self_information;
+       
+        $icon = $request->icon;
+    
+    
+        if($icon) {
+			//アップロードされた画像を保存する
+			$path = $icon->store('uploads',"public");
+			//画像の保存に成功したらDBに記録する
+			if($path){
+				$user->icon_file_path = $path;
+				$user->icon_file_name = $icon->getClientOriginalName();
+				
+			}
+		}
+		
+		$user->save();
+       
+        $data = [];
+        $user = $request->user();
+        
+        $works = $user->works;
+        $favoritings = $user->favoritings;
+        $icon = $user->icon_file_path;
+        
+        $top_num = 3;
+        $num = count($works);
+        
+        $data = [
+            'user' => $user,
+            'works' => $works,
+            'favoritings' => $favoritings,
+            'icon' => $icon,
+            'top_num' => $top_num,
+            'num' => $num
+        ];
+        
+        return view('users.show', $data);
+    }
+    
+    public function edit($id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+
+        // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
+
+        // フォロワー一覧ビューでそれらを表示
+        return view('users.edit', [
+            'user' => $user,
+        ]);
     }
     
     
@@ -166,4 +249,7 @@ class UsersController extends Controller
             'users' => $favoriters,
         ]);
     }
+    
+    
+   
 }

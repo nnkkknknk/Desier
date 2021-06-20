@@ -1,21 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-
+@php
+    $icon = $user->icon_file_path;
+@endphp
+   
     <div class="row bg-white mb-5">
         <div class="col-2">
-            <i class="fas fa-portrait fa-5x align-middle my-3 mx-3"></i>
-            
+            @if ($icon == null) 
+                <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
+            @else 
+                <img src="{{ Storage::url($icon) }}" style="width: 100px; height: 100px; border-radius: 100%;"/>
+        
+            @endif
         </div>
+        <!--@php-->
+        <!--    dd($user->followings_count);-->
+        <!--@endphp-->
         <div class="col-7 d-flex align-items-center">
             <div>
                 <h3 class="ml-2">{{ $user->name }}</h3>
                 <div class="col-12">
                     
-                    <a href="{{ route('users.followings', ['id' => $user->id]) }}" class="{{ Request::routeIs('users.followings') ? 'active' : '' }}">
-                       {{ $user->followings_count }} 
-                    フォロー
-                    </a>
+                    @if ($user->followings_count == 0)
+                        <a href="{{ route('users.followings', ['id' => $user->id]) }}" class="{{ Request::routeIs('users.followings') ? 'active' : '' }}">
+                           0フォロー
+                        </a>
+                    @else
+                        <a href="{{ route('users.followings', ['id' => $user->id]) }}" class="{{ Request::routeIs('users.followings') ? 'active' : '' }}">
+                           {{ $user->followings_count }} フォロー
+                        </a>
+                    @endif
                     
                     <a href="{{ route('users.followers', ['id' => $user->id]) }}" class="{{ Request::routeIs('users.followers') ? 'active' : '' }}">
                          {{ $user->followers_count }}
@@ -28,7 +43,8 @@
         </div>
         
         <div class="col-3 d-flex align-items-center">
-            <button class="mr-2 btn btn-secondary" type="submit">プロフィール編集</button>
+            {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'mr-2 btn btn-secondary']) !!}
+            <!--<button class="mr-2 btn btn-secondary" type="submit">プロフィール編集</button>-->
         </div>
     </div>
     <div></div>
