@@ -20,18 +20,20 @@
                     <div>notag</div>
                 @endif
 
-             <!--<div>-->
+             <div class="bg-dark">
                  
-             <!--   @if(count($codes) > 0)-->
-             <!--       @foreach ($codes as $code)-->
-            
+                <!--@if(count($codes) > 0)-->
+                <!--    @foreach ($codes as $code)-->
+                <!--       <a>-->
+                <!--           {{Storage::url($code->file_path)}}-->
+                <!--       </a> -->
                         
-             <!--       @endforeach-->
+                <!--    @endforeach-->
                     
-             <!--   @else-->
-             <!--       <div>notag</div>-->
-             <!--   @endif-->
-             <!--</div>-->
+                <!--@else-->
+                <!--    <div>notag</div>-->
+                <!--@endif-->
+             </div>
              
         </div>
         <div class="col-4">
@@ -42,7 +44,6 @@
                 {{-- フォロー／アンフォローボタン --}}
             @include('favorite.favorite_button')
                 {!! link_to_route('works.create', 'お気に入り☆', [], ['class' => 'btn bg-warning rounded-pill' ] )!!}
-           
                 {!! link_to_route('work.download', 'ダウンロード', ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill']) !!}
                  
             </div>

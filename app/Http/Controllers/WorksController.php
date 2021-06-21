@@ -8,6 +8,8 @@ use App\User; // 追加
 use App\Tag;
 use App\UploadImage;
 use App\Uploadcode;
+use Illuminate\Support\Facades\Storage;
+
 
 class WorksController extends Controller
 {
@@ -127,7 +129,7 @@ class WorksController extends Controller
 
          foreach ($codes as $code) {
             if($code) {
-    			//アップロードされた画像を保存する
+    			//アップロードされ保存する
     			$path = $code->store('uploads',"public");
     			//画像の保存に成功したらDBに記録する
     			if($path){
@@ -239,7 +241,6 @@ class WorksController extends Controller
         
         
         return redirect()->route('users.show', ['user' => $user->id]);
-        // return view('users.show', $data);
         
     }
     
@@ -294,20 +295,18 @@ class WorksController extends Controller
         
         // 関係するモデルの件数をロード
         $work->loadRelationshipCounts();
-        $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
-        $image_num = count($upload_images);
+        
         $codes = $work->codes()->get();
-        dd($codes);
         
+        foreach ($codes as $code) {
+          $code_path = Storage::path('public/' . $code->file_path);
+        //   dd($code_path);
+        //     Storage::download($code_path, $code->file_name);
+            // Storage::download($code->file_name);
+            
+            response()->download($code_path);
+        };
         
-        // メッセージ詳細ビューでそれを表示
-        return view('works.show', [
-            'work' => $work,
-            'user' => $user,
-            'tags' => $tags,
-            'images' => $upload_images,
-            'image_num' => $image_num,
-            'codes' => $codes,
-        ]);
+         return redirect()->route('works.show', ['work' => $work->id]);
     }
 }
