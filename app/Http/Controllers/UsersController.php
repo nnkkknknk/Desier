@@ -98,26 +98,8 @@ class UsersController extends Controller
 		
 		$user->save();
        
-        $data = [];
-        $user = $request->user();
-        
-        $works = $user->works;
-        $favoritings = $user->favoritings;
-        $icon = $user->icon_file_path;
-        
-        $top_num = 3;
-        $num = count($works);
-        
-        $data = [
-            'user' => $user,
-            'works' => $works,
-            'favoritings' => $favoritings,
-            'icon' => $icon,
-            'top_num' => $top_num,
-            'num' => $num
-        ];
-        
-        return view('users.show', $data);
+        return redirect()->route('users.show', ['user' => $user->id]);
+    
     }
     
     public function edit($id)

@@ -31,6 +31,7 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::resource('works', 'WorksController');
+Route::get('download', 'WorksController@download')->name('work.download');
 
 Route::group(['middleware' => ['auth']], function () {
     

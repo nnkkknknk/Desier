@@ -5,22 +5,16 @@
 <!--dd($images);-->
 <!--@endphp-->
     <div class="row">
-        
-            
+        <div class="col-8 bg-white">
+             <!--<div style="height: 500px; border: solid;">-->
                 @if(count($images) > 0)
-                    @if(count($images) <= 1)
-                    <div class="col-8 bg-white">
-                        @for ($i = 0; $i < 1; $i++)
-                            @php
-                               $image = $images->get($i);
-                            @endphp
-                        <img src="{{ Storage::url($image->file_path) }}" 
-                        
-                        
-                    <!--foreach ($images as $image)-->
+                    @php
+                     $image_num = count($images);
+                    @endphp
+                    @foreach ($images as $image)
             
-                    <!--    <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>-->
-                    <!--endforeach-->
+                        <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>
+                    @endforeach
                     
                 @else
                     <div>notag</div>
@@ -48,7 +42,8 @@
                 {{-- フォロー／アンフォローボタン --}}
             @include('favorite.favorite_button')
                 {!! link_to_route('works.create', 'お気に入り☆', [], ['class' => 'btn bg-warning rounded-pill' ] )!!}
-                {!! link_to_route('works.create', 'ダウンロード', [], ['class' => 'btn bg-dark text-white rounded-pill']) !!}
+           
+                {!! link_to_route('work.download', 'ダウンロード', ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill']) !!}
                  
             </div>
             <div class="mt-3">

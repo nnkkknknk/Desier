@@ -285,4 +285,29 @@ class WorksController extends Controller
         ]);
     }
 
+
+    public function download($id)
+    {
+        
+        // idの値でメッセージを検索して取得
+        $work = Work::findOrFail($id);
+        
+        // 関係するモデルの件数をロード
+        $work->loadRelationshipCounts();
+        $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
+        $image_num = count($upload_images);
+        $codes = $work->codes()->get();
+        dd($codes);
+        
+        
+        // メッセージ詳細ビューでそれを表示
+        return view('works.show', [
+            'work' => $work,
+            'user' => $user,
+            'tags' => $tags,
+            'images' => $upload_images,
+            'image_num' => $image_num,
+            'codes' => $codes,
+        ]);
+    }
 }
