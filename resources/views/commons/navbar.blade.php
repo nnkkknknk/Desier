@@ -22,15 +22,22 @@
 
             
             <div class="dropdown d-inline-block mr-5">
-                
+             @if (Auth::check())
                 @if ($user->icon_file_path == null) 
-                    <i class="fas fa-user-circle fa-2x align-middle"></i>
+                    <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                        <i class="fas fa-user-circle fa-2x align-middle"></i>
+                    </a>
                 @else 
                     <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
                         <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
                     </a>
                 @endif
-                
+             @else
+             <a href="{{ route('login', []) }}" class="{{ Request::routeIs('login') ? 'active' : '' }}">
+                        <i class="fas fa-user-circle fa-2x align-middle"></i>
+            </a>
+
+             @endif
                 <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"></button>
                 <!-- 選択肢 -->
                 <div class="dropdown-menu">
@@ -52,9 +59,9 @@
                         
                      @else
                         {{-- ユーザ登録ページへのリンク --}}
-                        <li class="nav-item">{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link text-dark']) !!}</li>
+                        <li class="nav-item">{!! link_to_route('signup.get', 'アカウント作成', [], ['class' => 'nav-link text-dark']) !!}</li>
                         {{-- ログインページへのリンク --}}
-                        <li class="nav-item">{!! link_to_route('login', 'Login', [], ['class' => 'nav-link']) !!}</li>
+                        <li class="nav-item">{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
                      @endif
                     
                     <!--<div class="dropdown-divider"></div>-->

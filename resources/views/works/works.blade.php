@@ -1,19 +1,18 @@
 @if (count($works) > 0)
-     @php
-     $num = count($works);
-    @endphp
+   
     @if(count($works) <= $top_num)
         <div class="row">
             
             @for ($i = 0; $i < $num; $i++) 
                  @php
                    $work = $works->get($i);
-                   $upload_images = $work->upload_images()->first();
-                   dd($upload_images);
+                   $thumbnail = $work->upload_images()->orderBy('id', 'asc')->first();
+                   $thumbnail_path = $thumbnail ? $thumbnail->file_path : ''
                  @endphp
+                 
                         <div class="col-3 offset-1 bg-white my-3">
-                           <div style="height: 200px; border: solid;">
-                                 <img src="{{ Storage::url($thumbnail->file_path) }}" style="width:100%;"/>
+                           <div class="my-3" style="height: 200px;">
+                                 <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
                             <div class="media-body">
                                 
@@ -48,25 +47,20 @@
     @endif
     
     @if(count($works) > $top_num)
-        <!--<div class='bg-primary'>-->
-        <!--    <?php-->
-                
-        <!--        echo $top_num;-->
-        <!--        echo $num;-->
-        <!--    ?>-->
-        <!--</div>-->
         
         <div class="row">
             
             @for ($i = 0; $i < $top_num; $i++) 
                  @php
                    $work = $works->get($i);
+                   $thumbnail = $work->upload_images()->first();
+                   $thumbnail_path = $thumbnail ? $thumbnail->file_path : ''
+                   //$変数 = if($thumbnail) $thumbnail->file_path else ''（三項演算子）
                  @endphp
-               <!--foreach($works as $work)-->
-               <!--     if($loop->index < 3)-->
+                 
                         <div class="col-3 offset-1 bg-white my-3">
-                           <div style="height: 200px; border: solid;">
-                               
+                            <div class="my-3" style="height: 200px;">
+                                 <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
                             <div class="media-body">
                                 
@@ -122,11 +116,12 @@
              @for ($i = $top_num; $i < $num; $i++) 
                      @php
                        $work = $works->get($i);
+                       $thumbnail = $work->upload_images()->first();
+                        $thumbnail_path = $thumbnail ? $thumbnail->file_path : ''
                      @endphp
-                     
                         <div class="col-3 offset-1 bg-white">
-                           <div style="height: 200px; border: solid;">
-                               
+                           <div class="my-3" style="height: 200px;">
+                                 <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
                             <div class="media-body">
                                 
@@ -168,5 +163,10 @@
              <!--endfor-->
             
     @endif
+    
+@else
+    <div class="row bg-white my-3 center-block" style="height: 200px;">
+      <h3 class="text-secondary offset-4 d-flex align-items-center">作品を追加しよう</h3>  
+    </div>
 @endif
     

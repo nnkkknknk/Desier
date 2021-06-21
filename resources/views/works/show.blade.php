@@ -5,13 +5,22 @@
 <!--dd($images);-->
 <!--@endphp-->
     <div class="row">
-        <div class="col-7 bg-white">
-             <!--<div style="height: 500px; border: solid;">-->
-                @if(count($images) > 0)
-                    @foreach ($images as $image)
+        
             
-                        <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>
-                    @endforeach
+                @if(count($images) > 0)
+                    @if(count($images) <= 1)
+                    <div class="col-8 bg-white">
+                        @for ($i = 0; $i < 1; $i++)
+                            @php
+                               $image = $images->get($i);
+                            @endphp
+                        <img src="{{ Storage::url($image->file_path) }}" 
+                        
+                        
+                    <!--foreach ($images as $image)-->
+            
+                    <!--    <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>-->
+                    <!--endforeach-->
                     
                 @else
                     <div>notag</div>
@@ -31,7 +40,7 @@
              <!--</div>-->
              
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <!--<h1>id = {{ $work->id }} のメッセージ詳細ページ</h1>-->
             <h2>{{ $work->title }}</h2>
             

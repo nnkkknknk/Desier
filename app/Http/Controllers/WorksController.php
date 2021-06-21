@@ -95,24 +95,22 @@ class WorksController extends Controller
             'title' => 'required|max:20',
             'description' => 'required|max:255',
             'tag' => 'required|max:20',
-            // 'upload_image' => 'required|file|image|mimes:png,jpeg'
+            'upload_image.*' => 'required|file|image|mimes:png,jpeg',
+            'code.*' => 'required|file|mimes:html,javascript,css'
         ]);
-        
         
         $work = $request->user()->works()->create([
             'title' => $request->title,
             'description' => $request->description,
         ]);
         
-        $upload_images = $request->upload_image;
-        // dd($request->file('upload_image'));
-
+        
+       $upload_images = $request->upload_image;
          foreach ($upload_images as $upload_image) {
-    
-    
             if($upload_image) {
+                // dd($upload_image);
     			//アップロードされた画像を保存する
-    			$path = $upload_image->store('uploads',"public");
+    			$path = $upload_image->store('uploads','public');
     			//画像の保存に成功したらDBに記録する
     			if($path){
     				UploadImage::create([
@@ -148,56 +146,18 @@ class WorksController extends Controller
         // dd($tag);
         $tags = [];
         foreach ($match[1] as $tag) {
-            // $record = Tag::firstOrCreate([
             Tag::firstOrCreate([
                 'work_id' => $work->id,
                 'tag' => $tag
                 ]);
-            // array_push($tags, $record);
         };
         
-        // $tags_id = [];
-        // foreach ($tags as $tag) {
-        //     array_push($tags_id, $tag['id']);
-        // };
-        
-        // dd($tags_id);
-        
-        // Tag::create([
-        //     'work_id' => $work->id,
-        //     'tag' => $request->tag,
-        // ]);
-        
-        //配列にforeachでひとつずつcreate
-            // 正規表現を使う
-        // dd($work->id);
-        
-        //  $request->user()->works()->tags()->create([
-        //     'tag' => $request->tag,
-        // ]);
+        $user = \Auth::user();
+         return redirect()->route('users.show', ['user' => $user->id]);
        
-        $data = [];
-        $user = $request->user();
-        
-        
-        // return back();
-        // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
-        $works = $user->works;
-        $favoritings = $user->favoritings;
-        
-        $top_num = 3;
-        $num = count($works);
-        
-        $data = [
-            'user' => $user,
-            'works' => $works,
-            'favoritings' => $favoritings,
-            'top_num' => $top_num,
-            'num' => $num
-        ];
-        
-        return view('users.show', $data);
     }
+    
+    
 
     /**
      * Display the specified resource.
@@ -216,7 +176,8 @@ class WorksController extends Controller
         $work->loadRelationshipCounts();
         $tags = $work->tags()->get();
         // $upload_images = $work->upload_images()->get();
-        $upload_images = $work->upload_images()->orderBy('id', 'desc')->get();
+        $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
+        $image_num = count($upload_images);
         $codes = $work->codes()->get();
         
         $user_id = $work->user_id;
@@ -229,6 +190,7 @@ class WorksController extends Controller
             'user' => $user,
             'tags' => $tags,
             'images' => $upload_images,
+            'image_num' => $image_num,
             'codes' => $codes,
         ]);
     }
@@ -264,8 +226,6 @@ class WorksController extends Controller
      */
     public function destroy($id)
     {
-        $data = [];
-        
         $user = \Auth::user();
         // $works = Work::orderBy('id', 'desc')->paginate(100);
         $works = $user->works;
@@ -277,20 +237,9 @@ class WorksController extends Controller
             $work->delete();
         }
         
-        $top_num = 3;
-        $num = count($works);
-        $favoritings = $user->favoritings;
         
-        $data = [
-            'user' => $user,
-            'works' => $works,
-            'favoritings' => $favoritings,
-            'top_num' => $top_num,
-            'num' => $num
-        ];
-        
-        
-        return view('users.show', $data);
+        return redirect()->route('users.show', ['user' => $user->id]);
+        // return view('users.show', $data);
         
     }
     
