@@ -9,7 +9,7 @@ use App\Tag;
 use App\UploadImage;
 use App\Uploadcode;
 use Illuminate\Support\Facades\Storage;
-
+use ZipArchive;
 
 class WorksController extends Controller
 {
@@ -297,16 +297,15 @@ class WorksController extends Controller
         $work->loadRelationshipCounts();
         
         $codes = $work->codes()->get();
-        
+        $zip = new \ZipArchive(); 
+        $zip->open(public_path().'/test2.zip', ZipArchive::CREATE);
         foreach ($codes as $code) {
           $code_path = Storage::path('public/' . $code->file_path);
-        //   dd($code_path);
-        //     Storage::download($code_path, $code->file_name);
-            // Storage::download($code->file_name);
-            
-            response()->download($code_path);
+            $zip->addFile($code, $code->file_name);
+            // return response()->download($code_path, $code->file_name);
         };
-        
-         return redirect()->route('works.show', ['work' => $work->id]);
+        $zip->close();
+        return response()->download(public_path().'/test2.zip');
+        return redirect()->route('works.show', ['work' => $work->id]);
     }
 }

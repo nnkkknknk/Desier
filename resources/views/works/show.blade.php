@@ -22,17 +22,17 @@
 
              <div class="bg-dark">
                  
-                <!--@if(count($codes) > 0)-->
-                <!--    @foreach ($codes as $code)-->
-                <!--       <a>-->
-                <!--           {{Storage::url($code->file_path)}}-->
-                <!--       </a> -->
+                @if(count($codes) > 0)
+                    @foreach ($codes as $code)
+                       <a>
+                           {{Storage::url($code->file_path)}}
+                       </a> 
                         
-                <!--    @endforeach-->
+                    @endforeach
                     
-                <!--@else-->
-                <!--    <div>notag</div>-->
-                <!--@endif-->
+                @else
+                    <div>notag</div>
+                @endif
              </div>
              
         </div>
