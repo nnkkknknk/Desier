@@ -196,6 +196,67 @@ class WorksController extends Controller
             'codes' => $codes,
         ]);
     }
+    
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(Article::class, "article");
+    // }
+
+    public function search(Request $request)
+    {
+        // dd($request->keyword);
+        $keyword = $request->keyword;
+        $query = Work::query();
+        $works = Work::whereHas('tags', function ($query) use ($keyword) {
+            $query->where('tag', 'LIKE', "%{$keyword}%");
+            // $query->where('tag', 'LIKE', "%{$keyword}%");
+        })->get();
+        
+        
+        // $works = Work::where('title', 'LIKE', "%{$keyword}%")
+        //     ->whereHas('tags', function ($query) use ($keyword) {
+        //     $query->where('tag', 'LIKE', "%{$keyword}%");
+        //     // $query->where('tag', 'LIKE', "%{$keyword}%");
+        // })
+        // ->get();
+        // dd($works);
+        // return view("articles.index", ["articles" => $articles, "keyword" => $keyword]);
+        
+        $data = [];
+        
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            
+            $top_num = 9;
+            $num = count($works);
+            
+            $data = [
+                'user' => $user, 
+                'top_num' => $top_num,
+                'num' => $num,
+                'works' => $works,
+                'keyword' => $keyword,
+            ];
+        }
+        else{
+    
+            
+            $top_num = 9;
+            $num = count($works);
+            
+            $data = [
+                'top_num' => $top_num,
+                'num' => $num,
+                'works' => $works,
+                'keyword' => $keyword,
+            ];
+        }
+
+
+        // Welcomeビューでそれらを表示
+        return view('works.search', $data);
+    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -297,7 +358,7 @@ class WorksController extends Controller
         $work->loadRelationshipCounts();
         
         $codes = $work->codes()->get();
-        $zip = new \ZipArchive(); 
+        $zip = new ZipArchive(); 
         $zip->open(public_path().'/test2.zip', ZipArchive::CREATE);
         foreach ($codes as $code) {
           $code_path = Storage::path('public/' . $code->file_path);

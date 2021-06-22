@@ -34,6 +34,7 @@ Route::resource('works', 'WorksController');
 Route::group(['prefix' => 'works/{id}'], function () {
     Route::get('download', 'WorksController@download')->name('work.download');
  });
+Route::post('search', 'WorksController@search')->name('work.search');
 Route::group(['middleware' => ['auth']], function () {
     
     Route::group(['prefix' => 'users/{id}'], function () {

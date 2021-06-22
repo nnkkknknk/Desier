@@ -12,10 +12,14 @@
              {!! link_to_route('top', 'Original', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
         </div>
         <div class="col-3 d-flex align-items-center rounded-pill shadow-sm" >
-            <i class="fas fa-search mr-1"></i>
-            <input type="text" class="search form-control border-0" size="10" placeholder="作品を検索">
+            <i class="fas fa-search mr-1">
+
+            </i>
+            {!! Form::open(['route' => 'work.search', 'method' => 'post']) !!}
+                {!! Form::submit('検索', ['class' => 'btn btn-primary']) !!}
+                {!! Form::text('keyword', '', ['class' => 'form-control ']) !!}
+            {!! Form::close() !!}
         </div>
-       
        <div class="float-right d-none d-sm-block mr-5">
             {{-- メッセージ作成ページへのリンク --}}
              {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-primary']) !!}
@@ -23,19 +27,22 @@
             
             <div class="dropdown d-inline-block mr-5">
              @if (Auth::check())
-                @if ($user->icon_file_path == null) 
+                     @php
+                        $login_user = \Auth::user();
+                    @endphp
+                @if ($login_user->icon_file_path == null) 
                     <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
                         <i class="fas fa-user-circle fa-2x align-middle"></i>
                     </a>
                 @else 
                     <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                        <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
+                        <img src="{{ Storage::url($login_user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
                     </a>
                 @endif
              @else
              <a href="{{ route('login', []) }}" class="{{ Request::routeIs('login') ? 'active' : '' }}">
                         <i class="fas fa-user-circle fa-2x align-middle"></i>
-            </a>
+                </a>
 
              @endif
                 <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"></button>

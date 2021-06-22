@@ -57,7 +57,7 @@
     
     
     
-    <p class="title" style="background-color: #FFFF99;">お気に入り</p>
+    
     @include('favorite.favorite')
     <!--<div class="my-5 text-center">-->
     <!--    <button class="rounded-pill bg-dark text-white">すべてみる</button>-->
