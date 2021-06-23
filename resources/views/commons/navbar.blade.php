@@ -11,15 +11,16 @@
             <!--<a class="navbar-brand text-primary text-left " href="/">Original</a>-->
              {!! link_to_route('top', 'Original', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
         </div>
-            {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary']) !!}
-        <div class="col-3 d-flex align-items-center rounded-pill shadow-sm" >
-           
-             <i class="fas fa-search mr-1">
-            </i>
-                {!! Form::submit('検索', ['class' => 'btn btn-primary']) !!}
-                {!! Form::text('keyword', '', ['class' => 'form-control']) !!}
-            {!! Form::close() !!}
-        </div>
+        {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary']) !!}
+            <div class="d-flex align-items-center rounded-pill shadow-sm pr-4" >
+               
+                 <i class="fas fa-search ml-3">
+                </i>
+                    
+                    {!! Form::text('keyword', '作品を検索', ['class' => 'form-control border-0 '] ,['placeholder'=>"作品を検索"]) !!}
+                
+            </div>
+        {!! Form::close() !!}
        <div class="float-right d-none d-sm-block mr-5">
             {{-- メッセージ作成ページへのリンク --}}
              {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-primary']) !!}
