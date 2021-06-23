@@ -11,13 +11,13 @@
             <!--<a class="navbar-brand text-primary text-left " href="/">Original</a>-->
              {!! link_to_route('top', 'Original', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
         </div>
+            {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary']) !!}
         <div class="col-3 d-flex align-items-center rounded-pill shadow-sm" >
-            <i class="fas fa-search mr-1">
-
+           
+             <i class="fas fa-search mr-1">
             </i>
-            {!! Form::open(['route' => 'work.search', 'method' => 'post']) !!}
                 {!! Form::submit('検索', ['class' => 'btn btn-primary']) !!}
-                {!! Form::text('keyword', '', ['class' => 'form-control ']) !!}
+                {!! Form::text('keyword', '', ['class' => 'form-control']) !!}
             {!! Form::close() !!}
         </div>
        <div class="float-right d-none d-sm-block mr-5">

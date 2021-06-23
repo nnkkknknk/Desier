@@ -203,14 +203,24 @@ class WorksController extends Controller
     // }
 
     public function search(Request $request)
-    {
-        // dd($request->keyword);
+    {   
+        
+        
         $keyword = $request->keyword;
         $query = Work::query();
-        $works = Work::whereHas('tags', function ($query) use ($keyword) {
-            $query->where('tag', 'LIKE', "%{$keyword}%");
-            // $query->where('tag', 'LIKE', "%{$keyword}%");
-        })->get();
+        $works = collect([]);
+        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $keyword, $match);
+        foreach ($match[1] as $keyword) {
+            $work = Work::whereHas('tags', function ($query) use ($keyword) {
+                $query->where('tag', 'LIKE', "%{$keyword}%");
+                // $query->where('tag', 'LIKE', "%{$keyword}%");
+            })->get();
+            
+            $works = $works->concat($work);
+            // dd($collapsed->all());
+            // array_merge($works, $work);
+        };
+        
         
         
         // $works = Work::where('title', 'LIKE', "%{$keyword}%")
@@ -359,14 +369,25 @@ class WorksController extends Controller
         
         $codes = $work->codes()->get();
         $zip = new ZipArchive(); 
-        $zip->open(public_path().'/test2.zip', ZipArchive::CREATE);
+        $public_path = Storage::path('public/');
+        // dd($public_path);
+        // $zip->open(public_path().'/zips/test2.zip', ZipArchive::CREATE);
+        $zip->open($public_path.'zips/test2.zip', ZipArchive::CREATE);
+        
         foreach ($codes as $code) {
           $code_path = Storage::path('public/' . $code->file_path);
-            $zip->addFile($code, $code->file_name);
+        $code_info = pathinfo($code);
+		$code_name = $code_info['filename'].'.'.$code_info['extension'];
+        // $zip->addFile($code, $code_name);
+        $zip->addFile($public_path . $code->file_path, $code->file_name);
             // return response()->download($code_path, $code->file_name);
         };
+        // dd($zip);
         $zip->close();
-        return response()->download(public_path().'/test2.zip');
+        // dd('xx');
+        // dd($public_path);
+        // return response()->download(public_path().'/zips/test2.zip');
+        return response()->download($public_path.'zips/test2.zip');
         return redirect()->route('works.show', ['work' => $work->id]);
     }
 }
