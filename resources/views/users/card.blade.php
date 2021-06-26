@@ -1,10 +1,19 @@
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">{{ $user->name }}</h3>
-    </div>
-    <div class="card-body">
+<div class="card mb-2">
+    
+    <div class="card-body text-center border-0">
         {{-- ユーザのメールアドレスをもとにGravatarを取得して表示 --}}
-        <img class="rounded img-fluid" src="{{ Gravatar::get($user->email, ['size' => 500]) }}" alt="">
+        <!--<img class="rounded img-fluid" src="{{ Gravatar::get($user->email, ['size' => 500]) }}" alt="">-->
+        @if ($user->icon_file_path == null) 
+            <i class="fas fa-user-circle fa-9x align-middle my-3 mx-3 bg-p"></i>
+        @else 
+            <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 200px; height: 200px; border-radius: 100%;"/>
+    
+        @endif
+    </div>
+    <div class="card-header border-0 bg-white">
+        <h3 class="card-title text-center">
+            {!! link_to_route('users.show', $user->name, ['user' => $user->id]) !!}
+        </h3>
     </div>
 </div>
 {{-- フォロー／アンフォローボタン --}}

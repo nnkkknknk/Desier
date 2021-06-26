@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('css/allshowbtn.css') }}">
     </head>
     
-    <body id="body">
+    <body id="body" class='mb-5 pb-5'>
 
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')

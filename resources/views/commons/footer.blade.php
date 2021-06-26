@@ -1,3 +1,3 @@
 <footer>
-    <div class="bg-secondary text-center align-midle p-3 mt-5 fixed-bottom">©2021　サービス名</div>
+    <div class="bg-secondary text-center align-midle p-3 fixed-bottom">©2021　サービス名</div>
 </footer>

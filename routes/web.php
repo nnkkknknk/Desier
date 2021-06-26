@@ -31,6 +31,7 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::resource('works', 'WorksController');
+Route::resource('users', 'UsersController');
 Route::group(['prefix' => 'works/{id}'], function () {
     Route::get('download', 'WorksController@download')->name('work.download');
  });
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
         Route::get('post', 'UsersController@post')->name('users.post');
+        // Route::get('show', 'UsersController@show')->name('users.show');
         
         Route::get('favoritings', 'UsersController@favoritings')->name('users.favoritings');
     });
@@ -56,7 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create']]);
     Route::post('confirm', 'WorksController@confirm')->name('works.confirm');
     // Route::resource('works', 'TagsController', ['only' => ['store', 'destroy']]);
-    Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'edit', 'update']]);
+    Route::resource('users', 'UsersController', ['only' => ['index', 'edit', 'update']]);
     
     
 });

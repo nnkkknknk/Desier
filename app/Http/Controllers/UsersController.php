@@ -25,6 +25,7 @@ class UsersController extends Controller
     {
         
         $data = [];
+        
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
         
@@ -37,7 +38,7 @@ class UsersController extends Controller
         $favoritings = $user->favoritings;
         $icon = $user->icon_file_path;
         
-        $top_num = 3;
+        $top_num = 6;
         $num = count($works);
         $data = [
             'user' => $user,

@@ -33,6 +33,9 @@
                 {!! Form::submit('アカウント作成', ['class' => 'btn btn-primary btn-block
                 my-5']) !!}
             {!! Form::close() !!}
+            
+            <p class="mt-2">ログインされる方は {!! link_to_route('login', 'こちらへ') !!}</p>
+        </div>
         </div>
     </div>
 </div>

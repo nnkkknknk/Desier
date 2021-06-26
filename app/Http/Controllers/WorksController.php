@@ -33,9 +33,9 @@ class WorksController extends Controller
         
         if (\Auth::check()) {
             $user = \Auth::user();
-            $works = Work::orderBy('id', 'desc')->paginate(100);
+            $works = Work::orderBy('id', 'desc')->get();
             
-            $top_num = 9;
+            $top_num = 12;
             $num = count($works);
             
             $data = [
@@ -46,9 +46,9 @@ class WorksController extends Controller
             ];
         }
         else{
-            $works = Work::orderBy('id', 'desc')->paginate(100);
+            $works = Work::orderBy('id', 'desc')->get();
             
-            $top_num = 9;
+            $top_num = 12;
             $num = count($works);
             
             $data = [
@@ -279,7 +279,7 @@ class WorksController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             
-            $top_num = 9;
+            $top_num = 12;
             $num = count($works);
             
             $data = [
@@ -293,7 +293,7 @@ class WorksController extends Controller
         else{
     
             
-            $top_num = 9;
+            $top_num = 12;
             $num = count($works);
             
             $data = [

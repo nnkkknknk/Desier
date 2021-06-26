@@ -17,7 +17,7 @@
                  <i class="fas fa-search ml-3">
                 </i>
                     
-                    {!! Form::text('keyword', '作品を検索', ['class' => 'form-control border-0 '] ,['placeholder'=>"作品を検索"]) !!}
+                    {!! Form::text('keyword', '#作品を検索', ['class' => 'form-control border-0 '] ,['placeholder'=>"作品を検索"]) !!}
                 
             </div>
         {!! Form::close() !!}
@@ -25,7 +25,7 @@
             {{-- メッセージ作成ページへのリンク --}}
              {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-success']) !!}
 
-            
+        @if (Auth::check())           
             <div class="dropdown d-inline-block mr-5">
              @if (Auth::check())
                      @php
@@ -56,7 +56,7 @@
                             {!! link_to_route('users.show', Auth::user()->name, ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
                         </li>
                         <li class="dropdown-item">
-                           {!! link_to_route('users.followings', 'フォロー&フォロワー', ['id' => $user->id], ['class' => 'text-secondary']) !!}
+                           {!! link_to_route('users.followings', 'フォロー&フォロワー', ['id' => Auth::id()], ['class' => 'text-secondary']) !!}
                         </li>
                         <li class="dropdown-item">
                            {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
@@ -77,7 +77,7 @@
                     
                 </div>
             </div>
-            
+        @endif
        </div>
        
       
@@ -101,9 +101,9 @@
                     <!--</li>-->
                 @else
                     {{-- ユーザ登録ページへのリンク --}}
-                    <li class="nav-item">{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link text-dark']) !!}</li>
+                    <li class="nav-item">{!! link_to_route('signup.get', 'アカウント作成', [], ['class' => 'nav-link text-dark']) !!}</li>
                     {{-- ログインページへのリンク --}}
-                    <li class="nav-item">{!! link_to_route('login', 'Login', [], ['class' => 'nav-link']) !!}</li>
+                    <li class="nav-item">{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
                 @endif
             </ul>
         </div>

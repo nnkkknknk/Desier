@@ -43,21 +43,24 @@
         </div>
         
         <div class="col-3 d-flex align-items-center">
-            {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'mr-2 btn btn-secondary']) !!}
-            <!--<button class="mr-2 btn btn-secondary" type="submit">プロフィール編集</button>-->
+            @if (Auth::check())
+                @if (Auth::id() == $user->id)
+                    {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'mr-2 btn btn-secondary']) !!}
+                @else
+                @endif
+            @else
+            @endif
+        </div>
+        <div class="offset-2 col-9 mb-4">
+            {{$user->self_information}}
         </div>
     </div>
-    <div></div>
     
-    <p class="title" style="background-color: #72c272;">投稿一覧</p>
+    <p class="title" style="background-color: rgb(180, 240, 180);">投稿一覧</p>
     
     
     {{-- 投稿一覧 --}}
     @include('works.works')
-    
-    
-    
-    
     @include('favorite.favorite')
     <!--<div class="my-5 text-center">-->
     <!--    <button class="rounded-pill bg-dark text-white">すべてみる</button>-->
