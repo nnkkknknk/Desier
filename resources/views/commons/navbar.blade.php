@@ -1,6 +1,6 @@
 
 <header class="mb-4">
-    <nav class="navbar navbar-light bg-white border border-bottom">
+    <nav class="navbar navbar-light bg-white border border-bottom row">
         
         <div>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
@@ -23,7 +23,7 @@
         {!! Form::close() !!}
        <div class="float-right d-none d-sm-block mr-5">
             {{-- メッセージ作成ページへのリンク --}}
-             {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-primary']) !!}
+             {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-success']) !!}
 
             
             <div class="dropdown d-inline-block mr-5">

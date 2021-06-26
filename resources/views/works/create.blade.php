@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="{{ asset('js/img_view.js') }}"></script>
    <h1>
        投稿ページ
    </h1>
@@ -8,9 +9,15 @@
    <div class="row">
         <div class="col-12">
             
-            <!--include('upload.upload_image')-->
+            <!--include('works.confirm')-->
             
-            {!! Form::model($work, ['route' => 'works.store', 'files' => true]) !!}
+
+<!--<input type="file" onchange="OnFileSelect( this );" multiple />-->
+<!--<ul id="ID001">-->
+    <!--<img src='fileReader.result'>-->
+<!--</ul>-->
+
+            {!! Form::model($work, ['route' => 'works.confirm', 'files' => true]) !!}
 
                 <div class="form-group">
                     <p>{!! Form::label('upload_image[]', '画像') !!}</p>
@@ -29,6 +36,6 @@
             {!! Form::close() !!}
         </div>
     </div>
-   
+  
    
 @endsection

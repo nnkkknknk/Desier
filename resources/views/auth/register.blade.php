@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-center">
-        <h1>Sign up</h1>
+<div class="bg-white">
+    <div class="text-center mt-5 py-3">
+        <h1 class="text-primary">Original</h1>
     </div>
 
     <div class="row">
@@ -10,27 +11,29 @@
 
             {!! Form::open(['route' => 'signup.post']) !!}
                 <div class="form-group">
-                    {!! Form::label('name', 'Name') !!}
+                    {!! Form::label('name', '名前') !!}
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('email', 'Email') !!}
+                    {!! Form::label('email', 'メールアドレス') !!}
                     {!! Form::email('email', null, ['class' => 'form-control']) !!}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('password', 'Password') !!}
+                    {!! Form::label('password', 'パスワード') !!}
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('password_confirmation', 'Confirmation') !!}
+                    {!! Form::label('password_confirmation', 'パスワード確認') !!}
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('Sign up', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('アカウント作成', ['class' => 'btn btn-primary btn-block
+                my-5']) !!}
             {!! Form::close() !!}
         </div>
     </div>
+</div>
 @endsection

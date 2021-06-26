@@ -83,13 +83,56 @@ class WorksController extends Controller
             
         ]);
     }
+    
+    
+    
+     public function confirm(Request $request, User $user)
+    {
+        $request->validate([
+            'title' => 'required|max:20',
+            'description' => 'required|max:255',
+            'tag' => 'required|max:20',
+            'upload_image.*' => 'required|file|image|mimes:png,jpeg',
+            'code.*' => 'required|file|mimes:html,javascript,css'
+        ]);
+        
+        $title = $request->title;
+        $description = $request->description;
+        $tag = $request->tag;
+        
+        $public_path = Storage::path('public/');
+       $upload_images = $request->upload_image;
+    //   dd($upload_images);
+       $new_upload_images = [];
+         foreach ($upload_images as $upload_image) {
+            if($upload_image) {
+                $imageName = $upload_image->getClientOriginalName();
+                $extension = $upload_image->getClientOriginalExtension();
+                $newImageName = pathinfo($imageName, PATHINFO_FILENAME) . "_" . uniqid() . "." . $extension;
+                $upload_image->move($public_path . "/uploads/tmp", $newImageName);
+                
+                $new_upload_image = "storage/uploads/tmp/" . $newImageName;
+                // dd($new_upload_image);
+                array_push($new_upload_images, $new_upload_image);
+    		}
+         };
+        //  dd($new_upload_images);
+        
+        $user = \Auth::user();
+        
+        return view('works.confirm', [
+            'user' => $user,
+            'title' => $title,
+            'description' => $description,
+            'images' => $new_upload_images,
+            'newImageName' => $newImageName,
+        ]);
+        
+        //  return redirect()->route('users.show', ['user' => $user->id]);
+       
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request, User $user)
     {
          
@@ -105,7 +148,6 @@ class WorksController extends Controller
             'title' => $request->title,
             'description' => $request->description,
         ]);
-        
         
        $upload_images = $request->upload_image;
          foreach ($upload_images as $upload_image) {
@@ -370,6 +412,7 @@ class WorksController extends Controller
         $codes = $work->codes()->get();
         $zip = new ZipArchive(); 
         $public_path = Storage::path('public/');
+        dd($public_path);
         // dd($public_path);
         // $zip->open(public_path().'/zips/test2.zip', ZipArchive::CREATE);
         $zip->open($public_path.'zips/test2.zip', ZipArchive::CREATE);
@@ -388,6 +431,5 @@ class WorksController extends Controller
         // dd($public_path);
         // return response()->download(public_path().'/zips/test2.zip');
         return response()->download($public_path.'zips/test2.zip');
-        return redirect()->route('works.show', ['work' => $work->id]);
     }
 }

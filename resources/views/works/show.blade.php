@@ -12,7 +12,6 @@
                      $image_num = count($images);
                     @endphp
                     @foreach ($images as $image)
-            
                         <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>
                     @endforeach
                     
