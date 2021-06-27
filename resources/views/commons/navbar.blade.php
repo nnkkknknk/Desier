@@ -3,7 +3,7 @@
     <nav class="navbar navbar-light bg-white border border-bottom row">
         
         <div>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
+            <button type="button" class="navbar-toggler ml-2" data-toggle="collapse" data-target="#nav-bar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -25,58 +25,58 @@
             {{-- メッセージ作成ページへのリンク --}}
              {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-success']) !!}
 
-        @if (Auth::check())           
-            <div class="dropdown d-inline-block mr-5">
-             @if (Auth::check())
-                     @php
-                        $login_user = \Auth::user();
-                    @endphp
-                @if ($login_user->icon_file_path == null) 
-                    <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                        <i class="fas fa-user-circle fa-2x align-middle"></i>
+            @if (Auth::check())           
+                <div class="dropdown d-inline-block mr-5">
+                 @if (Auth::check())
+                         @php
+                            $login_user = \Auth::user();
+                        @endphp
+                    @if ($login_user->icon_file_path == null) 
+                        <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                            <i class="fas fa-user-circle fa-2x align-middle"></i>
+                        </a>
+                    @else 
+                        <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                            <img src="{{ Storage::url($login_user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
+                        </a>
+                    @endif
+                 @else
+                 <a href="{{ route('login', []) }}" class="{{ Request::routeIs('login') ? 'active' : '' }}">
+                            <i class="fas fa-user-circle fa-2x align-middle"></i>
                     </a>
-                @else 
-                    <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                        <img src="{{ Storage::url($login_user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
-                    </a>
-                @endif
-             @else
-             <a href="{{ route('login', []) }}" class="{{ Request::routeIs('login') ? 'active' : '' }}">
-                        <i class="fas fa-user-circle fa-2x align-middle"></i>
-                </a>
-
-             @endif
-                <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"></button>
-                <!-- 選択肢 -->
-                <div class="dropdown-menu">
-                    
-                    @if (Auth::check())
-                       {{-- ユーザ詳細ページへのリンク --}} 
-                        <li class="dropdown-item">
-                            {!! link_to_route('users.show', Auth::user()->name, ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
-                        </li>
-                        <li class="dropdown-item">
-                           {!! link_to_route('users.followings', 'フォロー&フォロワー', ['id' => Auth::id()], ['class' => 'text-secondary']) !!}
-                        </li>
-                        <li class="dropdown-item">
-                           {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
-                        </li>
-                        <li class="dropdown-divider"></li>
-                        {{-- ログアウトへのリンク --}}
-                        <li class="dropdown-item">{!! link_to_route('logout.get', 'ログアウト', '', ['class' => 'text-dark']) !!}</li>
+    
+                 @endif
+                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"></button>
+                    <!-- 選択肢 -->
+                    <div class="dropdown-menu">
                         
-                     @else
-                        {{-- ユーザ登録ページへのリンク --}}
-                        <li class="nav-item">{!! link_to_route('signup.get', 'アカウント作成', [], ['class' => 'nav-link text-dark']) !!}</li>
-                        {{-- ログインページへのリンク --}}
-                        <li class="nav-item">{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
-                     @endif
-                    
-                    <!--<div class="dropdown-divider"></div>-->
-                    <!--<a class="dropdown-item" href="#">削除</a>-->
-                    
+                        @if (Auth::check())
+                           {{-- ユーザ詳細ページへのリンク --}} 
+                            <li class="dropdown-item">
+                                {!! link_to_route('users.show', Auth::user()->name, ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
+                            </li>
+                            <li class="dropdown-item">
+                               {!! link_to_route('users.followings', 'フォロー&フォロワー', ['id' => Auth::id()], ['class' => 'text-secondary']) !!}
+                            </li>
+                            <li class="dropdown-item">
+                               {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'text-secondary']) !!}
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            {{-- ログアウトへのリンク --}}
+                            <li class="dropdown-item">{!! link_to_route('logout.get', 'ログアウト', '', ['class' => 'text-dark']) !!}</li>
+                            
+                         @else
+                            {{-- ユーザ登録ページへのリンク --}}
+                            <li class="nav-item">{!! link_to_route('signup.get', 'アカウント作成', [], ['class' => 'nav-link text-dark']) !!}</li>
+                            {{-- ログインページへのリンク --}}
+                            <li class="nav-item">{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
+                         @endif
+                        
+                        <!--<div class="dropdown-divider"></div>-->
+                        <!--<a class="dropdown-item" href="#">削除</a>-->
+                        
+                    </div>
                 </div>
-            </div>
         @endif
        </div>
        

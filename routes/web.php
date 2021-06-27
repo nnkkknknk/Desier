@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
     
     Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create']]);
-    Route::post('confirm', 'WorksController@confirm')->name('works.confirm');
+    // Route::post('confirm', 'WorksController@confirm')->name('works.confirm');
     // Route::resource('works', 'TagsController', ['only' => ['store', 'destroy']]);
     Route::resource('users', 'UsersController', ['only' => ['index', 'edit', 'update']]);
     

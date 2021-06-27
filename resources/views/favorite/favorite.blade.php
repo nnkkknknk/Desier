@@ -102,11 +102,11 @@
                 
                
                 <div class="text-center my-3">
-                    <button class="btn rounded-pill bg-dark text-white" type="button" data-toggle="collapse" data-target="#mypost" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn rounded-pill bg-dark text-white" type="button" data-toggle="collapse" data-target="#favorite" aria-expanded="false" aria-controls="collapseExample">
                         すべてみる
                     </button>
                 </div>
-                <div class="collapse" id="mypost">
+                <div class="collapse" id="favorite">
                   <div class="card-body row">
                      @for ($i = $top_num; $i < $num; $i++) 
                              @php

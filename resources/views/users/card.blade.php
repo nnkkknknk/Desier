@@ -4,9 +4,9 @@
         {{-- ユーザのメールアドレスをもとにGravatarを取得して表示 --}}
         <!--<img class="rounded img-fluid" src="{{ Gravatar::get($user->email, ['size' => 500]) }}" alt="">-->
         @if ($user->icon_file_path == null) 
-            <i class="fas fa-user-circle fa-9x align-middle my-3 mx-3 bg-p"></i>
+            <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
         @else 
-            <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 200px; height: 200px; border-radius: 100%;"/>
+            <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 100px; height: 100px; border-radius: 100%;"/>
     
         @endif
     </div>

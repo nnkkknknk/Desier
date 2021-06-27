@@ -10,17 +10,16 @@
             @if ($icon == null) 
                 <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
             @else 
-                <img src="{{ Storage::url($icon) }}" class="my-3 mx-3" style="width: 100px; height: 100px; border-radius: 100%;"/>
-        
+            <div  style="width: 100px; height: 100px;">
+                <img src="{{ Storage::url($icon) }}" class="my-3" style="width: 100%; height: 100%; border-radius: 100%;"/>
+            </div>
             @endif
         </div>
-        <!--@php-->
-        <!--    dd($user->followings_count);-->
-        <!--@endphp-->
-        <div class="col-7 d-flex align-items-center">
+        
+        <div class="col-5 d-flex align-items-center">
             <div>
-                <h3 class="ml-2">{{ $user->name }}</h3>
-                <div class="col-12">
+                <h3 class="offset-1 ml-4">{{ $user->name }}</h3>
+                <div class="offset-1 ml-3 col-12">
                     
                     @if ($user->followings_count == 0)
                         <a href="{{ route('users.followings', ['id' => $user->id]) }}" class="{{ Request::routeIs('users.followings') ? 'active' : '' }}">
@@ -42,16 +41,18 @@
             
         </div>
         
-        <div class="col-3 d-flex align-items-center">
+        <div class="col-5 d-flex align-items-center">
             @if (Auth::check())
                 @if (Auth::id() == $user->id)
                     {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'mr-2 btn btn-secondary']) !!}
                 @else
+                
+                    @include('user_follow.follow_button')
                 @endif
             @else
             @endif
         </div>
-        <div class="offset-2 col-9 mb-4">
+        <div class="offset-3 col-9 mb-4">
             {{$user->self_information}}
         </div>
     </div>

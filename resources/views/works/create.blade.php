@@ -2,11 +2,14 @@
 
 @section('content')
 <script src="{{ asset('js/img_view.js') }}"></script>
-   <h1>
-       投稿ページ
-   </h1>
+<div class="bg-white">
+    
+</div>
    
-   <div class="row">
+   <h3 class="offset-4 offset-lg-5 col-5 col-lg-3 shadow-sm py-3 my-5 rounded-pill text-center">
+    作品を投稿
+    </h3>
+   <div class="row bg-white py-3">
         <div class="col-12">
             
             <!--include('works.confirm')-->
@@ -17,21 +20,24 @@
     <!--<img src='fileReader.result'>-->
 <!--</ul>-->
 
-            {!! Form::model($work, ['route' => 'works.confirm', 'files' => true]) !!}
+            {!! Form::model($work, ['route' => 'works.store', 'files' => true]) !!}
 
                 <div class="form-group">
-                    <p>{!! Form::label('upload_image[]', '画像') !!}</p>
-                    <p>{!! Form::file('upload_image[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</p>
-                    <p>{!! Form::label('code[]', 'コードファイル') !!}</p>
-                    <p>{!! Form::file('code[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</p>
+                    <div>{!! Form::label('upload_image[]', '画像') !!}</div>
+                    <div class="mb-3">{!! Form::file('upload_image[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</div>
+                    <div>{!! Form::label('code[]', 'コードファイル') !!}</div>
+                    <div class="mb-3">{!! Form::file('code[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</div>
                     {!! Form::label('title', '作品名') !!}
-                    {!! Form::text('title', '無題', ['class' => 'form-control']) !!}
-                    {!! Form::label('description', '作者からの一言') !!}
-                    {!! Form::textarea('description', '作者からの一言', ['class' => 'form-control']) !!}
+                    {!! Form::text('title', '無題', ['class' => 'form-control mb-3']) !!}
+                    {!! Form::label('description', '作品説明') !!}
+                    {!! Form::textarea('description', '', ['class' => 'form-control mb-3']) !!}
                     {!! Form::label('tag', '#タグ') !!}
-                    {!! Form::text('tag', '#タグ', ['class' => 'form-control']) !!}
+                    {!! Form::text('tag', '#タグ', ['class' => 'form-control mb-3']) !!}
                 </div>
-                {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+                <div class="text-center">
+                    {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+                    
+                </div>
 
             {!! Form::close() !!}
         </div>

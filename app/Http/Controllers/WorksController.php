@@ -195,7 +195,6 @@ class WorksController extends Controller
                 'tag' => $tag
                 ]);
         };
-        
         $user = \Auth::user();
          return redirect()->route('users.show', ['user' => $user->id]);
        
@@ -401,6 +400,7 @@ class WorksController extends Controller
         
         // idの値でメッセージを検索して取得
         $work = Work::findOrFail($id);
+        // dd($work->title);
         
         // 関係するモデルの件数をロード
         $work->loadRelationshipCounts();
@@ -411,7 +411,7 @@ class WorksController extends Controller
         // dd($public_path);
         // dd($public_path);
         // $zip->open(public_path().'/zips/test2.zip', ZipArchive::CREATE);
-        $zip->open($public_path.'zips/test2.zip', ZipArchive::CREATE);
+        $zip->open($public_path.'zips/'.$work->title.'.zip', ZipArchive::CREATE);
         
         foreach ($codes as $code) {
           $code_path = Storage::path('public/' . $code->file_path);
@@ -426,6 +426,6 @@ class WorksController extends Controller
         // dd('xx');
         // dd($public_path);
         // return response()->download(public_path().'/zips/test2.zip');
-        return response()->download($public_path.'zips/test2.zip');
+        return response()->download($public_path.'zips/'.$work->title.'.zip');
     }
 }
