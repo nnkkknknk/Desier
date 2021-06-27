@@ -19,3 +19,7 @@
 #body {
     background-color: rgb(250, 245, 245);
 }
+
+.size_important {
+    width: 100px !important;
+}
