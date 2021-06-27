@@ -175,7 +175,7 @@
     
 @else
     <div class="row bg-white my-3 center-block" style="height: 200px;">
-      <h3 class="text-secondary offset-4 d-flex align-items-center">作品を追加しよう</h3>  
+      <h3 class="text-secondary offset-4 d-flex align-items-center">作品がありません</h3>  
     </div>
 @endif
     

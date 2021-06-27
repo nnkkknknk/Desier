@@ -4,7 +4,7 @@
 <div class="bg-white">
     
     <div class="text-center mt-5 py-3">
-        <h1 class="text-primary">Original</h1>
+        <h1 class="text-primary">Desier</h1>
     </div>
 
     <div class="row">

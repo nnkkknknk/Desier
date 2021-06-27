@@ -1,41 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<!--@php-->
-<!--dd($images);-->
-<!--@endphp-->
+    
     <div class="row">
-        <div class="col-8 bg-white">
-             <!--<div style="height: 500px; border: solid;">-->
-                @if(count($images) > 0)
-                    @php
-                     $image_num = count($images);
-                    @endphp
-                    @foreach ($images as $image)
-                        <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>
-                    @endforeach
-                    
-                @else
-                    <div>notag</div>
-                @endif
-
-             <div class="bg-dark">
-                 
-                @if(count($codes) > 0)
-                    @foreach ($codes as $code)
-                       <a>
-                           {{Storage::url($code->file_path)}}
-                       </a> 
-                        
-                    @endforeach
-                    
-                @else
-                    <div>notag</div>
-                @endif
-             </div>
-             
-        </div>
-        <div class="col-4">
+        <div class="col-12">
             <!--<h1>id = {{ $work->id }} のメッセージ詳細ページ</h1>-->
             <h2>{{ $work->title }}</h2>
             
@@ -79,5 +47,37 @@
         
     </div>
     
+    <div class="row">
+        <div class="col-12 bg-white">
+             <!--<div style="height: 500px; border: solid;">-->
+                @if(count($images) > 0)
+                    @php
+                     $image_num = count($images);
+                    @endphp
+                    @foreach ($images as $image)
+                        <img src="{{ Storage::url($image->file_path) }}" style="width:100%;"/>
+                    @endforeach
+                    
+                @else
+                    <div>notag</div>
+                @endif
+
+             <!--<div class="bg-dark">-->
+                 
+             <!--   @if(count($codes) > 0)-->
+             <!--       @foreach ($codes as $code)-->
+             <!--          <a>-->
+             <!--              {{Storage::url($code->file_path)}}-->
+             <!--          </a> -->
+                        
+             <!--       @endforeach-->
+                    
+             <!--   @else-->
+             <!--       <div>notag</div>-->
+             <!--   @endif-->
+             <!--</div>-->
+             
+        </div>
+    </div>
 
 @endsection

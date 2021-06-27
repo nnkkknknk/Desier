@@ -10,7 +10,7 @@
             @if ($icon == null) 
                 <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
             @else 
-                <img src="{{ Storage::url($icon) }}" style="width: 100px; height: 100px; border-radius: 100%;"/>
+                <img src="{{ Storage::url($icon) }}" class="my-3 mx-3" style="width: 100px; height: 100px; border-radius: 100%;"/>
         
             @endif
         </div>

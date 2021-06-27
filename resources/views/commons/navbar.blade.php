@@ -9,7 +9,7 @@
             
             {{-- トップページへのリンク --}}
             <!--<a class="navbar-brand text-primary text-left " href="/">Original</a>-->
-             {!! link_to_route('top', 'Original', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
+             {!! link_to_route('top', 'Desier', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
         </div>
         {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary']) !!}
             <div class="d-flex align-items-center rounded-pill shadow-sm pr-4" >
@@ -17,7 +17,7 @@
                  <i class="fas fa-search ml-3">
                 </i>
                     
-                    {!! Form::text('keyword', '#作品を検索', ['class' => 'form-control border-0 '] ,['placeholder'=>"作品を検索"]) !!}
+                    {!! Form::text('keyword', '作品を検索', ['class' => 'form-control border-0 '] ,['placeholder'=>"作品を検索"]) !!}
                 
             </div>
         {!! Form::close() !!}

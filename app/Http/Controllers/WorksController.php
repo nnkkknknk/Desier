@@ -246,12 +246,10 @@ class WorksController extends Controller
 
     public function search(Request $request)
     {   
-        
-        
-        $keyword = $request->keyword;
+        $keywords = $request->keyword;
         $query = Work::query();
         $works = collect([]);
-        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $keyword, $match);
+        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $keywords, $match);
         foreach ($match[1] as $keyword) {
             $work = Work::whereHas('tags', function ($query) use ($keyword) {
                 $query->where('tag', 'LIKE', "%{$keyword}%");
@@ -262,8 +260,6 @@ class WorksController extends Controller
             // dd($collapsed->all());
             // array_merge($works, $work);
         };
-        
-        
         
         // $works = Work::where('title', 'LIKE', "%{$keyword}%")
         //     ->whereHas('tags', function ($query) use ($keyword) {
@@ -287,7 +283,7 @@ class WorksController extends Controller
                 'top_num' => $top_num,
                 'num' => $num,
                 'works' => $works,
-                'keyword' => $keyword,
+                'keywords' => $match[1],
             ];
         }
         else{
@@ -300,7 +296,7 @@ class WorksController extends Controller
                 'top_num' => $top_num,
                 'num' => $num,
                 'works' => $works,
-                'keyword' => $keyword,
+                'keywords' => $match[1],
             ];
         }
 
@@ -412,7 +408,7 @@ class WorksController extends Controller
         $codes = $work->codes()->get();
         $zip = new ZipArchive(); 
         $public_path = Storage::path('public/');
-        dd($public_path);
+        // dd($public_path);
         // dd($public_path);
         // $zip->open(public_path().'/zips/test2.zip', ZipArchive::CREATE);
         $zip->open($public_path.'zips/test2.zip', ZipArchive::CREATE);
