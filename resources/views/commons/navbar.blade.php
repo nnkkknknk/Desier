@@ -3,7 +3,7 @@
     <nav class="navbar navbar-light bg-white border border-bottom row">
         
         <div>
-            <button type="button" class="navbar-toggler ml-2" data-toggle="collapse" data-target="#nav-bar">
+            <button type="button" class="navbar-toggler ml-5" data-toggle="collapse" data-target="#nav-bar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             

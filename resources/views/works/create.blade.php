@@ -30,7 +30,7 @@
                     {!! Form::label('title', '作品名') !!}
                     {!! Form::text('title', '無題', ['class' => 'form-control mb-3']) !!}
                     {!! Form::label('description', '作品説明') !!}
-                    {!! Form::textarea('description', '', ['class' => 'form-control mb-3']) !!}
+                    {!! Form::textarea('description', '作品説明', ['class' => 'form-control mb-3']) !!}
                     {!! Form::label('tag', '#タグ') !!}
                     {!! Form::text('tag', '#タグ', ['class' => 'form-control mb-3']) !!}
                 </div>

@@ -1,5 +1,5 @@
 @if (count($works) > 0)
-   
+   <!-- $works->links() -->
     @if(count($works) <= $top_num)
         <div class="row">
             
@@ -14,6 +14,7 @@
                  
                  
                         <div class="col-5 col-lg-3 offset-1 bg-white my-5">
+                            
                            <div class="my-3" style="height: 300px;">
                                  <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
@@ -158,6 +159,7 @@
           </div>
         </div>
                    
+        
         <!--</div>-->
             
         

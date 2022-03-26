@@ -42,7 +42,14 @@ return [
     */
 
     'disks' => [
-
+        //追加
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => '1a4e89fa9b9e4efa946411789c9d6a04.vfs.cloud9.ap-northeast-1.amazonaws.com',
+            'username' => 'bbttbtbt000@gmail.com',
+            'password' => 'Bit0196210',
+        ],
+        //
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

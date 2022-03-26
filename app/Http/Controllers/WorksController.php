@@ -34,6 +34,7 @@ class WorksController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $works = Work::orderBy('id', 'desc')->get();
+            // $works = Work::orderBy('id', 'desc')->paginate(14);
             
             $top_num = 12;
             $num = count($works);
@@ -141,7 +142,7 @@ class WorksController extends Controller
             'description' => 'required|max:255',
             'tag' => 'required|max:20',
             'upload_image.*' => 'required|file|image|mimes:png,jpeg',
-            'code.*' => 'required|file|mimes:html,javascript,css'
+            'code.*' => 'required|file|mimes:html,js,txt'
         ]);
         
         $work = $request->user()->works()->create([
@@ -149,12 +150,80 @@ class WorksController extends Controller
             'description' => $request->description,
         ]);
         
+        
+        
+         $codes = $request->code;
+         
+         foreach ($codes as $code) {
+             
+            if($code) {
+                $file_name = $code->getClientOriginalName();
+    			//アップロードされ保存する
+    			$path_code_tmp = $code->storeAs('/public/codes_tmp',$file_name);
+            }
+         }
+        
+        
+        
+        // $work_title = $request->title;
+        // $work_creater = $request->user()->name;
+        // dd($work_creater);
+        
+        //コードファイルのzip化
+        $files = glob('/home/ubuntu/environment/original/storage/app/public/codes_tmp/*'); //(1)
+        
+        $zip = new ZipArchive();
+        $zip_name = md5(uniqid(rand(), true));
+        $zip_name .= '.zip';
+        $zip_path = "/home/ubuntu/environment/original/storage/app/public/zips/$zip_name";
+        $zip->open("/home/ubuntu/environment/original/storage/app/public/zips/$zip_name", ZipArchive::CREATE);
+        
+        foreach($files as $file){
+
+    		$file_info = pathinfo($file);
+    		
+    		$file_name = $file_info['filename'].'.'.$file_info['extension'];
+    
+    		$zip->addFile($file, $file_name); //(4)
+
+	}
+
+    	$zip->close();
+    
+    	if($zip) {
+    	    Storage::disk('public')->deleteDirectory('/codes_tmp');
+    	}
+    	   // dd($exist);
+        // return response()->download('/home/ubuntu/environment/original/storage/app/public/test2.zip');
+        if($zip){
+    				Uploadcode::create([
+    				    'work_id' => $work->id,
+    					"file_name" => $request->title,
+    					"file_path" => $zip_path,
+    				]);
+    			}
+        
+        
+        
+                
+                // // ファイルの存在確認関数
+                // if (\File::exists($public_all_path)) {
+                //     echo "存在します";
+                // } else {
+                //     echo "$filepath は存在しません";
+                // }
+               // return response()->download($public_path.'/zips/test2.zip');
+    			
+    			
+        
+    
        $upload_images = $request->upload_image;
          foreach ($upload_images as $upload_image) {
             if($upload_image) {
-                // dd($upload_image);
     			//アップロードされた画像を保存する
     			$path = $upload_image->store('uploads','public');
+    // 			dd($path);
+    // 			dd($upload_image->getClientOriginalName());
     			//画像の保存に成功したらDBに記録する
     			if($path){
     				UploadImage::create([
@@ -166,28 +235,11 @@ class WorksController extends Controller
     		}
          };
          
-          $codes = $request->code;
-        // dd($request->file('upload_image'));
-
-         foreach ($codes as $code) {
-            if($code) {
-    			//アップロードされ保存する
-    			$path = $code->store('uploads',"public");
-    			//画像の保存に成功したらDBに記録する
-    			if($path){
-    				Uploadcode::create([
-    				    'work_id' => $work->id,
-    					"file_name" => $code->getClientOriginalName(),
-    					"file_path" => $path
-    				]);
-    			}
-    		}
-         };
+         
          
         
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
         preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tag, $match);
-        // dd($tag);
         $tags = [];
         foreach ($match[1] as $tag) {
             Tag::firstOrCreate([
@@ -218,8 +270,8 @@ class WorksController extends Controller
         // 関係するモデルの件数をロード
         $work->loadRelationshipCounts();
         $tags = $work->tags()->get();
-        // $upload_images = $work->upload_images()->get();
         $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
+        // dd($upload_images);
         $image_num = count($upload_images);
         $codes = $work->codes()->get();
         
@@ -252,23 +304,37 @@ class WorksController extends Controller
         foreach ($match[1] as $keyword) {
             $work = Work::whereHas('tags', function ($query) use ($keyword) {
                 $query->where('tag', 'LIKE', "%{$keyword}%");
-                // $query->where('tag', 'LIKE', "%{$keyword}%");
             })->get();
-            
             $works = $works->concat($work);
-            // dd($collapsed->all());
-            // array_merge($works, $work);
+            // dd($works);
         };
         
-        // $works = Work::where('title', 'LIKE', "%{$keyword}%")
-        //     ->whereHas('tags', function ($query) use ($keyword) {
-        //     $query->where('tag', 'LIKE', "%{$keyword}%");
-        //     // $query->where('tag', 'LIKE', "%{$keyword}%");
-        // })
-        // ->get();
         // dd($works);
-        // return view("articles.index", ["articles" => $articles, "keyword" => $keyword]);
         
+            //各workidの抽出
+            $work_num = count($works);
+            $works_id = [];
+            
+            //worksを加工して、ダブっているものを削除する
+            
+            for($i = 0; $i < $work_num; $i++) {
+                
+                $work_ori = $works[$i];
+                $work_id = $work_ori->id;
+                
+                
+                if(in_array($work_id, $works_id)) {
+                    unset($works[$i]);
+                    
+                } else{
+                    array_push($works_id,$work_id);
+                }
+                
+            }
+            
+        
+        
+        //データの送信
         $data = [];
         
         if (\Auth::check()) {
@@ -341,10 +407,59 @@ class WorksController extends Controller
         $works = $user->works;
         // idの値で投稿を検索して取得
         $work = \App\Work::findOrFail($id);
-
+       
         // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
         if (\Auth::id() === $work->user_id) {
+            
+            
+            // 関係するモデルの件数をロード
+            $work->loadRelationshipCounts();
+            
+            
+            //codeファイルの取得
+            $codes = $work->codes()->get();
+            //codeパスの取り出し
+            $code_collection = $codes->first();
+            $code_info = collect($code_collection);
+            $code_path = '';
+            
+            foreach($code_info as $key => $value) {
+                if($key == 'file_path') {
+                    $code_path = $value;
+                }
+            }
+           
+            $code_filename = basename($code_path);
+            
+            //画像の取得
+            $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
+            // dd(count($upload_images));
+            $image_num = count($upload_images);
+            
+            $image_paths = [];
+            
+            for($i = 0; $i < $image_num; $i++) {
+                // $i += 1;
+                $image_info = collect($upload_images[$i]);
+                // dd($image_info);
+                
+                foreach($image_info as $key => $value) {
+                  if($key == 'file_path') {
+                    array_push($image_paths, $value);
+                  }
+                }
+            }
+            
+            // 削除
+            foreach($image_paths as $image_path) {
+               Storage::disk('public')->delete($image_path);
+            }
+            Storage::disk('public')->delete('/zips/' . $code_filename);
+            
+            
             $work->delete();
+            
+            
         }
         
         
@@ -397,35 +512,31 @@ class WorksController extends Controller
 
     public function download($id)
     {
-        
+         
         // idの値でメッセージを検索して取得
         $work = Work::findOrFail($id);
-        // dd($work->title);
         
         // 関係するモデルの件数をロード
         $work->loadRelationshipCounts();
         
         $codes = $work->codes()->get();
-        $zip = new ZipArchive(); 
-        $public_path = Storage::path('public/');
-        // dd($public_path);
-        // dd($public_path);
-        // $zip->open(public_path().'/zips/test2.zip', ZipArchive::CREATE);
-        $zip->open($public_path.'zips/'.$work->title.'.zip', ZipArchive::CREATE);
         
-        foreach ($codes as $code) {
-          $code_path = Storage::path('public/' . $code->file_path);
-        $code_info = pathinfo($code);
-		$code_name = $code_info['filename'].'.'.$code_info['extension'];
-        // $zip->addFile($code, $code_name);
-        $zip->addFile($public_path . $code->file_path, $code->file_name);
-            // return response()->download($code_path, $code->file_name);
-        };
-        // dd($zip);
-        $zip->close();
-        // dd('xx');
-        // dd($public_path);
-        // return response()->download(public_path().'/zips/test2.zip');
-        return response()->download($public_path.'zips/'.$work->title.'.zip');
+        //codeパスの取り出し
+        $code_collection = $codes->first();
+        $code_info = collect($code_collection);
+        $code_path = '';
+        
+        foreach($code_info as $key => $value) {
+            if($key == 'file_path') {
+                $code_path = $value;
+            }
+        }
+       
+        $code_filename = basename($code_path);
+        
+        $work_name = $work->title . '.zip';
+        return Storage::disk('public')->download('/zips/' . $code_filename, $work_name);
+        //ファイルの名前に「/」が入っていると、使用できなくなるのでヴァリデーションが必要
+        // dd($code_path);
     }
 }

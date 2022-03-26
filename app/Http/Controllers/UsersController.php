@@ -9,17 +9,6 @@ use App\User; // 追加
 
 class UsersController extends Controller
 {
-    //indexは必要ないので割愛
-    // public function index()
-    // {
-    //     // ユーザ一覧をidの降順で取得
-    //     $users = User::orderBy('id', 'desc')->paginate(10);
-
-    //     // ユーザ一覧ビューでそれを表示
-    //     return view('users.index', [
-    //         'users' => $users,
-    //     ]);
-    // }
     
     public function show($id)
     {
@@ -74,14 +63,74 @@ class UsersController extends Controller
         $self_information = $request->self_information;
         if($self_information) {
              $request->validate([
-                'self_information' => 'required|max:255',
-                // 'upload_image' => 'required|file|image|mimes:png,jpeg'
+                // 'self_information' => 'required|max:255',
+                'self_information' => 'max:255',
             ]);
             
         }
         
-        $user->name = $request->name;
-        $user->self_information = $request->self_information;
+        
+        $gender = $request->gender;
+        if($gender) {
+             $request->validate([
+                'gender' => 'integer | between:0,2'
+            ]);
+            
+        }
+        
+        $year = $request->year;
+        if($year) {
+             $request->validate([
+                'year' => 'integer | between:1922,2022'
+            ]);
+            
+        }
+        $month = $request->month;
+        if($month) {
+             $request->validate([
+                'month' => 'integer | between:1,12'
+            ]);
+            
+        }
+        $day = $request->day;
+        if($day) {
+             $request->validate([
+                'day' => 'integer | between:1,31'
+            ]);
+            
+        }
+        
+        
+        
+        
+        $Twitter = $request->Twitter;
+        if($Twitter) {
+             $request->validate([
+                'Twitter' => 'max:30',
+            ]);
+            
+        }
+        
+        $Instagram = $request->Instagram;
+        if($Instagram) {
+             $request->validate([
+                'Instagram' => 'max:30',
+            ]);
+            
+        }
+        
+        $Facebook = $request->Facebook;
+        if($Facebook) {
+             $request->validate([
+                'Facebook' => 'max:30',
+            ]);
+            
+        }
+        
+        
+        
+        
+        
        
         $icon = $request->icon;
     
@@ -97,6 +146,18 @@ class UsersController extends Controller
 			}
 		}
 		
+		
+		
+		
+		$user->name = $request->name;
+        $user->self_information = $request->self_information;
+        $user->gender = $request->gender;
+        $user->year = $request->year;
+        $user->month = $request->month;
+        $user->day = $request->day;
+        $user->Twitter = $request->Twitter;
+        $user->Instagram = $request->Instagram;
+        $user->Facebook = $request->Facebook;
 		$user->save();
        
         return redirect()->route('users.show', ['user' => $user->id]);
