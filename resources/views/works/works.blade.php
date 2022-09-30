@@ -1,5 +1,4 @@
 @if (count($works) > 0)
-   <!-- $works->links() -->
     @if(count($works) <= $top_num)
         <div class="row">
             
@@ -114,7 +113,7 @@
             </button>
         </div>
         <div class="collapse" id="mypost">
-          <div class="card-body row">
+          <div class="row">
              @for ($i = $top_num; $i < $num; $i++) 
                      @php
                        $work = $works->get($i);
@@ -123,7 +122,7 @@
                        $thumbnail = $work->upload_images()->orderBy('id', 'asc')->first();
                        $thumbnail_path = $thumbnail ? $thumbnail->file_path : ''
                      @endphp
-                        <div class="col-5 col-lg-3 offset-1 bg-white my-5 pt-">
+                        <div class="col-5 col-lg-3 offset-1 bg-white my-5">
                            <div class="my-3" style="height: 300px;">
                                  <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>

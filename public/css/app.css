@@ -17,10 +17,11 @@
 }
 
 #body {
-    background-color: rgb(250, 245, 245);
+    background-color: rgb(250, 170, 170);
+    
     min-height: 100vh;
     position: relative;/*←相対位置*/
-    padding-bottom: 120px;/*←footerの高さ*/
+    padding-bottom: 100px;/*←footerの高さ*/
     box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
 }
 
@@ -32,7 +33,7 @@ footer {
     padding: 30px 0;
 
  position: absolute;/*←絶対位置*/
-    bottom: 0; /*下に固定*/
+    bottom: -10; /*下に固定*/
 }
 
 .container {

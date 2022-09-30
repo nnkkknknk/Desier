@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Work; // 追加
 use App\User; // 追加
 use App\Tag;
+use App\Comment;
 use App\UploadImage;
 use App\Uploadcode;
 use Illuminate\Support\Facades\Storage;
@@ -81,7 +82,6 @@ class WorksController extends Controller
         return view('works.create', [
             'work' => $work,
             'user' => $user,
-            
         ]);
     }
     
@@ -271,15 +271,15 @@ class WorksController extends Controller
         $work->loadRelationshipCounts();
         $tags = $work->tags()->get();
         $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
-        // dd($upload_images);
         $image_num = count($upload_images);
         $codes = $work->codes()->get();
         
         $user_id = $work->user_id;
         $user = User::findOrFail($user_id);
-        
-        
-        // メッセージ詳細ビューでそれを表示
+        $comments = $work->comment()->get();
+        // $comments->loadRelationshipCounts();
+        // dd($comment);
+        // 作品詳細ビューでそれを表示
         return view('works.show', [
             'work' => $work,
             'user' => $user,
@@ -287,13 +287,11 @@ class WorksController extends Controller
             'images' => $upload_images,
             'image_num' => $image_num,
             'codes' => $codes,
+            'comment' => $comments,
         ]);
     }
     
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Article::class, "article");
-    // }
+    
 
     public function search(Request $request)
     {   

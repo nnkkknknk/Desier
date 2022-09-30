@@ -6,7 +6,6 @@
          $creater_icon = $creater->icon_file_path;
     @endphp
     <div class="row py-3 bg-white mb-5">
-        <!--<h1>id = {{ $work->id }} のメッセージ詳細ページ</h1>-->
         <h2 class="col-12">{{ $work->title }}</h2>
         
         <div class="col-12 my-3" style="display:inline-flex">
@@ -61,7 +60,7 @@
        </div>
     </div>
     
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-12 bg-white py-3">
              <!--<div style="height: 500px; border: solid;">-->
                 @if(count($images) > 0)
@@ -108,22 +107,53 @@
                     <div>notag</div>
                 @endif
 
-             <!--<div class="bg-dark">-->
-                 
-             <!--   @if(count($codes) > 0)-->
-             <!--       @foreach ($codes as $code)-->
-             <!--          <a>-->
-             <!--              {{Storage::url($code->file_path)}}-->
-             <!--          </a> -->
-                        
-             <!--       @endforeach-->
-                    
-             <!--   @else-->
-             <!--       <div>notag</div>-->
-             <!--   @endif-->
-             <!--</div>-->
+             
+             
+             
              
         </div>
     </div>
+    
+    
+    <div class="bg-white row py-5 align-items-center justify-content-center">
+            <div class="col-12>
+                {!! Form::model($comment, ['route' => ['comments.store', $work->id], 'method' => 'post']) !!}
+            </div>
+            <div class="col-2 text-right">
+                @if (Auth::check())
+                         @php
+                            $login_user = \Auth::user();
+                        @endphp
+                    @if ($login_user->icon_file_path == null) 
+                        <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                            <i class="fas fa-user-circle fa-3x align-middle"></i>
+                        </a>
+                    @else 
+                        <a href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                            <img src="{{ Storage::url($login_user->icon_file_path) }}" style="width: 50px; height: 50px; border-radius: 100%;"/>
+                        </a>
+                    @endif
+                 @else
+                     <a href="{{ route('login', []) }}" class="{{ Request::routeIs('login') ? 'active' : '' }}">
+                            <i class="fas fa-user-circle fa-2x align-middle"></i>
+                    </a>
+    
+                 @endif
+            </div>
+            
+            
+            
+            
+            <!--<div class="col-12">{!! Form::label('content', 'コメント') !!}</div>-->
+            <div class="col-8">{!! Form::textarea('content', null, ['class' => 'form-control','placeholder' => 'コメントを追加','rows' => '2']) !!}</div>
+            {!! Form::hidden('work_id', $work->id) !!}
+            <div class="text-left col-2 mt-3">{!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}</div>
+            {!! Form::close() !!}
+        
+        
+    </div>
+     @include('works.comment_list')
+    
+    
 
 @endsection

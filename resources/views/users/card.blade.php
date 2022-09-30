@@ -7,7 +7,6 @@
             <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
         @else 
             <img src="{{ Storage::url($user->icon_file_path) }}" style="width: 100px; height: 100px; border-radius: 100%;"/>
-    
         @endif
     </div>
     <div class="card-header border-0 bg-white">

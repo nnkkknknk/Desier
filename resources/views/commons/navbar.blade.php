@@ -17,7 +17,7 @@
                  <i class="fas fa-search ml-3">
                 </i>
                     
-                    {!! Form::text('keyword', '作品を検索', ['class' => 'form-control border-0 '] ,['placeholder'=>"作品を検索"]) !!}
+                    {!! Form::text('keyword', null, ['class' => 'form-control border-0','placeholder'=>"作品を検索"]) !!}
                 
             </div>
         {!! Form::close() !!}

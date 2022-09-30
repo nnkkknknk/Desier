@@ -209,7 +209,7 @@
                     
                     
                     <div class="mt-5">{!! Form::label('self_information', '自己紹介') !!}</div>
-                    <div class="mb-3">{!! Form::textarea('self_information', $user->self_information, ['class' => 'form-control']) !!}</div>
+                    
                     <div>{!! Form::label('icon', 'アイコン画像') !!}</div>
                     <div class="mb-3">{!! Form::file('icon', ['class'=>'form-controll']) !!}</div>
                 </div>

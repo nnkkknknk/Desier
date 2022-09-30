@@ -11,9 +11,8 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     
-    <!--<body id="body" class='mb-5 pb-5'>-->
-    <body id="body" class=''>
-        
+    <body id="body" class='mb-5 pb-5'>
+   
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')
 

@@ -53,6 +53,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'works/{id}'], function () {
         Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
         Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
+        
+        // 第１引数にURLを記載して、第２引数に行う処理を書きます。nameは、viewなどで呼び出すときに使うもの。
+        Route::post('comment', 'CommentController@store')->name('comments.store');
+        Route::delete('uncomment', 'FavoritesController@destroy')->name('comments.delete');
     });
     
     Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create']]);
