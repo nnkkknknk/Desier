@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        'admin' => [   // ここ追加
+            'driver' => 'session',
+            'provider' => 'admin_users', // providerに追加した名前
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -75,6 +80,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'admin_users' => [ // ここ追加
+            'driver' => 'eloquent',
+            'model' => App\AdminUser::class, //make:modelしたクラス名
+        ],
     ],
 
     /*

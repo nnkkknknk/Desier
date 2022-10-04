@@ -25,6 +25,10 @@ Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+Route::get('adminlogin', 'Auth\LoginController@showadminLoginForm')->name('adminlogin');
+Route::post('adminlogin', 'Auth\LoginController@adminLogin')->name('adminlogin.post');
+//Route::post('adminlogin', [\App\Http\Controllers\Auth\LoginController::class, 'adminLogin'])->name('admin.login');
+
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
