@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+
 class LoginController extends Controller
 {
     /*
@@ -37,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('adminLogout');
     }
     
     public function showadminLoginForm() {
@@ -63,7 +64,8 @@ class LoginController extends Controller
             if ($request->user('admin')->admin_level > 0) { // 管理権限レベルが0でないか
                 $request->session()->regenerate(); // セッション更新
 
-                return redirect()->intended('admin/dashboard'); // ダッシュボードへ
+                //return redirect()->intended('admin/dashboard'); // ダッシュボードへ
+                return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
             } else {
                 Auth::guard('admin')->logout(); // if文でログインしてしまっているので、ログアウトさせる
 
@@ -79,4 +81,18 @@ class LoginController extends Controller
             'error' => 'The provided credentials do not match our records.',
         ]);
     }
+    
+    
+    public function adminLogout(Request $request)
+    {
+        Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('adminlogin');
+    }
+    
+    
 }
