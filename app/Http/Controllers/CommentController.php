@@ -14,7 +14,7 @@ class CommentController extends Controller
        $request->validate([
             'content' => 'required|max:255',
         ]);
-        dd('work');
+        //dd('work');
        $comment = new Comment();
        $comment->content = $request->content;
        $comment->work_id = $request->work_id;

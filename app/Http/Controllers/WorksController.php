@@ -239,7 +239,7 @@ class WorksController extends Controller
          
         
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
-        preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tag, $match);
+        preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ一-龠]+)/u', $request->tag, $match);
         $tags = [];
         foreach ($match[1] as $tag) {
             Tag::firstOrCreate([
@@ -298,7 +298,7 @@ class WorksController extends Controller
         $keywords = $request->keyword;
         $query = Work::query();
         $works = collect([]);
-        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $keywords, $match);
+        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヶ一-龠]+)/u', $keywords, $match);
         foreach ($match[1] as $keyword) {
             $work = Work::whereHas('tags', function ($query) use ($keyword) {
                 $query->where('tag', 'LIKE', "%{$keyword}%");

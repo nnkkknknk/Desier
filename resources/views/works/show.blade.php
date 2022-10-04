@@ -9,7 +9,7 @@
         <h2 class="col-12">{{ $work->title }}</h2>
         
         <div class="col-12 my-3" style="display:inline-flex">
-            {!! link_to_route('work.download', 'ダウンロード', ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-3 col-lg-2']) !!}
+            {!! link_to_route('work.download', 'ファイルをダウンロード', ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-3 col-lg-2']) !!}
              @include('favorite.favorite_button')
         </div>
      
@@ -116,9 +116,7 @@
     
     
     <div class="bg-white row py-5 align-items-center justify-content-center">
-            <div class="col-12>
-                {!! Form::model($comment, ['route' => ['comments.store', $work->id], 'method' => 'post']) !!}
-            </div>
+            
             <div class="col-2 text-right">
                 @if (Auth::check())
                          @php
@@ -141,11 +139,10 @@
                  @endif
             </div>
             
+            {!!Form::model($comment, ['method'=>'post', 'route'=>['comments.store', $work->id], 'class'=>'col-10 row' ]) !!}
             
             
-            
-            <!--<div class="col-12">{!! Form::label('content', 'コメント') !!}</div>-->
-            <div class="col-8">{!! Form::textarea('content', null, ['class' => 'form-control','placeholder' => 'コメントを追加','rows' => '2']) !!}</div>
+            <div class="col-10">{!! Form::textarea('content', null, ['class' => 'form-control','placeholder' => 'コメントを追加','rows' => '2']) !!}</div>
             {!! Form::hidden('work_id', $work->id) !!}
             <div class="text-left col-2 mt-3">{!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}</div>
             {!! Form::close() !!}

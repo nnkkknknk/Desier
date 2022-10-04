@@ -33,7 +33,7 @@ footer {
     padding: 30px 0;
 
  position: absolute;/*←絶対位置*/
-    bottom: -10; /*下に固定*/
+    bottom: -20; /*下に固定*/
 }
 
 .container {
