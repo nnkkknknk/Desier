@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
     @php
          $creater = $work->user;
          $creater_icon = $creater->icon_file_path;
+         
     @endphp
+    
     <div class="row py-3 bg-white mb-5">
         <h2 class="col-12">{{ $work->title }}</h2>
         

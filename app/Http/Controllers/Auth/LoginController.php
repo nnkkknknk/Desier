@@ -88,18 +88,37 @@ class LoginController extends Controller
     
     public function adminLogout(Request $request)
     {
-        Auth::guard('admin')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('adminlogin');
+        if(Auth::guard('admin')->user() != null){
+            Auth::guard('admin')->logout();
+    
+            $request->session()->invalidate();
+    
+            $request->session()->regenerateToken();
+    
+            return redirect('adminlogin');
+        }else {
+            return\App::abort(404);
+        }
+        
+        
+        
     }
     
     public function admindashboard(Request $request)
     {
-        return view('auth.adminDashboard');
+        // dd(Auth::guard('admin')->user());
+        if(Auth::guard('admin')->user() == null){
+            return\App::abort(404);
+        }
+        else {
+            if (Auth::guard('admin')->user()->admin_level == 1) {
+                    return view('auth.adminDashboard');
+                } 
+            else 
+                {
+                return\App::abort(404);
+            }
+        }
     }
     
     

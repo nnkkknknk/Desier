@@ -35,6 +35,9 @@ Route::post('adminlogin', 'Auth\LoginController@adminLogin')->name('adminlogin.p
 Route::get('/admin/logout', 'Auth\LoginController@adminLogout')->name('admin.logout');
 Route::get('/admin/dashboard','Auth\LoginController@admindashboard')->name('admindashboard');
 
+Route::group(['prefix' => 'works/{id}'], function () {
+    Route::delete('admindelete', 'WorksController@admindestroy')->name('work.admindelete');
+});
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
@@ -69,7 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('uncomment', 'FavoritesController@destroy')->name('comments.delete');
     });
     
-    Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create']]);
+    Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create',]]);
     // Route::post('confirm', 'WorksController@confirm')->name('works.confirm');
     // Route::resource('works', 'TagsController', ['only' => ['store', 'destroy']]);
     Route::resource('users', 'UsersController', ['only' => ['index', 'edit', 'update']]);

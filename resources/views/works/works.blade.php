@@ -1,7 +1,7 @@
+
 @if (count($works) > 0)
     @if(count($works) <= $top_num)
         <div class="row">
-            
             @for ($i = 0; $i < $num; $i++) 
                  @php
                    $work = $works->get($i);
@@ -9,6 +9,7 @@
                    $creater_icon = $creater->icon_file_path;
                    $thumbnail = $work->upload_images()->orderBy('id', 'asc')->first();
                    $thumbnail_path = $thumbnail ? $thumbnail->file_path : '';
+                   
                  @endphp
                  
                  
@@ -43,7 +44,7 @@
                                     <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
                                 </div>
                                 <!--<div>-->
-                                <!--    @if (Auth::id() == $work->user_id)-->
+                                <!--    @if (Auth::id() == $work->user_id )-->
                                 <!--        {{-- 投稿削除ボタンのフォーム --}}-->
                                 <!--        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}-->
                                 <!--            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}-->

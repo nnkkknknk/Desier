@@ -11,6 +11,7 @@ use App\UploadImage;
 use App\Uploadcode;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
+use Illuminate\Support\Facades\Auth;
 
 class WorksController extends Controller
 {
@@ -103,7 +104,6 @@ class WorksController extends Controller
         
         $public_path = Storage::path('public/');
        $upload_images = $request->upload_image;
-    //   dd($upload_images);
        $new_upload_images = [];
          foreach ($upload_images as $upload_image) {
             if($upload_image) {
@@ -113,11 +113,10 @@ class WorksController extends Controller
                 $upload_image->move($public_path . "/uploads/tmp", $newImageName);
                 
                 $new_upload_image = "storage/uploads/tmp/" . $newImageName;
-                // dd($new_upload_image);
                 array_push($new_upload_images, $new_upload_image);
     		}
          };
-        //  dd($new_upload_images);
+        
         
         $user = \Auth::user();
         
@@ -164,10 +163,6 @@ class WorksController extends Controller
          }
         
         
-        
-        // $work_title = $request->title;
-        // $work_creater = $request->user()->name;
-        // dd($work_creater);
         
         //コードファイルのzip化
         $files = glob('/home/ubuntu/environment/original/storage/app/public/codes_tmp/*'); //(1)
@@ -222,8 +217,6 @@ class WorksController extends Controller
             if($upload_image) {
     			//アップロードされた画像を保存する
     			$path = $upload_image->store('uploads','public');
-    // 			dd($path);
-    // 			dd($upload_image->getClientOriginalName());
     			//画像の保存に成功したらDBに記録する
     			if($path){
     				UploadImage::create([
@@ -277,8 +270,7 @@ class WorksController extends Controller
         $user_id = $work->user_id;
         $user = User::findOrFail($user_id);
         $comments = $work->comment()->get();
-        // $comments->loadRelationshipCounts();
-        // dd($comment);
+        
         // 作品詳細ビューでそれを表示
         return view('works.show', [
             'work' => $work,
@@ -304,10 +296,7 @@ class WorksController extends Controller
                 $query->where('tag', 'LIKE', "%{$keyword}%");
             })->get();
             $works = $works->concat($work);
-            // dd($works);
         };
-        
-        // dd($works);
         
             //各workidの抽出
             $work_num = count($works);
@@ -400,9 +389,12 @@ class WorksController extends Controller
      */
     public function destroy($id)
     {
+        
         $user = \Auth::user();
-        // $works = Work::orderBy('id', 'desc')->paginate(100);
         $works = $user->works;
+    
+        // $works = Work::orderBy('id', 'desc')->paginate(100);
+        
         // idの値で投稿を検索して取得
         $work = \App\Work::findOrFail($id);
        
@@ -536,5 +528,74 @@ class WorksController extends Controller
         return Storage::disk('public')->download('/zips/' . $code_filename, $work_name);
         //ファイルの名前に「/」が入っていると、使用できなくなるのでヴァリデーションが必要
         // dd($code_path);
+    }
+    
+    
+    
+    public function admindestroy($id)
+    {
+        // $user = \Auth::user();
+        // // $works = Work::orderBy('id', 'desc')->paginate(100);
+        // $works = $user->works;
+        // idの値で投稿を検索して取得
+        
+        $work = \App\Work::findOrFail($id);
+       
+        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
+        if (Auth::guard('admin')->user()->admin_level == 1) {
+            
+            // 関係するモデルの件数をロード
+            $work->loadRelationshipCounts();
+            
+            
+            //codeファイルの取得
+            $codes = $work->codes()->get();
+            //codeパスの取り出し
+            $code_collection = $codes->first();
+            $code_info = collect($code_collection);
+            $code_path = '';
+            
+            foreach($code_info as $key => $value) {
+                if($key == 'file_path') {
+                    $code_path = $value;
+                }
+            }
+           
+            $code_filename = basename($code_path);
+            
+            //画像の取得
+            $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
+            // dd(count($upload_images));
+            $image_num = count($upload_images);
+            
+            $image_paths = [];
+            
+            for($i = 0; $i < $image_num; $i++) {
+                // $i += 1;
+                $image_info = collect($upload_images[$i]);
+                // dd($image_info);
+                
+                foreach($image_info as $key => $value) {
+                  if($key == 'file_path') {
+                    array_push($image_paths, $value);
+                  }
+                }
+            }
+            
+            // 削除
+            foreach($image_paths as $image_path) {
+              Storage::disk('public')->delete($image_path);
+            }
+            Storage::disk('public')->delete('/zips/' . $code_filename);
+            
+            
+            $work->delete();
+            
+            return redirect()->intended('/admin/dashboard'); 
+        }
+        
+        
+        
+        
     }
 }

@@ -1,3 +1,6 @@
+@php
+//dd(Auth::guard('admin')->user());
+@endphp
 @if (Auth::check())
     @if (Auth::id() != $work->user_id)
         @if (Auth::user()->is_favoriting($work->id))
@@ -16,5 +19,17 @@
             {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete','class' => "col-12"]) !!}
                 {!! Form::submit('削除', ['class' => "btn btn-danger col-4 col-lg-2"]) !!}
             {!! Form::close() !!}
+    @endif
+    
+@endif
+
+@if(Auth::guard('admin')->user() == null)
+    
+    
+@else
+    @if (Auth::guard('admin')->user()->admin_level == 1)
+         {!! Form::open(['route' => ['work.admindelete', $work->id], 'method' => 'delete','class' => "col-12"]) !!}
+            {!! Form::submit('管理者として削除', ['class' => "btn btn-danger col-4 col-lg-2"]) !!}
+        {!! Form::close() !!}
     @endif
 @endif
