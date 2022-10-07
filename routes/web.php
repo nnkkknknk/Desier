@@ -25,10 +25,15 @@ Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
-Route::get('adminlogin', 'Auth\LoginController@showadminLoginForm')->name('adminlogin')->middleware('guest:admin');
+
+// Route::group(['middleware' => ['guest:admin']], function () {
+//         Route::get('adminlogin', 'Auth\LoginController@showadminLoginForm')->name('adminlogin');
+        
+//     });
+Route::get('adminlogin', 'Auth\LoginController@showadminLoginForm')->name('adminlogin');
 Route::post('adminlogin', 'Auth\LoginController@adminLogin')->name('adminlogin.post');
 Route::get('/admin/logout', 'Auth\LoginController@adminLogout')->name('admin.logout');
-
+Route::get('/admin/dashboard','Auth\LoginController@admindashboard')->name('admindashboard');
 
 
 // ユーザ登録

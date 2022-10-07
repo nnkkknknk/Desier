@@ -38,7 +38,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('adminLogout');
+        // echo('stop');
+       //$this->middleware('guest:admin')->except('adminLogout');
+        
+        $this->middleware('guest')->except('logout');
     }
     
     public function showadminLoginForm() {
@@ -64,8 +67,8 @@ class LoginController extends Controller
             if ($request->user('admin')->admin_level > 0) { // 管理権限レベルが0でないか
                 $request->session()->regenerate(); // セッション更新
 
-                //return redirect()->intended('admin/dashboard'); // ダッシュボードへ
-                return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+                return redirect()->intended('/admin/dashboard'); // ダッシュボードへ
+                //return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
             } else {
                 Auth::guard('admin')->logout(); // if文でログインしてしまっているので、ログアウトさせる
 
@@ -74,7 +77,7 @@ class LoginController extends Controller
                 return back()->withErrors([ // 権限レベルが0の場合
                     'error' => 'You do not have permission to log in.',
                 ]);
-            }
+           }
         }
 
         return back()->withErrors([ // ログインに失敗した場合
@@ -93,6 +96,12 @@ class LoginController extends Controller
 
         return redirect('adminlogin');
     }
+    
+    public function admindashboard(Request $request)
+    {
+        return view('auth.adminDashboard');
+    }
+    
     
     
 }

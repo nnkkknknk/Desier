@@ -7,25 +7,25 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6 offset-sm-3">
+        <div class="col-sm-6 offset-sm-3 bg-white">
 
             {!! Form::open(['route' => 'signup.post']) !!}
-                <div class="form-group">
+                <div class="form-group bg-white">
                     {!! Form::label('name', '名前') !!}
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group bg-white">
                     {!! Form::label('email', 'メールアドレス') !!}
                     {!! Form::email('email', null, ['class' => 'form-control']) !!}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group bg-white">
                     {!! Form::label('password', 'パスワード') !!}
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group bg-white">
                     {!! Form::label('password_confirmation', 'パスワード確認') !!}
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
