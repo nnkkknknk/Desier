@@ -11,19 +11,18 @@
             <!--<a class="navbar-brand text-primary text-left " href="/">Original</a>-->
              {!! link_to_route('top', 'Desier', [], ['class' => 'navbar-brand text-primary text-left ']) !!}
         </div>
-        {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary']) !!}
+        {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary col-12']) !!}
             <div class="d-flex align-items-center rounded-pill shadow-sm pr-4" >
                
                  <i class="fas fa-search ml-3">
                 </i>
-                    
                     {!! Form::text('keyword', null, ['class' => 'form-control border-0','placeholder'=>"作品を検索"]) !!}
                 
             </div>
         {!! Form::close() !!}
-       <div class="float-right d-none d-sm-block mr-5">
+       <div class="float-right d-none d-sm-block mr-5 ">
             {{-- メッセージ作成ページへのリンク --}}
-             {!! link_to_route('works.create', '作品を投稿', [], ['class' => 'btn btn-success']) !!}
+             {!! link_to_route('works.create', '作品を投稿', [], ['class' => ' btn btn-success']) !!}
 
         @if (Auth::check())           
             <div class="dropdown d-inline-block mr-5">

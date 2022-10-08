@@ -5,11 +5,13 @@
 <div class="bg-white">
     
 </div>
-   
-   <h3 class="offset-4 offset-lg-5 col-5 col-lg-3 shadow-sm py-3 my-5 rounded-pill text-center">
-    作品を投稿
+   <div class="row d-flex align-items-center justify-content-center">
+       <h3 class="bg-white  col-5 col-lg-3 shadow-sm py-3 my-5 rounded-pill text-center">
+        作品を投稿
     </h3>
-   <div class="row bg-white py-3">
+   </div>
+   
+   <div class="row bg-white  py-3">
         <div class="col-12">
             
             <!--include('works.confirm')-->

@@ -5,10 +5,10 @@
     $icon = $user->icon_file_path;
 @endphp
    
-    <div class="row bg-white mb-5">
+    <div class="row bg-white my-5">
         <div class="col-2">
             @if ($icon == null) 
-                <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
+                <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3"></i>
             @else 
             <div  style="width: 100px; height: 100px;">
                 <img src="{{ Storage::url($icon) }}" class="my-3" style="width: 100%; height: 100%; border-radius: 100%;"/>
@@ -16,10 +16,10 @@
             @endif
         </div>
         
-        <div class="col-5 d-flex align-items-center">
+        <div class="col-5 d-flex align-items-center color: rgb(70, 225, 70)">
             <div>
-                <h3 class="offset-1 ml-4">{{ $user->name }}</h3>
-                <div class="offset-1 ml-3 col-12">
+                <h3 class="offset-1">{{ $user->name }}</h3>
+                <div class="offset-1 col-12">
                     
                     @if ($user->followings_count == 0)
                         <a href="{{ route('users.followings', ['id' => $user->id]) }}" class="{{ Request::routeIs('users.followings') ? 'active' : '' }}">
@@ -41,7 +41,7 @@
             
         </div>
         
-        <div class="col-5 d-flex align-items-center">
+        <div class="col-4 offset-1 d-flex align-items-center">
             @if (Auth::check())
                 @if (Auth::id() == $user->id)
                     {!! link_to_route('users.edit', 'プロフィール編集', ['user' => Auth::id()], ['class' => 'mr-2 btn btn-secondary']) !!}
@@ -52,12 +52,12 @@
             @else
             @endif
         </div>
-        <div class="offset-3 col-9 mb-4">
+        <div class="offset-2 col-8 mb-4 pl-5">
             {{$user->self_information}}
         </div>
     </div>
     
-    <p class="title" style="background-color: rgb(180, 240, 180);">投稿一覧</p>
+    <p class="title" style="font-size: 20px; background-color: rgb(70, 225, 70); ">投稿一覧</p>
     
     
     {{-- 投稿一覧 --}}

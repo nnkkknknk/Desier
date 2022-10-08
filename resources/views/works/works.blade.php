@@ -13,44 +13,40 @@
                  @endphp
                  
                  
-                        <div class="col-5 col-lg-3 offset-1 bg-white my-5">
-                            
-                           <div class="my-3" style="height: 300px;">
-                                 <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
-                           </div>
-                            <div class="media-body">
+                        
+                        <div class="col-12 col-sm-6 col-lg-4 my-5">
+                            <div class="bg-white px-3 py-4">
                                 
-                                <div>
-                                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
+                               <div class="my-3" style="height: 300px;">
+                                     <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
+                               </div>
+                                <div class="media-body">
                                     
-                                     @if ($creater_icon == null) 
-                                        <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                                            <i class="fas fa-user-circle fa-2x align-middle"></i>
-                                            {{$work->user->name}}
-                                        </a>
-                                    @else 
-                                        <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                                            <img src="{{ Storage::url($creater_icon) }}" style="width: 30px; height: 30px; border-radius: 100%;"/>
-                                            {{$work->user->name}}
-                                        </a>
-                                    @endif
+                                    <div>
+                                        {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
+                                        
+                                         @if ($creater_icon == null) 
+                                            <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                                                <i class="fas fa-user-circle fa-2x align-middle"></i>
+                                                {{$work->user->name}}
+                                            </a>
+                                        @else 
+                                            <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                                                <img src="{{ Storage::url($creater_icon) }}" style="width: 30px; height: 30px; border-radius: 100%;"/>
+                                                {{$work->user->name}}
+                                            </a>
+                                        @endif
+                                        
+                                        <!--{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}-->
+                                        <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                    </div>
                                     
-                                    <!--{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}-->
-                                    <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                    <div>
+                                        {{-- 投稿内容 --}}
+                                        <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
+                                    </div>
+                                    
                                 </div>
-                                
-                                <div>
-                                    {{-- 投稿内容 --}}
-                                    <p class="my-2 mb-0 text-center">{!! link_to_route('works.show',nl2br(e($work->title)), ['work' => $work->id]) !!}</p>
-                                </div>
-                                <!--<div>-->
-                                <!--    @if (Auth::id() == $work->user_id )-->
-                                <!--        {{-- 投稿削除ボタンのフォーム --}}-->
-                                <!--        {!! Form::open(['route' => ['works.destroy', $work->id], 'method' => 'delete']) !!}-->
-                                <!--            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}-->
-                                <!--        {!! Form::close() !!}-->
-                                <!--    @endif-->
-                                <!--</div>-->
                             </div>
                         </div>
                         <!--endif-->
@@ -62,6 +58,7 @@
     @if(count($works) > $top_num)
         
         <div class="row">
+        
             
             @for ($i = 0; $i < $top_num; $i++) 
             
@@ -73,8 +70,9 @@
                    $thumbnail_path = $thumbnail ? $thumbnail->file_path : ''
                    //$変数 = if($thumbnail) $thumbnail->file_path else ''（三項演算子）
                  @endphp
-                 
-                        <div class="col-5 col-lg-3 offset-1 bg-white my-5">
+                
+                    <div class="col-12 col-sm-6 col-lg-4 my-5">
+                        <div class="bg-white px-3 py-4">
                             <div class="my-3" style="height: 300px;">
                                  <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
@@ -94,9 +92,7 @@
                                         </a>
                                     @endif
                                     
-                                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
-                                    <!--{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!} -->
-                                    <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                    
                                 </div>
                                 
                                 <div>
@@ -104,12 +100,13 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                         <!--endif-->
             @endfor
         </div>  
         
-        <div class="text-center my-3 pl-4">
-            <button class="btn rounded-pill bg-dark text-white ml-5" type="button" data-toggle="collapse" data-target="#mypost" aria-expanded="false" aria-controls="collapseExample">
+        <div class="row justify-content-center my-3">
+            <button class="btn rounded-pill bg-dark text-white text-center" type="button" data-toggle="collapse" data-target="#mypost" aria-expanded="false" aria-controls="collapseExample">
                 すべてみる
             </button>
         </div>
@@ -123,7 +120,11 @@
                        $thumbnail = $work->upload_images()->orderBy('id', 'asc')->first();
                        $thumbnail_path = $thumbnail ? $thumbnail->file_path : ''
                      @endphp
-                        <div class="col-5 col-lg-3 offset-1 bg-white my-5">
+                     
+                     <div class="col-12 col-sm-6 col-lg-4 my-5">
+                        <div class="bg-white px-3 py-4">
+                       
+                        
                            <div class="my-3" style="height: 300px;">
                                  <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
@@ -143,9 +144,7 @@
                                         </a>
                                     @endif
                                      
-                                    {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
-                                    <!--{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!} -->
-                                    <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
+                                    
                                 </div>
                                 
                                 <div>
@@ -155,6 +154,7 @@
                                 
                             </div>
                         </div>
+                    </div>
                  @endfor  
           </div>
         </div>
@@ -176,8 +176,8 @@
     @endif
     
 @else
-    <div class="row bg-white my-3 center-block" style="height: 200px;">
-      <h3 class="text-secondary offset-4 d-flex align-items-center">作品がありません</h3>  
+    <div class="row bg-white mb-5 d-flex align-items-center justify-content-center" style="height: 200px;">
+      <h3 class="text-secondary  ">作品がありません</h3>  
     </div>
 @endif
     

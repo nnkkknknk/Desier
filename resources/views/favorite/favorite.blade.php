@@ -1,6 +1,6 @@
 @if (Auth::check())
     @if (Auth::id() == $user->id)
-        <p class="title" style="background-color: #FFFF99;">お気に入り</p>
+        <p class= "title" style="background-color: #FFFF99; font-size: 20px">お気に入り</p>
         @if (count($favoritings) > 0)
             @php
              $num_fav = count($favoritings);
@@ -68,7 +68,7 @@
                                    <div class="my-3" style="height: 300px;">
                                          <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                                    </div>
-                                    <div class="media-body">
+                                    <div class= "media-body">
                                         <div>
                                             @if ($creater_icon == null) 
                                                 <a href="{{ route('users.show', ['user' => $favoriting->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
@@ -106,7 +106,7 @@
                         すべてみる
                     </button>
                 </div>
-                <div class="collapse" id="favorite">
+                <div class="collapse" id="favorite" >
                   <div class="card-body row">
                      @for ($i = $top_num; $i < $num; $i++) 
                              @php
@@ -169,8 +169,8 @@
                 
             @endif
         @else
-            <div class="row bg-white my-3 center-block" style="height: 200px;">
-              <h3 class="text-secondary offset-4 d-flex align-items-center">作品がありません</h3>  
+            <div class="row bg-white mb-5 d-flex align-items-center justify-content-center" style="height: 200px;">
+              <h3 class="text-secondary">作品がありません</h3>  
             </div>
         @endif
     @endif

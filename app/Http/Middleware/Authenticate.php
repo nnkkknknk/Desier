@@ -20,22 +20,22 @@ class Authenticate extends Middleware
     }
     
     
-    protected function unauthenticated($request, array $guards)
-    {
-        throw new AuthenticationException(
-            'Unauthenticated.',
-            $guards,
-            $this->redirectToOriginal($request, $guards)
-        );
-    }
+    // protected function unauthenticated($request, array $guards)
+    // {
+    //     throw new AuthenticationException(
+    //         'Unauthenticated.',
+    //         $guards,
+    //         $this->redirectToOriginal($request, $guards)
+    //     );
+    // }
 
-    protected function redirectToOriginal($request, array $guards)
-    {
-        foreach ($guards as $guard) {
-            if ($guard === 'admin') {
-                return route('admin.login');
-            }
-        }
-    }
+    // protected function redirectToOriginal($request, array $guards)
+    // {
+    //     foreach ($guards as $guard) {
+    //         if ($guard === 'admin') {
+    //             return route('admin.login');
+    //         }
+    //     }
+    // }
     
 }

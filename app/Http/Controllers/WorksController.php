@@ -389,7 +389,7 @@ class WorksController extends Controller
      */
     public function destroy($id)
     {
-        
+        dd("a");
         $user = \Auth::user();
         $works = $user->works;
     

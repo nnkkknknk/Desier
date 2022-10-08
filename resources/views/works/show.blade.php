@@ -8,17 +8,17 @@
          
     @endphp
     
-    <div class="row py-3 bg-white mb-5">
+    <div class="row py-3 bg-white my-5 ">
         <h2 class="col-12">{{ $work->title }}</h2>
         
         <div class="col-12 my-3" style="display:inline-flex">
-            {!! link_to_route('work.download', 'ファイルをダウンロード', ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-3 col-lg-2']) !!}
+            {!! link_to_route('work.download', 'ダウンロード',  ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-3 col-lg-2 ']) !!}
              @include('favorite.favorite_button')
         </div>
      
        
        
-       <div class="col-12">
+       <div class="col-5">
             @if ($creater_icon == null) 
                 <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
                     <i class="fas fa-user-circle fa-4x align-middle"></i>
@@ -38,10 +38,12 @@
        <!--<div class="bg-white col-11 ml-3 mb-3 border" style="height:175px;">-->
        <!--<div style="width: 100%; height: 60px;">-->
        <!--</div>-->
-           <div class="bg-white col-10 ml-3 mb-2 border text-break">
-              
+       <div class="col-12 px-3">
+           <div class="bg-white col-12 mb-2 py-2 border text-break">
                 {{$work-> description}}
            </div>
+       </div>
+           
        
        <div class="col-12">
            <div class="ml-1">#タグ</div>

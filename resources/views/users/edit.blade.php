@@ -4,11 +4,11 @@
     <!--@php-->
     <!--    dd($user->self_information);-->
     <!--@endphp-->
-    <h3 class="offset-3 offset-lg-4 col-6 col-lg-4 shadow-sm py-3 my-5 rounded-pill text-center">
+    <h3 class="offset-3 offset-lg-4 col-6 col-lg-4 shadow-sm py-3 my-5 rounded-pill text-center bg-white">
     プロフィール編集
     </h3>
    
-   <div class="row bg-white py-3">
+   <div class="row bg-white py-4 mb-5">
         <div class="col-12">
             {!! Form::model($user, ['route' => ['users.update', $user->id], 'files' => true, 'method' => 'put']) !!}
                 <div class="form-group">
@@ -209,6 +209,7 @@
                     
                     
                     <div class="mt-5">{!! Form::label('self_information', '自己紹介') !!}</div>
+                    <div class="mb-3">{!! Form::textarea('self_information', $user->self_information, ['class' => 'form-control']) !!}</div>
                     
                     <div>{!! Form::label('icon', 'アイコン画像') !!}</div>
                     <div class="mb-3">{!! Form::file('icon', ['class'=>'form-controll']) !!}</div>
