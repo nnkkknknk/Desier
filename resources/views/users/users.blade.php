@@ -10,9 +10,9 @@
             
                 @endif
                 <div class="media-body row">
-                    <div class="col-3">
+                    <div class="col-12">
                         {{-- ユーザ詳細ページへのリンク --}}
-                        <h4 class="pl-3">{!! link_to_route('users.show', $user->name, ['user' => $user->id]) !!}</h4>
+                        <h4 class="pl-3 ">{!! link_to_route('users.show', $user->name, ['user' => $user->id]) !!}</h4>
                     </div>
                     
                     <div class="col-12">

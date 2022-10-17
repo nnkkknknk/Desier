@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-white">
+<div class="bg-white mx-5 mb-5">
     
     <div class="text-center mt-5 py-3">
         <h1 class="text-primary">Desier</h1>
     </div>
 
     <div class="row">
-        <div class="col-sm-6 offset-sm-3 bg-white">
+        <div class="col-8 offset-2 col-md-6 offset-md-3">
 
             {!! Form::open(['route' => 'login.post']) !!}
                 <div class="form-group">

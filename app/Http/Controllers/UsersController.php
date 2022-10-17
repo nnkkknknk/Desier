@@ -136,6 +136,9 @@ class UsersController extends Controller
     
     
         if($icon) {
+            $request->validate([
+                'icon' => 'required|max:1024|file|image|mimes:png,jpeg,jpg',
+            ]);
 			//アップロードされた画像を保存する
 			$path = $icon->store('uploads',"public");
 			//画像の保存に成功したらDBに記録する

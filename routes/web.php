@@ -15,6 +15,8 @@
 //     return view('welcome');
 // });
 Route::get('/', 'WorksController@index')->name('top');
+//Route::get('/about', 'WorksController@about')->name('about');
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -35,9 +37,12 @@ Route::post('adminlogin', 'Auth\LoginController@adminLogin')->name('adminlogin.p
 Route::get('/admin/logout', 'Auth\LoginController@adminLogout')->name('admin.logout');
 Route::get('/admin/dashboard','Auth\LoginController@admindashboard')->name('admindashboard');
 
-Route::group(['prefix' => 'works/{id}'], function () {
-    Route::delete('admindelete', 'WorksController@admindestroy')->name('work.admindelete');
-});
+// Route::group(['prefix' => 'works/{id}'], function () {
+//     Route::delete('admindelete', 'WorksController@admindestroy')->name('work.admindelete');
+// });
+    Route::delete('works/{id}/admindelete', 'WorksController@admindestroy')->name('work.admindelete');
+// Route::delete(['works/{id}/admindelete'], function () {
+// });
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');

@@ -17,7 +17,7 @@
                         <div class="col-12 col-sm-6 col-lg-4 my-5">
                             <div class="bg-white px-3 py-4">
                                 
-                               <div class="my-3" style="height: 300px;">
+                               <div class="my-3">
                                      <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                                </div>
                                 <div class="media-body">
@@ -37,8 +37,6 @@
                                             </a>
                                         @endif
                                         
-                                        <!--{!! link_to_route('users.show', $work->user->name, ['user' => $work->user->id]) !!}-->
-                                        <!--<span class="text-muted">posted at {{ $work->created_at }}</span>　-->
                                     </div>
                                     
                                     <div>
@@ -72,8 +70,8 @@
                  @endphp
                 
                     <div class="col-12 col-sm-6 col-lg-4 my-5">
-                        <div class="bg-white px-3 py-4">
-                            <div class="my-3" style="height: 300px;">
+                        <div class="bg-white px-3 py-4 h-100">
+                            <div class="my-3 bg-dark">
                                  <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
                             <div class="media-body">
@@ -125,7 +123,7 @@
                         <div class="bg-white px-3 py-4">
                        
                         
-                           <div class="my-3" style="height: 300px;">
+                           <div class="my-3">
                                  <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
                            </div>
                             <div class="media-body">

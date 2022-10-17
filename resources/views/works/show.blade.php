@@ -8,11 +8,11 @@
          
     @endphp
     
-    <div class="row py-3 bg-white my-5 ">
+    <div class="row py-3 bg-white my-5 mx-2">
         <h2 class="col-12">{{ $work->title }}</h2>
         
         <div class="col-12 my-3" style="display:inline-flex">
-            {!! link_to_route('work.download', 'ダウンロード',  ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-3 col-lg-2 ']) !!}
+            {!! link_to_route('work.download', 'ダウンロード',  ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-5 col-md-3 col-lg-2']) !!}
              @include('favorite.favorite_button')
         </div>
      
@@ -48,7 +48,7 @@
        <div class="col-12">
            <div class="ml-1">#タグ</div>
             @if(count($tags) > 0)
-                <div class="" style="display:inline-flex">
+                <div>
                    @foreach($tags as $keyword)
                     {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary form-inline']) !!}
                         {!! Form::hidden('keyword', $keyword->tag ,['class' => 'form-controll']) !!}
@@ -65,7 +65,7 @@
        </div>
     </div>
     
-    <div class="row mb-5">
+    <div class="row mb-5 mx-2">
         <div class="col-12 bg-white py-3">
              <!--<div style="height: 500px; border: solid;">-->
                 @if(count($images) > 0)
@@ -120,7 +120,7 @@
     </div>
     
     
-    <div class="bg-white row py-5 align-items-center justify-content-center">
+    <div class="bg-white row py-5 align-items-center justify-content-center mx-2 border-bottom">
             
             <div class="col-2 text-right">
                 @if (Auth::check())
@@ -147,15 +147,16 @@
             {!!Form::model($comment, ['method'=>'post', 'route'=>['comments.store', $work->id], 'class'=>'col-10 row' ]) !!}
             
             
-            <div class="col-10">{!! Form::textarea('content', null, ['class' => 'form-control','placeholder' => 'コメントを追加','rows' => '2']) !!}</div>
+            <div class="col-9">{!! Form::textarea('content', null, ['class' => 'form-control','placeholder' => 'コメントを追加','rows' => '2']) !!}</div>
             {!! Form::hidden('work_id', $work->id) !!}
             <div class="text-left col-2 mt-3">{!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}</div>
             {!! Form::close() !!}
         
         
     </div>
+    <div class="mb-5">
      @include('works.comment_list')
-    
+    </div>
     
 
 @endsection

@@ -36,7 +36,7 @@ class WorksController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $works = Work::orderBy('id', 'desc')->get();
-            // $works = Work::orderBy('id', 'desc')->paginate(14);
+            // $works = Work::orderBy('id', 'desc')->paginate(12);
             
             $top_num = 12;
             $num = count($works);
@@ -50,7 +50,7 @@ class WorksController extends Controller
         }
         else{
             $works = Work::orderBy('id', 'desc')->get();
-            
+            // $works = Work::orderBy('id', 'desc')->paginate(12);
             $top_num = 12;
             $num = count($works);
             
@@ -91,11 +91,11 @@ class WorksController extends Controller
      public function confirm(Request $request, User $user)
     {
         $request->validate([
-            'title' => 'required|max:20',
+            'title' => 'required|max:32',
             'description' => 'required|max:255',
-            'tag' => 'required|max:20',
-            'upload_image.*' => 'required|file|image|mimes:png,jpeg',
-            'code.*' => 'required|file|mimes:html,javascript,css'
+            'tag' => 'required|max:50',
+            'upload_image' => 'required|max:1024|file|image|mimes:png,jpeg,jpg',
+            'code' => 'required|file|mimes:html,js,css,txt'
         ]);
         
         $title = $request->title;
@@ -137,12 +137,17 @@ class WorksController extends Controller
     {
          
         $request->validate([
-            'title' => 'required|max:20',
+            'title' => 'required|max:32',
             'description' => 'required|max:255',
-            'tag' => 'required|max:20',
-            'upload_image.*' => 'required|file|image|mimes:png,jpeg',
-            'code.*' => 'required|file|mimes:html,js,txt'
+            'tag' => 'required|max:50',
+            'upload_image' => 'required',
+            'upload_image.*' => 'required|max:1024|file|image|mimes:png,jpeg,jpg',
+            'code' => 'required',
+            'code.*' => 'required|mimes:html,javascript,css,txt'
+            
         ]);
+        
+       
         
         $work = $request->user()->works()->create([
             'title' => $request->title,
@@ -232,7 +237,7 @@ class WorksController extends Controller
          
         
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
-        preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ一-龠]+)/u', $request->tag, $match);
+        preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヴー一-龠\-]+)/u', $request->tag, $match);
         $tags = [];
         foreach ($match[1] as $tag) {
             Tag::firstOrCreate([
@@ -290,7 +295,7 @@ class WorksController extends Controller
         $keywords = $request->keyword;
         $query = Work::query();
         $works = collect([]);
-        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヶ一-龠]+)/u', $keywords, $match);
+        preg_match_all('/([a-zA-z0-9０-９ぁ-んァ-ヴー一-龠]+)/u', $keywords, $match);
         foreach ($match[1] as $keyword) {
             $work = Work::whereHas('tags', function ($query) use ($keyword) {
                 $query->where('tag', 'LIKE', "%{$keyword}%");
@@ -389,7 +394,7 @@ class WorksController extends Controller
      */
     public function destroy($id)
     {
-        dd("a");
+        
         $user = \Auth::user();
         $works = $user->works;
     
