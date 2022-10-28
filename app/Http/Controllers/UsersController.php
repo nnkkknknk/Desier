@@ -22,12 +22,12 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
         
         // dd($user);
-        // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
-        $works = $user->works;
-        $favoritings = $user->favoritings;
+        $works = $user->works()->orderBy('created_at', 'desc')->paginate(3);
+        // $works = $user->works;
+        $favoritings = $user->favoritings()->orderBy('created_at', 'desc')->paginate(3);
         $icon = $user->icon_file_path;
         
-        $top_num = 6;
+        $top_num = 12;
         $num = count($works);
         $data = [
             'user' => $user,

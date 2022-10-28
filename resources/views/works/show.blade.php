@@ -53,7 +53,7 @@
                     {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary form-inline']) !!}
                         {!! Form::hidden('keyword', $keyword->tag ,['class' => 'form-controll']) !!}
                         <a>
-                            {!! Form::submit("#".$keyword->tag, ['class' => 'form-controll bg-white border-0 text-primary']) !!}
+                            {!! Form::submit("#".$keyword->tag, ['class' => 'form-controll bg-white border-0 text-primary text-wrap']) !!}
                         </a>
                     {!! Form::close() !!}
                    @endforeach

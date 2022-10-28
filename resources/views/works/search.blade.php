@@ -2,9 +2,8 @@
 
 @section('content')
     @if (Auth::check())
-        <!--{{ Auth::user()->name }}-->
+        
         <div class="bg-white text-center mx-3 py-3">
-           
            <h3>
                ＃検索結果
            </h3> 
@@ -28,13 +27,13 @@
             
             {{-- 作品一覧 --}}
         <div class="mx-3">
-            @include('works.works')
+            @include('works.worksallbutton')
         </div>
         
     @else
         <div class="bg-white text-center mx-3 py-3">
            
-           <<h3>
+           <h3>
                ＃検索結果
            </h3> 
                <div class="" >
@@ -62,7 +61,7 @@
         <!--</div>-->
         
          {{-- 作品一覧 --}}
-        @include('works.works')
+        @include('works.worksallbutton')
     @endif
 
 @endsection

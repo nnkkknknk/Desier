@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Work; // 追加
 use App\User; // 追加
+use InterventionImage;
 use App\Tag;
 use App\Comment;
 use App\UploadImage;
@@ -12,6 +13,8 @@ use App\Uploadcode;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class WorksController extends Controller
 {
@@ -35,8 +38,8 @@ class WorksController extends Controller
         
         if (\Auth::check()) {
             $user = \Auth::user();
-            $works = Work::orderBy('id', 'desc')->get();
-            // $works = Work::orderBy('id', 'desc')->paginate(12);
+            // $works = Work::orderBy('id', 'desc')->get();
+            $works = Work::orderBy('id', 'desc')->paginate(12);
             
             $top_num = 12;
             $num = count($works);
@@ -49,8 +52,8 @@ class WorksController extends Controller
             ];
         }
         else{
-            $works = Work::orderBy('id', 'desc')->get();
-            // $works = Work::orderBy('id', 'desc')->paginate(12);
+            // $works = Work::orderBy('id', 'desc')->get();
+            $works = Work::orderBy('id', 'desc')->paginate(12);
             $top_num = 12;
             $num = count($works);
             
@@ -323,8 +326,14 @@ class WorksController extends Controller
                 }
                 
             }
+            // $works = $works->chunk(1);
+            // $works = new LengthAwarePaginator(
+            //             $works->get($request->page - 1),
+            //             count($works),
+            //             1,
+            //             $request->page
+            //         );
             
-        
         
         //データの送信
         $data = [];
