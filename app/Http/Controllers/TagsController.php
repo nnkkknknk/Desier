@@ -15,7 +15,6 @@ class TagsController extends Controller
         $request->validate([
             'tag' => 'required|max:255',
         ]);
-        // dd($request);
         // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         $request->work()->tags()->create([
             'tag' => $request->tag,

@@ -13,16 +13,10 @@ class AdminUserSeeder extends Seeder
     {
         //
         DB::table('admin_users')->insert([
-            'name' => 'owner',
-            'email' => 'owner@example.com',
-            'password' => Hash::make('password'),
+            'name' => 'nk',
+            'email' => 'nkadmin@example.com',
+            'password' => Hash::make('nkadmin'),
             'admin_level' => 1,
-        ]);
-        DB::table('admin_users')->insert([
-            'name' => 'sub',
-            'email' => 'sub@example.com',
-            'password' => Hash::make('password'),
-            'admin_level' => 0,
         ]);
     }
 }

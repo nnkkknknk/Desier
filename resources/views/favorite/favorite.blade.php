@@ -55,10 +55,10 @@
                                 </div>
                                 
                     @endfor
-                    <div class="d-block mx-auto">
+                </div>  
+                    <div class="d-flex justify-content-center">
                         {{ $favoritings->links() }}
                     </div>
-                </div>  
             
             
         @else

@@ -27,18 +27,8 @@ class WorksController extends Controller
     {
         $data = [];
         
-        // 認証済みユーザを取得
-        // $user = \Auth::user();
-        // ユーザの投稿の一覧を作成日時の降順で取得
-        // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
-        // $works = $user->works()->orderBy('created_at', 'desc')->paginate(10);
-        // // タスク一覧を取得
-        // $works = Work::all();
-        
-        
         if (\Auth::check()) {
             $user = \Auth::user();
-            // $works = Work::orderBy('id', 'desc')->get();
             $works = Work::orderBy('id', 'desc')->paginate(12);
             
             $top_num = 12;
@@ -52,7 +42,6 @@ class WorksController extends Controller
             ];
         }
         else{
-            // $works = Work::orderBy('id', 'desc')->get();
             $works = Work::orderBy('id', 'desc')->paginate(12);
             $top_num = 12;
             $num = count($works);
@@ -88,53 +77,6 @@ class WorksController extends Controller
             'user' => $user,
         ]);
     }
-    
-    
-    
-     public function confirm(Request $request, User $user)
-    {
-        $request->validate([
-            'title' => 'required|max:32',
-            'description' => 'required|max:255',
-            'tag' => 'required|max:50',
-            'upload_image' => 'required|max:1024|file|image|mimes:png,jpeg,jpg',
-            'code' => 'required|file|mimes:html,js,css,txt'
-        ]);
-        
-        $title = $request->title;
-        $description = $request->description;
-        $tag = $request->tag;
-        
-        $public_path = Storage::path('public/');
-       $upload_images = $request->upload_image;
-       $new_upload_images = [];
-         foreach ($upload_images as $upload_image) {
-            if($upload_image) {
-                $imageName = $upload_image->getClientOriginalName();
-                $extension = $upload_image->getClientOriginalExtension();
-                $newImageName = pathinfo($imageName, PATHINFO_FILENAME) . "_" . uniqid() . "." . $extension;
-                $upload_image->move($public_path . "/uploads/tmp", $newImageName);
-                
-                $new_upload_image = "storage/uploads/tmp/" . $newImageName;
-                array_push($new_upload_images, $new_upload_image);
-    		}
-         };
-        
-        
-        $user = \Auth::user();
-        
-        return view('works.confirm', [
-            'user' => $user,
-            'title' => $title,
-            'description' => $description,
-            'images' => $new_upload_images,
-            'newImageName' => $newImageName,
-        ]);
-        
-        //  return redirect()->route('users.show', ['user' => $user->id]);
-       
-    }
-
     
     public function store(Request $request, User $user)
     {
@@ -196,8 +138,6 @@ class WorksController extends Controller
     	if($zip) {
     	    Storage::disk('public')->deleteDirectory('/codes_tmp');
     	}
-    	   // dd($exist);
-        // return response()->download('/home/ubuntu/environment/original/storage/app/public/test2.zip');
         if($zip){
     				Uploadcode::create([
     				    'work_id' => $work->id,
@@ -205,20 +145,6 @@ class WorksController extends Controller
     					"file_path" => $zip_path,
     				]);
     			}
-        
-        
-        
-                
-                // // ファイルの存在確認関数
-                // if (\File::exists($public_all_path)) {
-                //     echo "存在します";
-                // } else {
-                //     echo "$filepath は存在しません";
-                // }
-               // return response()->download($public_path.'/zips/test2.zip');
-    			
-    			
-        
     
        $upload_images = $request->upload_image;
          foreach ($upload_images as $upload_image) {
@@ -326,15 +252,6 @@ class WorksController extends Controller
                 }
                 
             }
-            // $works = $works->chunk(1);
-            // $works = new LengthAwarePaginator(
-            //             $works->get($request->page - 1),
-            //             count($works),
-            //             1,
-            //             $request->page
-            //         );
-            
-        
         //データの送信
         $data = [];
         
@@ -406,8 +323,6 @@ class WorksController extends Controller
         
         $user = \Auth::user();
         $works = $user->works;
-    
-        // $works = Work::orderBy('id', 'desc')->paginate(100);
         
         // idの値で投稿を検索して取得
         $work = \App\Work::findOrFail($id);
@@ -437,15 +352,12 @@ class WorksController extends Controller
             
             //画像の取得
             $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
-            // dd(count($upload_images));
             $image_num = count($upload_images);
             
             $image_paths = [];
             
             for($i = 0; $i < $image_num; $i++) {
-                // $i += 1;
                 $image_info = collect($upload_images[$i]);
-                // dd($image_info);
                 
                 foreach($image_info as $key => $value) {
                   if($key == 'file_path') {
@@ -486,7 +398,7 @@ class WorksController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザのフォロー一覧を取得
-        $favoritings = $user->favoritings()->paginate(10);
+        $favoritings = $user->favoritings()->paginate(12);
 
         // フォロー一覧ビューでそれらを表示
         return view('users.favoriting', [
@@ -504,7 +416,7 @@ class WorksController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザのフォロワー一覧を取得
-        $favoriters = $user->favoriters()->paginate(10);
+        $favoriters = $user->favoriters()->paginate(12);
 
         // フォロワー一覧ビューでそれらを表示
         return view('users.favoriters', [
@@ -541,16 +453,12 @@ class WorksController extends Controller
         $work_name = $work->title . '.zip';
         return Storage::disk('public')->download('/zips/' . $code_filename, $work_name);
         //ファイルの名前に「/」が入っていると、使用できなくなるのでヴァリデーションが必要
-        // dd($code_path);
     }
     
     
     
     public function admindestroy($id)
     {
-        // $user = \Auth::user();
-        // // $works = Work::orderBy('id', 'desc')->paginate(100);
-        // $works = $user->works;
         // idの値で投稿を検索して取得
         
         $work = \App\Work::findOrFail($id);
@@ -579,16 +487,12 @@ class WorksController extends Controller
             
             //画像の取得
             $upload_images = $work->upload_images()->orderBy('id', 'asc')->get();
-            // dd(count($upload_images));
             $image_num = count($upload_images);
             
             $image_paths = [];
             
             for($i = 0; $i < $image_num; $i++) {
-                // $i += 1;
                 $image_info = collect($upload_images[$i]);
-                // dd($image_info);
-                
                 foreach($image_info as $key => $value) {
                   if($key == 'file_path') {
                     array_push($image_paths, $value);

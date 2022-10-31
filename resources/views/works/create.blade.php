@@ -13,14 +13,6 @@
    
    <div class="row bg-white py-3 mx-2 mb-5">
         <div class="col-12">
-            
-            <!--include('works.confirm')-->
-            
-
-<!--<input type="file" onchange="OnFileSelect( this );" multiple />-->
-<!--<ul id="ID001">-->
-    <!--<img src='fileReader.result'>-->
-<!--</ul>-->
 
             {!! Form::model($work, ['route' => 'works.store', 'files' => true]) !!}
 

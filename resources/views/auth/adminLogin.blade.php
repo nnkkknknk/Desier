@@ -24,8 +24,6 @@
                 {!! Form::submit('ログイン', ['class' => 'btn btn-primary btn-block mt-5']) !!}
             {!! Form::close() !!}
 
-            {{-- ユーザ登録ページへのリンク --}}
-            <!--<p class="mt-2">新規ユーザーの方は {!! link_to_route('signup.get', 'こちらへ') !!}</p>-->
         </div>
     </div>
 </div>

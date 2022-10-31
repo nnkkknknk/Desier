@@ -3,7 +3,6 @@
         
         <div class="card-body text-center border-0">
             {{-- ユーザのメールアドレスをもとにGravatarを取得して表示 --}}
-            <!--<img class="rounded img-fluid" src="{{ Gravatar::get($user->email, ['size' => 500]) }}" alt="">-->
             @if ($user->icon_file_path == null) 
                 <i class="fas fa-user-circle fa-5x align-middle my-3 mx-3 bg-p"></i>
             @else 

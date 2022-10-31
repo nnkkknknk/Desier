@@ -41,10 +41,10 @@
                         </div>
                     </div>
             @endfor
-            <div class="d-block mx-auto">
-                {{ $works->links() }}
-            </div>
         </div>  
+        <div class="d-flex justify-content-center">
+            {{ $works->links() }}
+        </div>
 @else
     <div class="row bg-white mb-5 d-flex align-items-center justify-content-center" style="height: 200px;">
       <h3 class="text-secondary  ">作品がありません</h3>  

@@ -49,18 +49,6 @@ class Work extends Model
         return $this->hasMany(Comment::class);
     }
     
-    
-    // public function commenter() {
-        
-    //     // return $this->hasMany(Comment::class);
-    //     return $this->belongsToMany(User::class, 'comment', 'works_id', 'user_id')->withTimestamps();
-        
-    // }
-    // belongsToMany() では、関係先のModelのクラス（User::class) を第一引数に指定します。
-    // 第二引数に中間テーブル（user_follow）を指定します。
-    // 第三引数には中間テーブルに保存されている自分のidを示すカラム名（user_id）を指定します。
-    // 第四引数には中間テーブルに保存されている関係先のidを示すカラム名（follow_id）を指定します。
-    
     public function loadRelationshipCounts()
     {
         $this->loadCount('tags', 'upload_images', 'codes','comment');

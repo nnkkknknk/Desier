@@ -15,11 +15,10 @@
                  
                         
                         <div class="col-12 col-sm-6 col-lg-4 my-5">
-                            <div class="bg-white px-3 py-4">
-                                
-                               <div class="my-3">
-                                     <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
-                               </div>
+                            <div class="bg-white px-3 py-4 h-100">
+                                    <div class="my-3 d-flex align-items-center justify-content-center" style="height:250px;">
+                                         <img src="{{ Storage::url($thumbnail_path) }}" style="max-height: 100%; max-width: 100%;"/>
+                                   </div>
                                 <div class="media-body">
                                     
                                     <div>
@@ -119,11 +118,9 @@
                      @endphp
                      
                      <div class="col-12 col-sm-6 col-lg-4 my-5">
-                        <div class="bg-white px-3 py-4">
-                       
-                        
-                           <div class="my-3">
-                                 <img src="{{ Storage::url($thumbnail_path) }}" style="width:100%; height:100%;"/>
+                        <div class="bg-white px-3 py-4 h-100">
+                            <div class="my-3 d-flex align-items-center justify-content-center" style="height:250px;">
+                                 <img src="{{ Storage::url($thumbnail_path) }}" style="max-height: 100%; max-width: 100%;"/>
                            </div>
                             <div class="media-body">
                                 

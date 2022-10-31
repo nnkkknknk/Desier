@@ -76,10 +76,6 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
         'admin_users' => [ // ここ追加
             'driver' => 'eloquent',
             'model' => App\AdminUser::class, //make:modelしたクラス名
