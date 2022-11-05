@@ -61,7 +61,9 @@
         </div>
        
          {{-- 作品一覧 --}}
-        @include('works.works')
+         <div class="mx-3">
+            @include('works.works')
+         </div>
     @endif
     
    
