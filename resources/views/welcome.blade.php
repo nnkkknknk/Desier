@@ -27,7 +27,9 @@
         </div>
             
             {{-- 作品一覧 --}}
-            @include('works.works')
+            <div class="mx-3">
+                @include('works.works')
+            </div>
         
     @else
         <!--<div class="center jumbotron">-->
@@ -38,9 +40,9 @@
             {!! link_to_route('login', 'ログイン', [], ['class' => 'btn btn-sm ml-3 btn-secondary rounded-pill']) !!}
             <div class="row justify-content-center my-3">
                 <button class="btn btn-link bg-white rounded-pill text-center text-dark" type="button" data-toggle="collapse" data-target="#mypost" aria-expanded="false" aria-controls="collapseExample">
-                        <h5>
-                            Desierとは <i class="fas fa-caret-down"></i>
-                        </h5>
+                    <h5>
+                        Desierとは <i class="fas fa-caret-down"></i>
+                    </h5>
                             
                 </button>
             </div>

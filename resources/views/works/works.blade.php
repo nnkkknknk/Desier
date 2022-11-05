@@ -47,7 +47,7 @@
         </div>
 @else
     <div class="row bg-white mb-5 d-flex align-items-center justify-content-center" style="height: 200px;">
-      <h3 class="text-secondary  ">作品がありません</h3>  
+      <h3 class="text-secondary ">作品がありません</h3>  
     </div>
 @endif
     
