@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
         <link rel="stylesheet" href="{{ asset('css/allshowbtn.css') }}">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            html {overflow-y: scroll;}
+        </style>
     </head>
     
     <body id="body" class='pb-5'>
