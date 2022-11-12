@@ -162,9 +162,6 @@ class WorksController extends Controller
     		}
          };
          
-         
-         
-        
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
         preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヴー一-龠\-]+)/u', $request->tag, $match);
         $tags = [];
