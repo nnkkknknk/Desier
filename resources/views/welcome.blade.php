@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
    @if (Auth::check())
         <div class="text-center bg-white pt-4 pb-2 mt-5">
             <h1 class="mb-4">ようこそ、Desierへ</h1>

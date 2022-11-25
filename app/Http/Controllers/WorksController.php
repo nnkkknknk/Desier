@@ -109,19 +109,23 @@ class WorksController extends Controller
                 $file_name = $code->getClientOriginalName();
     			//アップロードされ保存する
     			$path_code_tmp = $code->storeAs('/public/codes_tmp',$file_name);
+                
             }
          }
         
         
         
         //コードファイルのzip化
-        $files = glob('/home/ubuntu/environment/original/storage/app/public/codes_tmp/*'); //(1)
+        // $files = glob('/home/ubuntu/environment/original/storage/app/public/codes_tmp/*'); //(1
+        $files = glob(storage_path() . '/app/public/codes_tmp/*'); //(1)
         
         $zip = new ZipArchive();
         $zip_name = md5(uniqid(rand(), true));
         $zip_name .= '.zip';
-        $zip_path = "/home/ubuntu/environment/original/storage/app/public/zips/$zip_name";
-        $zip->open("/home/ubuntu/environment/original/storage/app/public/zips/$zip_name", ZipArchive::CREATE);
+        // $zip_path = "/home/ubuntu/environment/original/storage/app/public/zips/$zip_name";
+        $zip_path = storage_path() . "/app/public/zips/$zip_name";
+        // $zip->open("/home/ubuntu/environment/original/storage/app/public/zips/$zip_name", ZipArchive::CREATE);
+        $zip->open(storage_path() . "/app/public/zips/$zip_name", ZipArchive::CREATE);
         
         foreach($files as $file){
 

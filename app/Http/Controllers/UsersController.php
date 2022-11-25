@@ -97,9 +97,6 @@ class UsersController extends Controller
             
         }
         
-        
-        
-        
         $Twitter = $request->Twitter;
         if($Twitter) {
              $request->validate([
@@ -134,16 +131,18 @@ class UsersController extends Controller
     
         if($icon) {
             $request->validate([
-                'icon' => 'required|max:1024|file|image|mimes:png,jpeg,jpg',
+                'icon' => 'required|file|image|mimes:png,jpeg,jpg',
             ]);
 			//アップロードされた画像を保存する
 			$path = $icon->store('uploads',"public");
+			
 			//画像の保存に成功したらDBに記録する
 			if($path){
 				$user->icon_file_path = $path;
 				$user->icon_file_name = $icon->getClientOriginalName();
 				
 			}
+			
 		}
 		
 		
@@ -159,7 +158,10 @@ class UsersController extends Controller
         $user->Instagram = $request->Instagram;
         $user->Facebook = $request->Facebook;
 		$user->save();
-       
+    //   dd(asset($path));
+    //   https://desire.fly.dev/uploads/9kMA3kcMENnnGrA1vjlSlzsbJJcQtGM3ODllFrZ9.jpg
+    //   https://desire.fly.dev/uploads/cyX6hq9rw93OQARhnVOk8UEqqGdcg2rkMC9oxvkP.png
+        // echo $path;
         return redirect()->route('users.show', ['user' => $user->id]);
     
     }

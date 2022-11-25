@@ -11,6 +11,13 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <style>
             html {overflow-y: scroll;}
+            #body {
+                background-color: rgb(180, 230, 230);
+                min-height: 100vh;
+                position: relative; /*←相対位置*/
+                padding-bottom: 100px;/*←footerの高さ*/
+                box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+            }
         </style>
     </head>
     

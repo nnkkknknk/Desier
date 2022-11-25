@@ -20,6 +20,7 @@
              @if (Auth::check())
                      @php
                         $login_user = \Auth::user();
+                        
                     @endphp
                 @if ($login_user->icon_file_path == null) 
                     <a class="text-decoration-none" href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}" >
@@ -28,6 +29,7 @@
                 @else 
                     <a class="text-decoration-none" href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
                         <img src="{{ Storage::url($login_user->icon_file_path) }}" style="width: 40px; height: 40px; border-radius: 100%;"/>
+                        
                     </a>
                 @endif
              @else
