@@ -21,13 +21,25 @@
                                     
                                     @if ($creater_icon == null) 
                                         <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                                            <i class="fas fa-user-circle fa-2x align-middle"></i>
-                                            {{$work->user->name}}
+                                            <div class="mx-2 d-flex">
+                                                 <div class="d-inline-block mr-2 my-auto">
+                                                    <i class="fas fa-user-circle fa-2x align-middle"></i>
+                                                </div>
+                                                <div class="d-inline-block my-auto ">
+                                                    {{$work->user->name}}
+                                                </div>
+                                            </div>
                                         </a>
                                     @else 
                                         <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                                            <img src="{{ Storage::url($creater_icon) }}" style="width: 30px; height: 30px; border-radius: 100%;"/>
-                                            {{$work->user->name}}
+                                             <div class="d-flex mx-2">
+                                                 <div class="d-inline-block mr-2 my-auto">
+                                                    <img src="{{ Storage::url($creater_icon) }}" style="width: 30px; height: 30px; border-radius: 100%;"/>
+                                                </div>
+                                                <div class="d-inline-block my-auto ">
+                                                    {{$work->user->name}}
+                                                </div>
+                                            </div>
                                         </a>
                                     @endif
                                     

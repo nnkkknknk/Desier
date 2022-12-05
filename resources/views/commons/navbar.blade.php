@@ -1,26 +1,23 @@
 <header class="mb-4">
-    <nav class="navbar navbar-light navbar-expand-md bg-white border border-bottom row">
+    <nav class="navbar navbar-light navbar-expand-md bg-white border border-bottom row mr-0">
         
-        <div class="col-4">
+        <div class="col-3 col-sm-4">
              {!! link_to_route('top', 'Desier', [], ['class' => 'navbar-brand text-primary']) !!}
         </div>
-        <div class="col-4">
+        <div class="col-5 col-sm-4">
             {!! Form::open(['route' => 'work.search', 'method' => 'post'], ['class' => 'bg-secondary']) !!}
             <div class="d-flex align-items-center rounded-pill shadow-sm pr-4" >
                
-                 <i class="fas fa-search ml-3">
-                </i>
-                    {!! Form::text('keyword', null, ['class' => 'form-control border-0','placeholder'=>"作品を検索"]) !!}
-                
+                 <i class="fas fa-search ml-3"></i>
+                    {!! Form::text('keyword', null, ['class' => 'form-control border-0','placeholder'=>"検索"]) !!}
             </div>
             {!! Form::close() !!}
         </div>
         
-            <div class="dropdown col-3 offset-1 text-right">
+            <div class="dropdown col-4 text-right">
              @if (Auth::check())
                      @php
                         $login_user = \Auth::user();
-                        
                     @endphp
                 @if ($login_user->icon_file_path == null) 
                     <a class="text-decoration-none" href="{{ route('users.show', ['user' => Auth::id()]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}" >

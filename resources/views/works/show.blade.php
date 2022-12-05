@@ -10,29 +10,62 @@
     
     <div class="row py-3 bg-white my-5 mx-2">
         <h2 class="col-12">{{ $work->title }}</h2>
-        
-        <div class="col-12 my-3" style="display:inline-flex">
-            {!! link_to_route('work.download', 'ダウンロード',  ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-5 col-md-3 col-lg-2']) !!}
-             @include('favorite.favorite_button')
-        </div>
+                
+                <div class="col-12 my-3 mx-3">
+                    <div class="row">
+                        {!! link_to_route('work.download', 'ダウンロード',  ['id' => $work->id], ['class' => 'btn bg-dark text-white rounded-pill col-5 col-md-3 col-lg-2']) !!}
+                     @include('favorite.favorite_button')
+                    </div>
+                    
+                </div>
+         
+           
+           
+               <div class="col-12">
+                  
+                        @if ($creater_icon == null) 
+                            
+                                 <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                                     <div class="d-flex mx-2">
+                                         <div class="d-inline-block mr-2 my-auto">
+                                            <i class="fas fa-user-circle fa-4x align-middle"></i>
+                                         </div>
+                                        
+                                        <div class="d-inline-block my-auto">
+                                            {{$work->user->name}}
+                                        </div>
+                                        
+                                    </div>
+                           
+                                </a>
+                            
+                            <div class="row">
+                                <div class="col-7 col-md-5 col-lg-3">
+                                    @include('user_follow.follow_button')
+                                </div>
+                            </div>
+                        @else 
+                            <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                                 <div class="d-flex mx-2">
+                                    <div class="d-inline-block mr-2 my-auto">
+                                        <img src="{{ Storage::url($creater_icon) }}" style="width: 60px; height: 60px; border-radius: 100%;"/>
+                                    </div>
+                                    <div class="d-inline-block my-auto ">
+                                        {{$work->user->name}}
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="row">
+                                <div class="col-7 col-md-5 col-lg-3">
+                                    @include('user_follow.follow_button')
+                                </div>
+                            </div>
+                            
+                        @endif
+                    
+                   
+               </div>
      
-       
-       
-       <div class="col-5">
-            @if ($creater_icon == null) 
-                <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                    <i class="fas fa-user-circle fa-4x align-middle"></i>
-                    {{$work->user->name}}
-                </a>
-                @include('user_follow.follow_button')
-            @else 
-                <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                    <img src="{{ Storage::url($creater_icon) }}" style="width: 60px; height: 60px; border-radius: 100%;"/>
-                    {{$work->user->name}}
-                </a>
-                @include('user_follow.follow_button')
-            @endif
-       </div>
        
        <div class="col-12 mt-3">作品説明</div>
        <div class="col-12 px-3">

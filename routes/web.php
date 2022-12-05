@@ -31,8 +31,11 @@ Route::delete('works/{id}/admindelete', 'WorksController@admindestroy')->name('w
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::resource('works', 'WorksController');
-Route::resource('users', 'UsersController');
+// Route::resource('works', 'WorksController');
+Route::resource('works', 'WorksController', ['expect' => ['edit', 'update']]);
+// Route::resource('users', 'UsersController', ['expect' => ['index', 'create','store','destroy']]);
+Route::resource('users', 'UsersController', ['only' => ['show']]);
+// Route::resource('users', 'UsersController');
 Route::group(['prefix' => 'works/{id}'], function () {
     Route::get('download', 'WorksController@download')->name('work.download');
  });
@@ -50,7 +53,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
         Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
         Route::post('comment', 'CommentController@store')->name('comments.store');
-        // Route::delete('uncomment', 'FavoritesController@destroy')->name('comments.delete');
     });
     
     Route::resource('works', 'WorksController', ['only' => ['store', 'destroy', 'create',]]);

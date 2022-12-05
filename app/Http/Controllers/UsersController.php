@@ -49,144 +49,142 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+       
+        
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
         
-        
-        $request->validate([
-            'name' => 'required|max:20',
-        ]);
-        
-        
-        $self_information = $request->self_information;
-        if($self_information) {
-             $request->validate([
-                'self_information' => 'max:255',
-            ]);
-            
-        }
-        
-        
-        $gender = $request->gender;
-        if($gender) {
-             $request->validate([
-                'gender' => 'integer | between:0,2'
-            ]);
-            
-        }
-        
-        $year = $request->year;
-        if($year) {
-             $request->validate([
-                'year' => 'integer | between:1922,2022'
-            ]);
-            
-        }
-        $month = $request->month;
-        if($month) {
-             $request->validate([
-                'month' => 'integer | between:1,12'
-            ]);
-            
-        }
-        $day = $request->day;
-        if($day) {
-             $request->validate([
-                'day' => 'integer | between:1,31'
-            ]);
-            
-        }
-        
-        $Twitter = $request->Twitter;
-        if($Twitter) {
-             $request->validate([
-                'Twitter' => 'max:30',
-            ]);
-            
-        }
-        
-        $Instagram = $request->Instagram;
-        if($Instagram) {
-             $request->validate([
-                'Instagram' => 'max:30',
-            ]);
-            
-        }
-        
-        $Facebook = $request->Facebook;
-        if($Facebook) {
-             $request->validate([
-                'Facebook' => 'max:30',
-            ]);
-            
-        }
-        
-        
-        
-        
-        
-       
-        $icon = $request->icon;
-    
-    
-        if($icon) {
+         if(\Auth::id() ===  $user->id) {
+                
             $request->validate([
-                'icon' => 'required|file|image|mimes:png,jpeg,jpg',
+                'name' => 'required|max:18',
             ]);
-			//アップロードされた画像を保存する
-			$path = $icon->store('uploads',"public");
-			
-			//画像の保存に成功したらDBに記録する
-			if($path){
-				$user->icon_file_path = $path;
-				$user->icon_file_name = $icon->getClientOriginalName();
-				
-			}
-			
-		}
-		
-		
-		
-		
-		$user->name = $request->name;
-        $user->self_information = $request->self_information;
-        $user->gender = $request->gender;
-        $user->year = $request->year;
-        $user->month = $request->month;
-        $user->day = $request->day;
-        $user->Twitter = $request->Twitter;
-        $user->Instagram = $request->Instagram;
-        $user->Facebook = $request->Facebook;
-		$user->save();
-    //   dd(asset($path));
-    //   https://desire.fly.dev/uploads/9kMA3kcMENnnGrA1vjlSlzsbJJcQtGM3ODllFrZ9.jpg
-    //   https://desire.fly.dev/uploads/cyX6hq9rw93OQARhnVOk8UEqqGdcg2rkMC9oxvkP.png
-        // echo $path;
-        return redirect()->route('users.show', ['user' => $user->id]);
+            
+            
+            $self_information = $request->self_information;
+            if($self_information) {
+                 $request->validate([
+                    'self_information' => 'max:255',
+                ]);
+                
+            }
+            
+            
+            $gender = $request->gender;
+            if($gender) {
+                 $request->validate([
+                    'gender' => 'integer | between:0,2'
+                ]);
+                
+            }
+            
+            $year = $request->year;
+            if($year) {
+                 $request->validate([
+                    'year' => 'integer | between:1922,2022'
+                ]);
+                
+            }
+            $month = $request->month;
+            if($month) {
+                 $request->validate([
+                    'month' => 'integer | between:1,12'
+                ]);
+                
+            }
+            $day = $request->day;
+            if($day) {
+                 $request->validate([
+                    'day' => 'integer | between:1,31'
+                ]);
+                
+            }
+            
+            $Twitter = $request->Twitter;
+            if($Twitter) {
+                 $request->validate([
+                    'Twitter' => 'max:30',
+                ]);
+                
+            }
+            
+            $Instagram = $request->Instagram;
+            if($Instagram) {
+                 $request->validate([
+                    'Instagram' => 'max:30',
+                ]);
+                
+            }
+            
+            $Facebook = $request->Facebook;
+            if($Facebook) {
+                 $request->validate([
+                    'Facebook' => 'max:30',
+                ]);
+                
+            }
+            
+            
+            
+            
+            
+           
+            $icon = $request->icon;
+        
+        
+            if($icon) {
+                $request->validate([
+                    'icon' => 'required|file|image|mimes:png,jpeg,jpg',
+                ]);
+    			//アップロードされた画像を保存する
+    			$path = $icon->store('uploads',"public");
+    			
+    			//画像の保存に成功したらDBに記録する
+    			if($path){
+    				$user->icon_file_path = $path;
+    				$user->icon_file_name = $icon->getClientOriginalName();
+    				
+    			}
+    			
+    		}
+    		
+    		
+    		
+    		
+    		$user->name = $request->name;
+            $user->self_information = $request->self_information;
+            $user->gender = $request->gender;
+            $user->year = $request->year;
+            $user->month = $request->month;
+            $user->day = $request->day;
+            $user->Twitter = $request->Twitter;
+            $user->Instagram = $request->Instagram;
+            $user->Facebook = $request->Facebook;
+    		$user->save();
+        
+            return redirect()->route('users.show', ['user' => $user->id]);
+        }
     
     }
     
     public function edit($id)
     {
+         
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
-
-        // 関係するモデルの件数をロード
-        $user->loadRelationshipCounts();
-
-        // フォロワー一覧ビューでそれらを表示
-        return view('users.edit', [
-            'user' => $user,
-        ]);
-    }
+        if(\Auth::id() ===  $user->id) {
+                // 関係するモデルの件数をロード
+            $user->loadRelationshipCounts();
     
-    
-    public function post($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.post', '$user');
+            // フォロワー一覧ビューでそれらを表示
+            return view('users.edit', [
+                'user' => $user,
+            ]);
+        }
         
     }
+
     
     /**
      * ユーザのフォロー一覧ページを表示するアクション。
