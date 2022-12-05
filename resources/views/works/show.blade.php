@@ -39,7 +39,7 @@
                            
                                 </a>
                             
-                            <div class="row">
+                            <div class="row my-1">
                                 <div class="col-7 col-md-5 col-lg-3">
                                     @include('user_follow.follow_button')
                                 </div>
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <div class="row">
+                            <div class="row my-1">
                                 <div class="col-7 col-md-5 col-lg-3">
                                     @include('user_follow.follow_button')
                                 </div>

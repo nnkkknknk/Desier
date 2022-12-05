@@ -21,7 +21,7 @@
             @else 
                 <div class="mx-2 d-flex">
                      <div class="d-inline-block mr-2">
-                        <img src="{{ Storage::url($icon) }}" class="my-3" style="width: 100%; height: 100%; border-radius: 100%;"/>
+                        <img src="{{ Storage::url($icon) }}" class="my-3" style="width: 75px; height: 75px; border-radius: 100%;"/>
                     </div>
                     <div class="d-inline-block my-auto">
                         <h4>
