@@ -30,4 +30,8 @@
     <div class="d-flex justify-content-center">
         {{ $users->links() }}
     </div>
+@else
+    <li class="media bg-white py-3 px-3 border-bottom mb-1 d-flex align-items-center justify-content-center" style="height: 200px;">
+      <h3 class="text-secondary ">フォロー&フォロワーを増やそう</h3>  
+    </li>
 @endif

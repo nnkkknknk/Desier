@@ -12,7 +12,7 @@
             {!! Form::model($user, ['route' => ['users.update', $user->id], 'files' => true, 'method' => 'put']) !!}
                 <div class="form-group">
                     <div>{!! Form::label('name', '名前') !!}</div>
-                    <div class="mb-3">{!! Form::text('name', $user->name, ["placeholder"=>"名前(20文字以内)",'class' => 'form-control']) !!}</div>
+                    <div class="mb-3">{!! Form::text('name', $user->name, ["placeholder"=>"名前(18文字以内)",'class' => 'form-control']) !!}</div>
                     
                     <div>{!! Form::label('gender', '性別') !!}</div>
                     <div class="mb-3">

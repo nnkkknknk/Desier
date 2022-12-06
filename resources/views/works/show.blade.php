@@ -24,20 +24,22 @@
                <div class="col-12">
                   
                         @if ($creater_icon == null) 
-                            
-                                 <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                                     <div class="d-flex mx-2">
-                                         <div class="d-inline-block mr-2 my-auto">
-                                            <i class="fas fa-user-circle fa-4x align-middle"></i>
-                                         </div>
-                                        
-                                        <div class="d-inline-block my-auto">
-                                            {{$work->user->name}}
+                                <div class="d-flex">
+                                    <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}" class="d-inline-block">
+                                         <div class="d-flex mx-2">
+                                             <div class="d-inline-block mr-2 my-auto">
+                                                <i class="fas fa-user-circle fa-4x align-middle"></i>
+                                             </div>
+                                            
+                                            <div class="d-inline-block my-auto">
+                                                {{$work->user->name}}
+                                            </div>
+                                            
                                         </div>
-                                        
-                                    </div>
-                           
-                                </a>
+                               
+                                    </a>
+                                </div>
+                                 
                             
                             <div class="row my-1">
                                 <div class="col-7 col-md-5 col-lg-3">
@@ -45,16 +47,19 @@
                                 </div>
                             </div>
                         @else 
-                            <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}">
-                                 <div class="d-flex mx-2">
-                                    <div class="d-inline-block mr-2 my-auto">
-                                        <img src="{{ Storage::url($creater_icon) }}" style="width: 60px; height: 60px; border-radius: 100%;"/>
+                            <div class="d-flex">
+                                
+                                <a href="{{ route('users.show', ['user' => $work->user->id]) }}" class="{{ Request::routeIs('users.show') ? 'active' : '' }}" class="d-inline-block">
+                                     <div class="d-flex mx-2">
+                                        <div class="d-inline-block mr-2 my-auto">
+                                            <img src="{{ Storage::url($creater_icon) }}" style="width: 60px; height: 60px; border-radius: 100%;"/>
+                                        </div>
+                                        <div class="d-inline-block my-auto">
+                                            {{$work->user->name}}
+                                        </div>
                                     </div>
-                                    <div class="d-inline-block my-auto ">
-                                        {{$work->user->name}}
-                                    </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                             <div class="row my-1">
                                 <div class="col-7 col-md-5 col-lg-3">
                                     @include('user_follow.follow_button')
