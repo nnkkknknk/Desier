@@ -88,7 +88,7 @@ class WorksController extends Controller
             'upload_image' => 'required',
             'upload_image.*' => 'required|file|image|mimes:png,jpeg,jpg',
             'code' => 'required',
-            'code.*' => 'required|mimes:html,javascript,css,txt'
+            'code.*' => 'required|mimes:html,javascript,css,txt,png,jpeg,jpg'
             
         ]);
         

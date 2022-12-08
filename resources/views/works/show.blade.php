@@ -137,13 +137,13 @@
                                     @php
                                        $image = $images->get($i);
                                      @endphp
-                                    <img src="{{ Storage::url($image->file_path) }}" class="mb-5" style="width:100%;"/>
+                                    <img src="{{ Storage::url($image->file_path) }}" class="mb-1" style="width:100%;"/>
                                 @endfor
                             </div>
                         </div>
                     @endif
                 @else
-                    <div>notag</div>
+                    <div>noimage</div>
                 @endif
 
              
