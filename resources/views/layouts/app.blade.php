@@ -17,9 +17,9 @@
             #body {
                 background-color: rgb(180, 230, 230);
                 min-height: 100vh;
-                position: relative; /*←相対位置*/
-                padding-bottom: 100px;/*←footerの高さ*/
-                box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+                position: relative; 
+                padding-bottom: 100px;
+                box-sizing: border-box;
                 width: 100%;
             }
         </style>
@@ -35,6 +35,7 @@
             @include('commons.error_messages')
 
             @yield('content')
+            
             
         </div>
         

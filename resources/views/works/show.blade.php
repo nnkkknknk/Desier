@@ -19,8 +19,6 @@
                     
                 </div>
          
-           
-           
                <div class="col-12">
                   
                         @if ($creater_icon == null) 
@@ -67,8 +65,6 @@
                             </div>
                             
                         @endif
-                    
-                   
                </div>
      
        
@@ -132,6 +128,9 @@
                         </div>
                         
                         <div class="collapse" id="work_show">
+                            <div class="row bg-white mb-5 d-flex align-items-center justify-content-center" style="height: 200px;">
+                              <h3 class="text-secondary  ">作品がありません</h3>  
+                            </div>
                              <div class="card-body row">
                                 @for ($i = $top_num; $i < $num; $i++) 
                                     @php
@@ -146,10 +145,6 @@
                     <div>noimage</div>
                 @endif
 
-             
-             
-             
-             
         </div>
     </div>
     

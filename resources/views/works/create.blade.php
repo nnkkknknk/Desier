@@ -17,9 +17,9 @@
             {!! Form::model($work, ['route' => 'works.store', 'files' => true]) !!}
 
                 <div class="form-group">
-                    <div>{!! Form::label('upload_image[]', '画像(png,jpeg)') !!}</div>
+                    <div>{!! Form::label('upload_image[]', '画像(png,jpeg:6Mまで)') !!}</div>
                     <div class="mb-3">{!! Form::file('upload_image[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</div>
-                    <div>{!! Form::label('code[]', 'コードファイル(html,css,javascript)') !!}</div>
+                    <div>{!! Form::label('code[]', 'コードファイル&素材画像(html,css,js,png,jpeg:2Mまで)') !!}</div>
                     <div class="mb-3">{!! Form::file('code[]', ['class'=>'form-controll' ,'multiple' => 'multiple' ]) !!}</div>
                     {!! Form::label('title', '作品名') !!}
                     {!! Form::text('title', null, ["placeholder"=>"作品名(32文字以内)",'class' => 'form-control mb-3']) !!}

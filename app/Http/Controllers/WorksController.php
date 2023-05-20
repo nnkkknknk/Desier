@@ -85,9 +85,9 @@ class WorksController extends Controller
             'title' => 'required|max:32',
             'description' => 'required|max:255',
             'tag' => 'required|max:50',
-            'upload_image' => 'required',
+            'upload_image' => 'required|max:6144',
             'upload_image.*' => 'required|file|image|mimes:png,jpeg,jpg',
-            'code' => 'required',
+            'code' => 'required|max:2048',
             'code.*' => 'required|mimes:html,javascript,css,txt,png,jpeg,jpg'
             
         ]);
